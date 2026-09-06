@@ -321,10 +321,51 @@
     position: absolute;
     inset: 0;
     opacity: 0;
+    /* scale の基点を中央に。既定でも中央だが意図を明示しておく */
+    transform-origin: center;
   }
 
   .hero-slide:first-child {
     opacity: 1;
+  }
+
+  /*
+   * ヒーローの文字を読ませるための膜。左下がいちばん濃い。
+   * 装飾のグラデーションではなく可読性のためのもので、使うのはここだけ。
+   * 実写真では見出しが人物に重なって読めなくなるため必要（docs/spec.md 3章）。
+   */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.94) 0%,
+        rgba(255, 255, 255, 0.62) 36%,
+        rgba(255, 255, 255, 0) 66%
+      ),
+      linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0.88) 0%,
+        rgba(255, 255, 255, 0.34) 36%,
+        rgba(255, 255, 255, 0) 62%
+      );
+  }
+
+  /*
+   * 狭い幅では文字が全幅に回るため、膜を下側中心に切り替える。
+   * 左右のグラデーションでは見出しが人物に重なって読めない。
+   */
+  @media (max-width: 960px) {
+    .hero-scrim {
+      background: linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(255, 255, 255, 0.8) 44%,
+        rgba(255, 255, 255, 0.22) 74%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
   }
 
   /* --- スクロールキュー --- */
@@ -352,10 +393,11 @@
  * 登場アニメーションはスクロール駆動（animation-timeline: view()）で、
  * 対応していないブラウザでは最初から表示されたままになる。JavaScriptは使わない。
  */
+/* 表示しているあいだにゆっくり寄る。見えていない区間で元の倍率に戻す */
 @keyframes hero-cycle {
   0% {
     opacity: 0;
-    scale: 1.06;
+    scale: 1;
   }
   4% {
     opacity: 1;
@@ -365,6 +407,7 @@
   }
   36% {
     opacity: 0;
+    scale: 1.07;
   }
   100% {
     opacity: 0;

@@ -20,3 +20,6 @@ yarn-error.log*
 next-env.d.ts
 *.mov
 *.mp4
+
+# 写真の原本。Git には入れない
+docs/photos-original/

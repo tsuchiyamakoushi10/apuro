@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { PanelSection, Section, SectionHead } from "@/components/Section";
 import { Eyebrow, Photo, Pill } from "@/components/ui";
@@ -10,31 +11,36 @@ const aboutLead =
 /**
  * ヒーローの写真。3枚を18秒で1周する（docs/spec.md 5章）。
  * prefers-reduced-motion のときは1枚目のまま動かない。
+ *
+ * alt は1枚目にだけ入れる。3枚は同じことを伝える写真で、
+ * 重ねて読み上げると文脈のない説明が3つ続いてしまうため。
  */
 const heroPhotos = [
-  "写真①｜訪問先での看護師とご利用者",
-  "写真②｜自転車での移動",
-  "写真③｜玄関先での挨拶",
+  {
+    src: "/images/hero-01-departure.jpg",
+    alt: "訪問へ出発する看護師",
+  },
+  { src: "/images/hero-02-visit.jpg", alt: "" },
+  { src: "/images/hero-03-office.jpg", alt: "" },
 ];
 
 function Hero() {
   return (
     <div className="relative h-[560px] overflow-hidden rounded-b-panel max-[960px]:h-[400px]">
-      {heroPhotos.map((caption, i) => (
-        <div key={caption} className="hero-slide">
-          <Photo
-            decorative={i > 0}
-            caption={
-              <>
-                {caption}
-                <br />
-                （横長・1920×1080程度）
-              </>
-            }
-            className="h-full !items-start !rounded-b-panel !rounded-t-none border-t-0 pt-10 text-[12.5px]"
+      {heroPhotos.map((photo, i) => (
+        <div key={photo.src} className="hero-slide">
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            sizes="100vw"
+            priority={i === 0}
+            className="object-cover"
           />
         </div>
       ))}
+
+      <div aria-hidden="true" className="hero-scrim" />
 
       {/* 角を1箇所だけ落とした形。サイト共通のモチーフ。中にスクロールキューを置く */}
       <div
@@ -56,7 +62,7 @@ function Hero() {
               </span>
             ))}
           </h1>
-          <p className="mt-5 text-[14.5px] leading-[2] text-ink-muted">{copy.heroSub}</p>
+          <p className="mt-5 text-[14.5px] leading-[2] text-ink text-balance">{copy.heroSub}</p>
         </div>
       </div>
     </div>
