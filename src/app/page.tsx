@@ -21,13 +21,13 @@ const heroPhotos = [
     alt: "訪問へ出発する看護師",
     /*
      * 3:2 の写真を横長に切るため上下が落ちる。顔が切れない位置に寄せる。
-     * 値は写真ごとの顔の高さから決めた（1枚目は上から11%、2枚目21%、3枚目19.5%）。
+     * 値は写真ごとの顔の高さから決めた（1枚目は上から11%、2枚目21%、3枚目32%）。
      * 2560px でも切れないほうに寄せてある。写真を差し替えたら測り直すこと。
      */
     position: "center 13%",
   },
   { src: "/images/hero-02-visit.jpg", alt: "", position: "center 32%" },
-  { src: "/images/hero-03-office.jpg", alt: "", position: "center 29%" },
+  { src: "/images/hero-03-team.jpg", alt: "", position: "center 52%" },
 ];
 
 function Hero() {
