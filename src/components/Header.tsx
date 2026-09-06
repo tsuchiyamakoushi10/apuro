@@ -5,10 +5,10 @@ import { Pill } from "./ui";
 function Logo({ className = "" }: { className?: string }) {
   return (
     <span className={`block leading-none ${className}`}>
-      <span className="block font-heading text-[1.125rem] font-medium leading-[1.3] tracking-[0.09em] text-blue-ink">
+      <span className="block font-heading text-[18px] font-medium leading-[1.3] tracking-[0.09em] text-blue-ink">
         {site.name}
       </span>
-      <span className="block font-en text-[0.59375rem] tracking-[0.3em] text-blue">{site.nameEn}</span>
+      <span className="block font-en text-[9.5px] tracking-[0.3em] text-blue">{site.nameEn}</span>
     </span>
   );
 }

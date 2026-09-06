@@ -59,10 +59,10 @@ function Hero() {
 
       <div className="absolute inset-x-0 bottom-[68px] max-[960px]:bottom-[40px]">
         <div className="wrap max-[600px]:pr-[92px]">
-          <span className="mb-1.5 block font-serif text-[2.5rem] font-light italic leading-none tracking-[0.04em] text-blue max-[960px]:text-[1.6875rem]">
+          <span className="mb-1.5 block font-serif text-[40px] font-light italic leading-none tracking-[0.04em] text-blue max-[960px]:text-[27px]">
             {copy.heroEn}
           </span>
-          <h1 className="text-[2.9375rem] leading-[1.65] max-[960px]:text-[1.8125rem]">
+          <h1 className="text-[47px] leading-[1.65] max-[960px]:text-[29px]">
             {copy.heroHeadline.map((line) => (
               <span key={line} className="block">
                 {line}
