@@ -81,7 +81,7 @@ export function PageHeader({
     <div className="border-b border-blue-soft">
       <div className="wrap py-[86px] max-[960px]:py-[52px]">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="text-[38px] leading-[1.65] max-[960px]:text-[26px]">{title}</h1>
+        <h1 className="text-[2.375rem] leading-[1.65] max-[960px]:text-[1.625rem]">{title}</h1>
         {lead ? <div className="mt-6 text-ink-muted">{lead}</div> : null}
       </div>
     </div>

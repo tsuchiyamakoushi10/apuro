@@ -118,7 +118,7 @@ export default function HomePage() {
           <div className="sticky top-[150px] max-[960px]:static">
             <Eyebrow className="!text-paper">Features</Eyebrow>
             <h2 className="text-paper">アプロの特徴</h2>
-            <p className="mb-8 mt-5 text-[14.5px] text-[rgba(255,255,255,0.82)]">
+            <p className="mb-8 mt-5 text-[0.90625rem] text-[rgba(255,255,255,0.82)]">
               在宅で対応できる範囲であれば、お断りするケースは基本的にありません。まずお受けして、そこから考えます。
             </p>
             <Pill href="/service" variant="light">
@@ -139,10 +139,10 @@ export default function HomePage() {
                       className="h-[180px] !rounded-[20px] !bg-[rgba(42,111,168,0.07)]"
                     />
                   </div>
-                  <span className="block px-2 font-en text-[13px] tracking-[0.12em] text-blue">
+                  <span className="block px-2 font-en text-[0.8125rem] tracking-[0.12em] text-blue">
                     {feature.no}
                   </span>
-                  <span className="card-title mt-1.5 block px-2 font-heading text-[17px] font-medium leading-[1.6] text-blue-ink">
+                  <span className="card-title mt-1.5 block px-2 font-heading text-[1.0625rem] font-medium leading-[1.6] text-blue-ink">
                     {feature.cardTitle.map((line) => (
                       <span key={line} className="block">
                         {line}
@@ -162,14 +162,14 @@ export default function HomePage() {
           <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
             {cases.map((c) => (
               <div key={c.id} className="reveal rounded-card bg-paper px-7 pb-[30px] pt-[26px]">
-                <h3 className="text-[17px]">
+                <h3 className="text-[1.0625rem]">
                   {c.title.map((line) => (
                     <span key={line} className="block">
                       {line}
                     </span>
                   ))}
                 </h3>
-                <p className="mt-3 text-[13.5px] text-ink-muted">{c.summary}</p>
+                <p className="mt-3 text-[0.84375rem] text-ink-muted">{c.summary}</p>
               </div>
             ))}
           </div>
@@ -181,14 +181,14 @@ export default function HomePage() {
         <div className="wrap-panel grid grid-cols-[1fr_400px] items-center gap-[72px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px] max-[960px]:px-6">
           <div className="reveal py-[100px] max-[960px]:pb-0 max-[960px]:pt-[60px]">
             <Eyebrow className="!text-sand">Recruit</Eyebrow>
-            <h2 className="text-[27px] text-paper max-[960px]:text-[22px]">
+            <h2 className="text-[1.6875rem] text-paper max-[960px]:text-[1.375rem]">
               {copy.recruitHeadline.map((line) => (
                 <span key={line} className="block">
                   {line}
                 </span>
               ))}
             </h2>
-            <p className="mb-[30px] mt-5 text-[14px] text-[rgba(255,255,255,0.75)]">{copy.recruitSub}</p>
+            <p className="mb-[30px] mt-5 text-[0.875rem] text-[rgba(255,255,255,0.75)]">{copy.recruitSub}</p>
             <Pill href="/recruit" variant="sand">
               採用情報を見る
             </Pill>

@@ -24,7 +24,7 @@ export function Header() {
         </Link>
 
         <nav aria-label="メインナビゲーション" className="max-[960px]:hidden">
-          <ul className="flex list-none gap-[30px] text-[13.5px]">
+          <ul className="flex list-none gap-[30px] text-[0.84375rem]">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href}>{item.label}</Link>
@@ -35,12 +35,12 @@ export function Header() {
 
         <div className="flex items-center gap-5">
           <a href={site.telHref} className="max-[960px]:hidden">
-            <span className="block font-en text-[19px] leading-[1.2] text-blue-ink">{site.tel}</span>
-            <span className="text-[10px] text-ink-muted">
+            <span className="block font-en text-[1.1875rem] leading-[1.2] text-blue-ink">{site.tel}</span>
+            <span className="text-[0.625rem] text-ink-muted">
               {site.hours}／{site.oncall}
             </span>
           </a>
-          <span className="whitespace-nowrap [&>a]:px-6 [&>a]:py-3 [&>a]:text-[13px] max-[600px]:[&>a]:gap-2 max-[600px]:[&>a]:px-4 max-[600px]:[&>a]:py-2.5 max-[600px]:[&>a]:text-[12px]">
+          <span className="whitespace-nowrap [&>a]:px-6 [&>a]:py-3 [&>a]:text-[0.8125rem] max-[600px]:[&>a]:gap-2 max-[600px]:[&>a]:px-4 max-[600px]:[&>a]:py-2.5 max-[600px]:[&>a]:text-[0.75rem]">
             <Pill href="/#contact">ご相談はこちら</Pill>
           </span>
         </div>
@@ -48,7 +48,7 @@ export function Header() {
 
       {/* 960px 以下ではナビゲーションが隠れるため、JavaScript なしの開閉メニューを置く */}
       <details className="group hidden border-t border-blue-soft max-[960px]:block">
-        <summary className="wrap flex cursor-pointer list-none items-center justify-between py-3 font-en text-[12px] tracking-[0.16em] text-blue [&::-webkit-details-marker]:hidden">
+        <summary className="wrap flex cursor-pointer list-none items-center justify-between py-3 font-en text-[0.75rem] tracking-[0.16em] text-blue [&::-webkit-details-marker]:hidden">
           MENU
           <span
             aria-hidden="true"
@@ -56,7 +56,7 @@ export function Header() {
           />
         </summary>
         <nav aria-label="メインナビゲーション（モバイル）" className="wrap pb-5">
-          <ul className="marker-list text-[14px]">
+          <ul className="marker-list text-[0.875rem]">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="block py-1">

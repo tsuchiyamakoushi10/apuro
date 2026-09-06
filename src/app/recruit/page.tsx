@@ -72,7 +72,7 @@ export default function RecruitPage() {
             {persona.map((group) => (
               <div key={group.title} className="reveal rounded-card bg-mist p-10 max-[960px]:p-6">
                 <h3>{group.title}</h3>
-                <ul className="marker-list mt-5 text-[14px]">
+                <ul className="marker-list mt-5 text-[0.875rem]">
                   {group.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -94,7 +94,7 @@ export default function RecruitPage() {
             {workStyle.map((item) => (
               <div key={item.title} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
                 <h3>{item.title}</h3>
-                <Paragraphs text={item.body} className="mt-4 text-[13.5px]" />
+                <Paragraphs text={item.body} className="mt-4 text-[0.84375rem]" />
               </div>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function RecruitPage() {
             {education.map((item) => (
               <div key={item.title} className="reveal border-t border-blue-soft pt-6">
                 <h3>{item.title}</h3>
-                <Paragraphs text={item.body} className="mt-4 text-[13.5px]" />
+                <Paragraphs text={item.body} className="mt-4 text-[0.84375rem]" />
               </div>
             ))}
           </div>
@@ -122,7 +122,7 @@ export default function RecruitPage() {
             {benefits.map((group) => (
               <div key={group.title}>
                 <h3>{group.title}</h3>
-                <ul className="marker-list mt-4 text-[13.5px]">
+                <ul className="marker-list mt-4 text-[0.84375rem]">
                   {group.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -164,7 +164,7 @@ export default function RecruitPage() {
                   <h3>{group.heading}</h3>
 
                   {/* デスクトップは比較テーブル */}
-                  <table className="mt-5 w-full border-collapse text-[13.5px] max-[960px]:hidden">
+                  <table className="mt-5 w-full border-collapse text-[0.84375rem] max-[960px]:hidden">
                     <thead>
                       <tr>
                         <th scope="col" className="w-[190px] border-b border-blue-soft py-3 text-left align-top font-heading text-blue-ink">
@@ -201,8 +201,8 @@ export default function RecruitPage() {
                   <div className="mt-5 hidden gap-4 max-[960px]:grid">
                     {jobs.map((job) => (
                       <div key={job.key} className="reveal rounded-card bg-mist p-6">
-                        <h4 className="font-heading text-[15px] text-blue-ink">{job.label}</h4>
-                        <dl className="mt-3 text-[13px]">
+                        <h4 className="font-heading text-[0.9375rem] text-blue-ink">{job.label}</h4>
+                        <dl className="mt-3 text-[0.8125rem]">
                           {group.rows.map((row) => (
                             <div key={row.label} className="border-t border-blue-soft py-3">
                               <dt className="text-ink-muted">{row.label}</dt>
@@ -223,7 +223,7 @@ export default function RecruitPage() {
               <p>
                 募集要項は現在準備中です。条件の詳細は、お電話または応募フォームからお問い合わせください。
               </p>
-              <p className="mt-4 text-[13px] text-ink-muted">
+              <p className="mt-4 text-[0.8125rem] text-ink-muted">
                 <a href={site.telHref} className="border-b border-blue-soft">
                   {site.tel}
                 </a>
@@ -255,9 +255,9 @@ export default function RecruitPage() {
               href={site.telHref}
             >
               <span>
-                <span className="block font-heading text-[19px] text-blue-ink">お電話でのお問い合わせ</span>
-                <span className="block font-en text-[27px] leading-[1.3] text-blue-ink">{site.tel}</span>
-                <span className="mt-1 block text-[12px] text-ink-muted">{site.hours}</span>
+                <span className="block font-heading text-[1.1875rem] text-blue-ink">お電話でのお問い合わせ</span>
+                <span className="block font-en text-[1.6875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
+                <span className="mt-1 block text-[0.75rem] text-ink-muted">{site.hours}</span>
               </span>
               <span
                 aria-hidden="true"
@@ -265,7 +265,7 @@ export default function RecruitPage() {
               />
             </a>
           </div>
-          <p className="mt-6 text-center text-[12px] text-ink-muted">
+          <p className="mt-6 text-center text-[0.75rem] text-ink-muted">
             募集者：{site.company}（{site.name}）
           </p>
         </div>

@@ -26,16 +26,16 @@ export default function PrivacyPage() {
           <div className="mt-14 grid gap-12">
             {sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-[21px]">{section.heading}</h2>
+                <h2 className="text-[1.3125rem]">{section.heading}</h2>
                 <div className="mt-4">
-                  <Paragraphs text={section.body} className="text-[14px]" />
+                  <Paragraphs text={section.body} className="text-[0.875rem]" />
                 </div>
               </section>
             ))}
 
             <section>
-              <h2 className="text-[21px]">9. お問い合わせ窓口</h2>
-              <div className="mt-4 rounded-card bg-mist p-8 text-[14px] max-[960px]:p-6">
+              <h2 className="text-[1.3125rem]">9. お問い合わせ窓口</h2>
+              <div className="mt-4 rounded-card bg-mist p-8 text-[0.875rem] max-[960px]:p-6">
                 <p>
                   <span className="block">{site.name}　個人情報保護担当</span>
                   <span className="block">運営：{site.company}</span>

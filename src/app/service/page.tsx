@@ -58,7 +58,7 @@ export default function ServicePage() {
                     </span>
                   ))}
                 </h3>
-                <ul className="marker-list mt-5 text-[13.5px] text-ink-muted">
+                <ul className="marker-list mt-5 text-[0.84375rem] text-ink-muted">
                   {c.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -75,8 +75,8 @@ export default function ServicePage() {
           <ul className="mt-12 grid list-none grid-cols-2 gap-x-16 gap-y-8 max-[960px]:grid-cols-1 max-[960px]:gap-y-6">
             {whatWeDo.map((item) => (
               <li key={item.title} className="reveal border-t border-blue-soft pt-5">
-                <h3 className="text-[17px]">{item.title}</h3>
-                <p className="mt-1 text-[13.5px] text-ink-muted">{item.body}</p>
+                <h3 className="text-[1.0625rem]">{item.title}</h3>
+                <p className="mt-1 text-[0.84375rem] text-ink-muted">{item.body}</p>
               </li>
             ))}
           </ul>
@@ -95,11 +95,11 @@ export default function ServicePage() {
               >
                 <Photo caption={feature.photo} className="h-[200px] max-[960px]:h-[170px]" />
                 <div>
-                  <span className="block font-en text-[13px] tracking-[0.12em] text-blue">
+                  <span className="block font-en text-[0.8125rem] tracking-[0.12em] text-blue">
                     {feature.no}
                   </span>
                   <h3 className="mt-1">{feature.title}</h3>
-                  <Paragraphs text={feature.body} className="mt-4 text-[13.5px]" />
+                  <Paragraphs text={feature.body} className="mt-4 text-[0.84375rem]" />
                 </div>
               </article>
             ))}
@@ -112,7 +112,7 @@ export default function ServicePage() {
         <div className="wrap-panel max-[960px]:px-6">
           <Lines
             text={acceptance}
-            className="max-w-[30em] font-heading text-[27px] leading-[1.75] text-paper max-[960px]:text-[19px]"
+            className="max-w-[30em] font-heading text-[1.6875rem] leading-[1.75] text-paper max-[960px]:text-[1.1875rem]"
           />
         </div>
       </PanelSection>
@@ -141,13 +141,13 @@ export default function ServicePage() {
             {site.areas.map((area) => (
               <li
                 key={area}
-                className="rounded-full bg-paper px-7 py-3 font-heading text-[15px] text-blue-ink"
+                className="rounded-full bg-paper px-7 py-3 font-heading text-[0.9375rem] text-blue-ink"
               >
                 {area}
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-[13.5px] text-ink-muted">{site.areaNote}</p>
+          <p className="mt-6 text-[0.84375rem] text-ink-muted">{site.areaNote}</p>
         </div>
       </PanelSection>
 
@@ -161,10 +161,10 @@ export default function ServicePage() {
                 <ol className="mt-6 list-none">
                   {group.steps.map((step, i) => (
                     <li key={step} className="grid grid-cols-[46px_1fr] items-start gap-2 pb-6">
-                      <span className="font-en text-[13px] tracking-[0.12em] text-blue">
+                      <span className="font-en text-[0.8125rem] tracking-[0.12em] text-blue">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="text-[14px]">{step}</span>
+                      <span className="text-[0.875rem]">{step}</span>
                     </li>
                   ))}
                 </ol>

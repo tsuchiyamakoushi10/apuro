@@ -25,6 +25,18 @@
   --container-wrap: 1160px;
 }
 
+/*
+ * PCだけ文字を大きくする。参照サイト（本文17px・見出し34px）に対して
+ * モック準拠の15px/29pxが小さかったため。文字サイズは rem で指定してあり、
+ * ここを変えるとまとめて追従する。960px以下は据え置き（スマホは変えない）。
+ * ヒーローの文字とロゴは px のままなので影響を受けない。
+ */
+@media (min-width: 961px) {
+  html {
+    font-size: 113%;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -36,7 +48,7 @@
     background: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 1.95;
     letter-spacing: 0.03em;
     -webkit-font-smoothing: antialiased;
@@ -55,12 +67,12 @@
   }
 
   h2 {
-    font-size: 29px;
+    font-size: 1.8125rem;
     line-height: 1.7;
   }
 
   h3 {
-    font-size: 19px;
+    font-size: 1.1875rem;
     line-height: 1.7;
   }
 
@@ -105,7 +117,7 @@
     align-items: center;
     gap: 9px;
     font-family: var(--font-en);
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 0.16em;
     line-height: 1.6;
     color: var(--color-blue);
@@ -131,7 +143,7 @@
     border-radius: 999px;
     padding: 15px 32px;
     font-family: var(--font-heading);
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.5;
     transition:
       background-color 0.25s ease,
@@ -199,7 +211,7 @@
     justify-content: center;
     text-align: center;
     color: var(--color-ink-muted);
-    font-size: 11.5px;
+    font-size: 0.71875rem;
     letter-spacing: 0.09em;
     line-height: 1.8;
     padding: 16px;
