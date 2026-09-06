@@ -20,7 +20,7 @@ export function Header() {
     <header className="sticky top-0 z-20 bg-[rgba(255,255,255,0.94)] backdrop-blur-[6px]">
       <div className="wrap flex h-[84px] items-center justify-between gap-7 max-[960px]:h-auto max-[960px]:gap-4 max-[960px]:py-3">
         <Link href="/" aria-label={`${site.name} トップページ`} className="min-w-0">
-          <Logo className="max-[600px]:[&>span:first-child]:text-[13.5px] max-[600px]:[&>span:first-child]:tracking-[0.04em] max-[600px]:[&>span:last-child]:text-[8.5px]" />
+          <Logo className="whitespace-nowrap max-[600px]:[&>span:first-child]:text-[13.5px] max-[600px]:[&>span:first-child]:tracking-[0.04em] max-[600px]:[&>span:last-child]:text-[8.5px] max-[430px]:[&>span:first-child]:text-[11.5px] max-[430px]:[&>span:first-child]:tracking-[0] max-[430px]:[&>span:last-child]:text-[8px]" />
         </Link>
 
         <nav aria-label="メインナビゲーション" className="max-[960px]:hidden">

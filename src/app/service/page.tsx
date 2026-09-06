@@ -50,7 +50,7 @@ export default function ServicePage() {
           <SectionHead eyebrow="Support" heading="こんなときに、ご相談ください" />
           <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
             {cases.map((c) => (
-              <div key={c.id} className="rounded-card bg-paper p-8 max-[960px]:p-6">
+              <div key={c.id} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
                 <h3>
                   {c.title.map((line) => (
                     <span key={line} className="block">
@@ -74,7 +74,7 @@ export default function ServicePage() {
           <SectionHead eyebrow="What we do" heading="私たちが行うこと" />
           <ul className="mt-12 grid list-none grid-cols-2 gap-x-16 gap-y-8 max-[960px]:grid-cols-1 max-[960px]:gap-y-6">
             {whatWeDo.map((item) => (
-              <li key={item.title} className="border-t border-blue-soft pt-5">
+              <li key={item.title} className="reveal border-t border-blue-soft pt-5">
                 <h3 className="text-[17px]">{item.title}</h3>
                 <p className="mt-1 text-[13.5px] text-ink-muted">{item.body}</p>
               </li>
@@ -91,7 +91,7 @@ export default function ServicePage() {
               <article
                 key={feature.id}
                 id={feature.id}
-                className="grid grid-cols-[320px_1fr] items-start gap-12 rounded-card bg-mist p-10 max-[960px]:grid-cols-1 max-[960px]:gap-6 max-[960px]:p-6"
+                className="reveal grid grid-cols-[320px_1fr] items-start gap-12 rounded-card bg-mist p-10 max-[960px]:grid-cols-1 max-[960px]:gap-6 max-[960px]:p-6"
               >
                 <Photo caption={feature.photo} className="h-[200px] max-[960px]:h-[170px]" />
                 <div>

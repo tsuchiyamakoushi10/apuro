@@ -50,13 +50,20 @@ export function Photo({
   caption,
   className = "",
   onColor = false,
+  decorative = false,
 }: {
   caption: ReactNode;
   className?: string;
   onColor?: boolean;
+  /** 同じ写真枠が重なる箇所（ヒーローの2枚目以降）で読み上げを重複させない */
+  decorative?: boolean;
 }) {
+  const a11y = decorative
+    ? { "aria-hidden": true as const }
+    : { role: "img", "aria-label": "写真は準備中です" };
+
   return (
-    <div className={`ph ${onColor ? "ph-on-color" : ""} ${className}`} role="img" aria-label="写真は準備中です">
+    <div className={`ph ${onColor ? "ph-on-color" : ""} ${className}`} {...a11y}>
       <span aria-hidden="true">{caption}</span>
     </div>
   );

@@ -7,25 +7,42 @@ import { cases, features } from "@/content/service";
 const aboutLead =
   "アプロ訪問看護ステーションは、国分寺市を中心に、こころの不調を抱えた方への訪問看護から高齢者の在宅療養、そして看取りまでを担う訪問看護ステーションです。どんな状況の方でも、まずはご相談ください。";
 
+/**
+ * ヒーローの写真。3枚を18秒で1周する（docs/spec.md 5章）。
+ * prefers-reduced-motion のときは1枚目のまま動かない。
+ */
+const heroPhotos = [
+  "写真①｜訪問先での看護師とご利用者",
+  "写真②｜自転車での移動",
+  "写真③｜玄関先での挨拶",
+];
+
 function Hero() {
   return (
     <div className="relative h-[560px] overflow-hidden rounded-b-panel max-[960px]:h-[400px]">
-      <Photo
-        caption={
-          <>
-            写真｜メインビジュアル（横長・1920×1080程度）
-            <br />
-            訪問先での看護師とご利用者、または自転車での移動シーン
-          </>
-        }
-        className="h-full !items-start !rounded-b-panel !rounded-t-none border-t-0 pt-10 text-[12.5px]"
-      />
+      {heroPhotos.map((caption, i) => (
+        <div key={caption} className="hero-slide">
+          <Photo
+            decorative={i > 0}
+            caption={
+              <>
+                {caption}
+                <br />
+                （横長・1920×1080程度）
+              </>
+            }
+            className="h-full !items-start !rounded-b-panel !rounded-t-none border-t-0 pt-10 text-[12.5px]"
+          />
+        </div>
+      ))}
 
-      {/* 角を1箇所だけ落とした形。サイト共通のモチーフ */}
+      {/* 角を1箇所だけ落とした形。サイト共通のモチーフ。中にスクロールキューを置く */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 right-0 h-[118px] w-[118px] rounded-tl-panel bg-blue max-[600px]:h-[84px] max-[600px]:w-[84px] after:absolute after:left-1/2 after:top-1/2 after:h-[34px] after:w-[34px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-[rgba(255,255,255,0.55)] after:content-[''] max-[600px]:after:h-[24px] max-[600px]:after:w-[24px]"
-      />
+        className="absolute bottom-0 right-0 flex h-[118px] w-[118px] items-center justify-center rounded-tl-panel bg-blue max-[600px]:h-[84px] max-[600px]:w-[84px]"
+      >
+        <span className="scroll-cue max-[600px]:text-[8.5px]">Scroll</span>
+      </div>
 
       <div className="absolute inset-x-0 bottom-24 max-[960px]:bottom-[52px]">
         <div className="wrap max-[600px]:pr-[92px]">
@@ -53,7 +70,7 @@ export default function HomePage() {
 
       <Section>
         <div className="wrap grid grid-cols-[440px_1fr] items-center gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px]">
-          <div className="relative">
+          <div className="reveal relative">
             <Photo
               caption="写真｜事務所または訪問の様子（縦長）"
               className="h-[400px] rounded-panel max-[960px]:h-[230px]"
@@ -63,7 +80,7 @@ export default function HomePage() {
               className="absolute -right-[22px] -top-[22px] h-24 w-24 rounded-[50%_50%_0_50%] bg-blue-soft"
             />
           </div>
-          <div>
+          <div className="reveal">
             <SectionHead
               eyebrow="About us"
               heading={
@@ -103,15 +120,17 @@ export default function HomePage() {
                 key={feature.id}
                 className="rounded-card bg-paper px-[18px] pb-[26px] pt-[18px] even:-translate-x-[38px] max-[960px]:even:translate-x-0"
               >
-                <a href={`/service#${feature.id}`} className="block">
-                  <Photo
-                    caption={feature.photo}
-                    className="mb-5 h-[180px] !rounded-[20px] !bg-[rgba(42,111,168,0.07)]"
-                  />
+                <a href={`/service#${feature.id}`} className="card-link reveal block">
+                  <div className="card-media mb-5">
+                    <Photo
+                      caption={feature.photo}
+                      className="h-[180px] !rounded-[20px] !bg-[rgba(42,111,168,0.07)]"
+                    />
+                  </div>
                   <span className="block px-2 font-en text-[13px] tracking-[0.12em] text-blue">
                     {feature.no}
                   </span>
-                  <span className="mt-1.5 block px-2 font-heading text-[17px] font-medium leading-[1.6] text-blue-ink">
+                  <span className="card-title mt-1.5 block px-2 font-heading text-[17px] font-medium leading-[1.6] text-blue-ink">
                     {feature.cardTitle.map((line) => (
                       <span key={line} className="block">
                         {line}
@@ -130,7 +149,7 @@ export default function HomePage() {
           <SectionHead eyebrow="Support" heading="こんなときに、ご相談ください" />
           <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
             {cases.map((c) => (
-              <div key={c.id} className="rounded-card bg-paper px-7 pb-[30px] pt-[26px]">
+              <div key={c.id} className="reveal rounded-card bg-paper px-7 pb-[30px] pt-[26px]">
                 <h3 className="text-[17px]">
                   {c.title.map((line) => (
                     <span key={line} className="block">
@@ -148,7 +167,7 @@ export default function HomePage() {
       {/* 採用バナー。--sand を使うのはここの英字ラベルとボタンのみ */}
       <section className="on-color mx-8 rounded-panel bg-blue-ink max-[960px]:mx-4">
         <div className="wrap-panel grid grid-cols-[1fr_400px] items-center gap-[72px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px] max-[960px]:px-6">
-          <div className="py-[100px] max-[960px]:pb-0 max-[960px]:pt-[60px]">
+          <div className="reveal py-[100px] max-[960px]:pb-0 max-[960px]:pt-[60px]">
             <Eyebrow className="!text-sand">Recruit</Eyebrow>
             <h2 className="text-[27px] text-paper max-[960px]:text-[22px]">
               {copy.recruitHeadline.map((line) => (
@@ -165,7 +184,7 @@ export default function HomePage() {
           <Photo
             caption="写真｜スタッフ・事務所の様子"
             onColor
-            className="h-[290px] max-[960px]:mb-[60px] max-[960px]:h-[220px]"
+            className="reveal h-[290px] max-[960px]:mb-[60px] max-[960px]:h-[220px]"
           />
         </div>
       </section>

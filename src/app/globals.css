@@ -8,6 +8,7 @@
   --color-blue-ink: #123a5c;
   --color-blue-soft: #dceaf3;
   --color-sand: #dfc9a5;
+  --color-sand-deep: #d2b78c;
   --color-sand-ink: #3a2e1b;
   --color-ink: #2b3740;
   --color-ink-muted: #69777f;
@@ -132,6 +133,14 @@
     font-family: var(--font-heading);
     font-size: 14px;
     line-height: 1.5;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .pill:hover {
+    background: var(--color-blue-deep);
   }
 
   .pill::after {
@@ -150,6 +159,11 @@
     border: 1px solid var(--color-blue-soft);
   }
 
+  .pill-ghost:hover {
+    background: var(--color-mist);
+    border-color: var(--color-blue);
+  }
+
   .pill-ghost::after {
     color: var(--color-blue);
   }
@@ -159,9 +173,17 @@
     color: var(--color-blue-deep);
   }
 
+  .pill-light:hover {
+    background: var(--color-blue-soft);
+  }
+
   .pill-sand {
     background: var(--color-sand);
     color: var(--color-sand-ink);
+  }
+
+  .pill-sand:hover {
+    background: var(--color-sand-deep);
   }
 
   /* 写真プレースホルダ。素材が入り次第 next/image に差し替える */
@@ -235,5 +257,166 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  /* --- 本文リンクとナビゲーション。色だけ変える --- */
+  nav a,
+  .marker-list a,
+  .link-hover {
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover,
+  .marker-list a:hover,
+  .link-hover:hover {
+    color: var(--color-blue);
+  }
+
+  /* --- 電話・フォームのカード。面の色と矢印だけ動かす --- */
+  .contact-card {
+    transition: background-color 0.25s ease;
+  }
+
+  .contact-card:hover {
+    background: var(--color-blue-soft);
+  }
+
+  .contact-card .arrow {
+    transition: background-color 0.25s ease;
+  }
+
+  .contact-card:hover .arrow {
+    background: var(--color-blue-deep);
+  }
+
+  /* --- カード。浮き上がらせず、写真の寄りと見出しの色で反応させる --- */
+  .card-link .ph,
+  .card-link img {
+    transition: scale 0.5s ease;
+  }
+
+  .card-link:hover .ph,
+  .card-link:hover img {
+    scale: 1.03;
+  }
+
+  .card-link .card-title {
+    transition: color 0.25s ease;
+  }
+
+  .card-link:hover .card-title {
+    color: var(--color-blue);
+  }
+
+  /* 写真の寄りをカードの角丸で切る */
+  .card-media {
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  /* --- ヒーローの写真。既定は1枚目だけ表示する --- */
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .hero-slide:first-child {
+    opacity: 1;
+  }
+
+  /* --- スクロールキュー --- */
+  .scroll-cue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-en);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .scroll-cue::after {
+    content: "";
+    width: 1px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
+
+/*
+ * モーション。prefers-reduced-motion を尊重し、指定があるときは何も動かさない。
+ * 登場アニメーションはスクロール駆動（animation-timeline: view()）で、
+ * 対応していないブラウザでは最初から表示されたままになる。JavaScriptは使わない。
+ */
+@keyframes hero-cycle {
+  0% {
+    opacity: 0;
+    scale: 1.06;
+  }
+  4% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    /* transform ではなく translate を使う。カードのずらし（translateX）と衝突させないため */
+    translate: 0 22px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes scroll-cue-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 5px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 3枚を18秒で1周。1枚あたり6秒＋クロスフェード */
+  .hero-slide {
+    animation: hero-cycle 18s ease-in-out infinite;
+  }
+
+  .hero-slide:nth-child(2) {
+    animation-delay: 6s;
+  }
+
+  .hero-slide:nth-child(3) {
+    animation-delay: 12s;
+  }
+
+  .scroll-cue {
+    animation: scroll-cue-bob 2.4s ease-in-out infinite;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 26%;
+    }
   }
 }

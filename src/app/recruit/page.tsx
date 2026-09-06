@@ -70,7 +70,7 @@ export default function RecruitPage() {
           <SectionHead eyebrow="Person" heading="求める人物像" />
           <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {persona.map((group) => (
-              <div key={group.title} className="rounded-card bg-mist p-10 max-[960px]:p-6">
+              <div key={group.title} className="reveal rounded-card bg-mist p-10 max-[960px]:p-6">
                 <h3>{group.title}</h3>
                 <ul className="marker-list mt-5 text-[14px]">
                   {group.items.map((item) => (
@@ -92,7 +92,7 @@ export default function RecruitPage() {
           />
           <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {workStyle.map((item) => (
-              <div key={item.title} className="rounded-card bg-paper p-8 max-[960px]:p-6">
+              <div key={item.title} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
                 <h3>{item.title}</h3>
                 <Paragraphs text={item.body} className="mt-4 text-[13.5px]" />
               </div>
@@ -106,7 +106,7 @@ export default function RecruitPage() {
           <SectionHead eyebrow="Education" heading="教育・研修" />
           <div className="mt-12 grid grid-cols-2 gap-x-16 gap-y-10 max-[960px]:grid-cols-1 max-[960px]:gap-y-8">
             {education.map((item) => (
-              <div key={item.title} className="border-t border-blue-soft pt-6">
+              <div key={item.title} className="reveal border-t border-blue-soft pt-6">
                 <h3>{item.title}</h3>
                 <Paragraphs text={item.body} className="mt-4 text-[13.5px]" />
               </div>
@@ -200,7 +200,7 @@ export default function RecruitPage() {
                   {/* モバイルはカード積み */}
                   <div className="mt-5 hidden gap-4 max-[960px]:grid">
                     {jobs.map((job) => (
-                      <div key={job.key} className="rounded-card bg-mist p-6">
+                      <div key={job.key} className="reveal rounded-card bg-mist p-6">
                         <h4 className="font-heading text-[15px] text-blue-ink">{job.label}</h4>
                         <dl className="mt-3 text-[13px]">
                           {group.rows.map((row) => (

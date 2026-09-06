@@ -74,7 +74,7 @@ export default function AboutPage() {
 
           <ul className="mt-12 grid list-none grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {values.map((value) => (
-              <li key={value.no} className="rounded-card bg-mist p-8 max-[960px]:p-6">
+              <li key={value.no} className="reveal rounded-card bg-mist p-8 max-[960px]:p-6">
                 <span className="block font-en text-[13px] tracking-[0.12em] text-blue">{value.no}</span>
                 <h3 className="mt-1">{value.title}</h3>
                 <Paragraphs text={value.body} className="mt-4 text-[13.5px] text-ink-muted" />

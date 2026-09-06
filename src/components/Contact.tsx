@@ -11,7 +11,7 @@ export function Contact({ id = "contact" }: { id?: string }) {
       <div className="wrap">
         <div className="grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
           <a
-            className="flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
+            className="contact-card reveal flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
             href={site.telHref}
           >
             <span>
@@ -37,7 +37,7 @@ export function Contact({ id = "contact" }: { id?: string }) {
 
         <p className="mx-auto mt-6 text-center text-[12px] text-ink-muted">
           送信の前に
-          <Link href="/privacy" className="border-b border-blue-soft">
+          <Link href="/privacy" className="link-hover border-b border-blue-soft">
             プライバシーポリシー
           </Link>
           をご確認ください。
@@ -75,8 +75,10 @@ export function FormCard({
     </>
   );
 
-  const className =
-    "flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8";
+  // 未確定のうちはリンクにならないため、ホバーの反応も付けない
+  const className = `reveal flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8 ${
+    ready ? "contact-card" : ""
+  }`;
 
   // URL が未確定のうちはリンクにしない
   if (!ready) return <div className={className}>{inner}</div>;
