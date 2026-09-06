@@ -15,9 +15,9 @@ export function Contact({ id = "contact" }: { id?: string }) {
             href={site.telHref}
           >
             <span>
-              <span className="block font-heading text-[1.1875rem] text-blue-ink">お電話でのご相談</span>
-              <span className="block font-en text-[1.6875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
-              <span className="mt-1 block text-[0.75rem] text-ink-muted">
+              <span className="block font-heading text-[1.4375rem] text-blue-ink">お電話でのご相談</span>
+              <span className="block font-en text-[1.875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
+              <span className="mt-1 block text-[0.84375rem] text-ink-muted">
                 {site.hours}／{site.oncall}
               </span>
             </span>
@@ -35,7 +35,7 @@ export function Contact({ id = "contact" }: { id?: string }) {
           />
         </div>
 
-        <p className="mx-auto mt-6 text-center text-[0.75rem] text-ink-muted">
+        <p className="mx-auto mt-6 text-center text-[0.84375rem] text-ink-muted">
           送信の前に
           <Link href="/privacy" className="link-hover border-b border-blue-soft">
             プライバシーポリシー
@@ -61,15 +61,15 @@ export function FormCard({
   const inner = (
     <>
       <span>
-        <span className="block font-heading text-[1.1875rem] text-blue-ink">{label}</span>
-        <span className="mt-2 block text-[0.75rem] text-ink-muted">
+        <span className="block font-heading text-[1.4375rem] text-blue-ink">{label}</span>
+        <span className="mt-2 block text-[0.84375rem] text-ink-muted">
           {lines.map((line) => (
             <span key={line} className="block">
               {line}
             </span>
           ))}
         </span>
-        {!ready ? <span className="mt-2 block text-[0.75rem] tbd">{href}</span> : null}
+        {!ready ? <span className="mt-2 block text-[0.84375rem] tbd">{href}</span> : null}
       </span>
       {ready ? <Arrow /> : null}
     </>

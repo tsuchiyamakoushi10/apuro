@@ -5,7 +5,7 @@ import { Tbd } from "./ui";
 
 export function Footer() {
   return (
-    <footer className="mx-8 rounded-t-panel bg-mist pb-11 pt-[76px] text-[0.78125rem] text-ink-muted max-[960px]:mx-4">
+    <footer className="mx-8 rounded-t-panel bg-mist pb-11 pt-[76px] text-[0.875rem] text-ink-muted max-[960px]:mx-4">
       <div className="wrap-panel grid grid-cols-[340px_1fr] gap-[60px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px] max-[960px]:px-6">
         <div>
           <Logo className="mb-5" />
@@ -41,7 +41,7 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <p className="wrap-panel mx-auto mt-11 max-w-[calc(var(--container-wrap)-64px)] font-en text-[0.65625rem] tracking-[0.1em] max-[960px]:px-6">
+      <p className="wrap-panel mx-auto mt-11 max-w-[calc(var(--container-wrap)-64px)] font-en text-[0.8125rem] tracking-[0.1em] max-[960px]:px-6">
         © {site.nameEn}
       </p>
     </footer>

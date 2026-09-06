@@ -68,16 +68,16 @@ export default function AboutPage() {
       <Section id="values">
         <div className="wrap">
           <SectionHead eyebrow="Value" heading="行動指針" />
-          <p className="mt-6 font-heading text-[1.3125rem] leading-[1.7] text-blue-ink max-[960px]:text-[1.125rem]">
+          <p className="mt-6 font-heading text-[1.4375rem] leading-[1.7] text-blue-ink max-[960px]:text-[1.125rem]">
             {valueAxis}
           </p>
 
           <ul className="mt-12 grid list-none grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {values.map((value) => (
               <li key={value.no} className="reveal rounded-card bg-mist p-8 max-[960px]:p-6">
-                <span className="block font-en text-[0.8125rem] tracking-[0.12em] text-blue">{value.no}</span>
+                <span className="block font-en text-[0.875rem] tracking-[0.12em] text-blue">{value.no}</span>
                 <h3 className="mt-1">{value.title}</h3>
-                <Paragraphs text={value.body} className="mt-4 text-[0.84375rem] text-ink-muted" />
+                <Paragraphs text={value.body} className="mt-4 text-[0.9375rem] text-ink-muted" />
               </li>
             ))}
           </ul>

@@ -20,7 +20,7 @@ export default function NotFound() {
             お急ぎの場合は、お電話でもご相談を承っています。
           </p>
 
-          <ul className="marker-list mt-10 text-[14px]">
+          <ul className="marker-list mt-10 text-[0.9375rem]">
             <li>
               <a href="/">トップページ</a>
             </li>

@@ -67,12 +67,12 @@
   }
 
   h2 {
-    font-size: 1.8125rem;
+    font-size: 1.875rem;
     line-height: 1.7;
   }
 
   h3 {
-    font-size: 1.1875rem;
+    font-size: 1.4375rem;
     line-height: 1.7;
   }
 
@@ -104,6 +104,25 @@
     padding-inline: 32px;
   }
 
+  /* ヘッダーだけ本文より広く使う。参考サイトも左右80pxで全幅に近い。
+     ロゴ256px＋ナビ339px＋電話・ボタン541px＋余白で1行に1197px要るため、
+     1160px のコンテナには入らない。
+     1300px未満ではナビと電話番号を畳むので .wrap と同じ幅に戻す。
+     開閉メニュー側が .wrap なので、揃えないと左端がずれる。
+     min-width で書いてあるのは Tailwind の max-[1300px] と境界を1pxずらさないため */
+  .wrap-header {
+    max-width: var(--container-wrap);
+    margin-inline: auto;
+    padding-inline: 32px;
+  }
+
+  @media (min-width: 1300px) {
+    .wrap-header {
+      max-width: 1440px;
+      padding-inline: 40px;
+    }
+  }
+
   /* 色面（特徴・こんなときに・採用・フッター）の内側。左右余白ぶん幅を詰める */
   .wrap-panel {
     max-width: calc(var(--container-wrap) - 64px);
@@ -117,7 +136,7 @@
     align-items: center;
     gap: 9px;
     font-family: var(--font-en);
-    font-size: 0.75rem;
+    font-size: 0.84375rem;
     letter-spacing: 0.16em;
     line-height: 1.6;
     color: var(--color-blue);
@@ -143,7 +162,7 @@
     border-radius: 999px;
     padding: 15px 32px;
     font-family: var(--font-heading);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     line-height: 1.5;
     transition:
       background-color 0.25s ease,
@@ -211,7 +230,7 @@
     justify-content: center;
     text-align: center;
     color: var(--color-ink-muted);
-    font-size: 0.71875rem;
+    font-size: 0.84375rem;
     letter-spacing: 0.09em;
     line-height: 1.8;
     padding: 16px;
