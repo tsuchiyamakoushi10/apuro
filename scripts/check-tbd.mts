@@ -1,7 +1,9 @@
 /**
  * src/config/site.ts に残った【調整中】を検出する。
- * 本番デプロイ（VERCEL_ENV=production）と CHECK_TBD_STRICT=1 のときは失敗させ、
- * それ以外は警告のみで通す。開発中に手が止まらないようにするため。
+ *
+ * 失敗させるのは「公開スイッチが入った本番ビルド」と CHECK_TBD_STRICT=1 のときだけ。
+ * published = false の間は確認用のデプロイなので、本番環境でも警告のみで通す。
+ * 公開前チェックは CHECK_TBD_STRICT=1 npm run build で手前に実行できる。
  */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -12,8 +14,12 @@ const configPath = join(root, "src/config/site.ts");
 const source = readFileSync(configPath, "utf8");
 
 const TBD = "【調整中】";
+
+/** site.ts の公開スイッチ。true なら実公開なので未確定値を許さない */
+const published = /export const published = true/.test(source);
 const strict =
-  process.env.VERCEL_ENV === "production" || process.env.CHECK_TBD_STRICT === "1";
+  (process.env.VERCEL_ENV === "production" && published) ||
+  process.env.CHECK_TBD_STRICT === "1";
 
 const hits: { line: number; text: string }[] = [];
 source.split("\n").forEach((raw, i) => {
@@ -49,4 +55,8 @@ if (strict) {
   console.log("  本番公開はできません。確定値を入れてから再実行してください。\n");
   process.exit(1);
 }
-console.log("  開発ビルドのため続行します。\n");
+console.log(
+  published
+    ? "  確認用ビルドのため続行します。\n"
+    : "  published = false（未公開）のため続行します。\n",
+);

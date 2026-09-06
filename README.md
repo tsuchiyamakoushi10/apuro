@@ -22,9 +22,13 @@ npm run dev
 ## 公開時の手順
 
 1. `src/config/site.ts` の `【調整中】` をすべて確定値に差し替える
-2. 同ファイルの `published` を `true` にする（`noindex` と robots.txt の Disallow が外れる）
-3. `CHECK_TBD_STRICT=1 npm run build` が通ることを確認する
+2. `CHECK_TBD_STRICT=1 npm run build` が通ることを確認する
+3. 同ファイルの `published` を `true` にする
+   （`noindex` と robots.txt の Disallow が外れ、以降は本番ビルドが `【調整中】` を検出すると失敗する）
 4. Search Console に `/sitemap.xml` を送信する
+
+`published = false` の間は Vercel の Production でもビルドは通り、`noindex` と
+robots.txt の全面 Disallow がかかった状態で確認できる。
 
 残りの項目は `docs/spec.md` の公開前チェックリストを参照。
 
