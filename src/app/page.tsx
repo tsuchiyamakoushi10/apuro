@@ -19,14 +19,20 @@ const heroPhotos = [
   {
     src: "/images/hero-01-departure.jpg",
     alt: "訪問へ出発する看護師",
+    /*
+     * 3:2 の写真を横長に切るため上下が落ちる。顔が切れない位置に寄せる。
+     * 値は写真ごとの顔の高さから決めた（1枚目は上から11%、2枚目21%、3枚目19.5%）。
+     * 2560px でも切れないほうに寄せてある。写真を差し替えたら測り直すこと。
+     */
+    position: "center 13%",
   },
-  { src: "/images/hero-02-visit.jpg", alt: "" },
-  { src: "/images/hero-03-office.jpg", alt: "" },
+  { src: "/images/hero-02-visit.jpg", alt: "", position: "center 32%" },
+  { src: "/images/hero-03-office.jpg", alt: "", position: "center 29%" },
 ];
 
 function Hero() {
   return (
-    <div className="relative h-[560px] overflow-hidden rounded-b-panel max-[960px]:h-[400px]">
+    <div className="relative h-[clamp(520px,38vw,820px)] overflow-hidden rounded-b-panel max-[960px]:h-[400px]">
       {heroPhotos.map((photo, i) => (
         <div key={photo.src} className="hero-slide">
           <Image
@@ -36,6 +42,7 @@ function Hero() {
             sizes="100vw"
             priority={i === 0}
             className="object-cover"
+            style={{ objectPosition: photo.position }}
           />
         </div>
       ))}
