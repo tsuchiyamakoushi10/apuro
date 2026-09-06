@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #ffffff;
+  --color-mist: #f4f8fa;
+  --color-blue: #2a6fa8;
+  --color-blue-deep: #1b4e7a;
+  --color-blue-ink: #123a5c;
+  --color-blue-soft: #dceaf3;
+  --color-sand: #dfc9a5;
+  --color-sand-ink: #3a2e1b;
+  --color-ink: #2b3740;
+  --color-ink-muted: #69777f;
+
+  /* 角丸は3種類のみ。カードごとに変えない */
+  --radius-card: 28px;
+  --radius-panel: 40px;
+
+  --font-heading: var(--font-zen-kaku), sans-serif;
+  --font-body: var(--font-noto-sans-jp), sans-serif;
+  --font-en: var(--font-jost), sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+
+  --container-wrap: 1160px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* ヘッダー分。アンカーリンクで見出しが隠れないように */
+    scroll-padding-top: 108px;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.95;
+    letter-spacing: 0.03em;
+    -webkit-font-smoothing: antialiased;
+    /* hidden にすると特徴セクションの sticky が効かなくなる */
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--color-blue-ink);
+  }
+
+  h2 {
+    font-size: 29px;
+    line-height: 1.7;
+  }
+
+  h3 {
+    font-size: 19px;
+    line-height: 1.7;
+  }
+
+  p {
+    max-width: 34em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* 色を敷いた面の上では白のフォーカスリングにする */
+  .on-color :focus-visible {
+    outline-color: #fff;
+  }
+}
+
+@layer components {
+  .wrap {
+    max-width: var(--container-wrap);
+    margin-inline: auto;
+    padding-inline: 32px;
+  }
+
+  /* 色面（特徴・こんなときに・採用・フッター）の内側。左右余白ぶん幅を詰める */
+  .wrap-panel {
+    max-width: calc(var(--container-wrap) - 64px);
+    margin-inline: auto;
+    padding-inline: 56px;
+  }
+
+  /* 英字ラベル。前のマークはサイト共通のモチーフ */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-en);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    line-height: 1.6;
+    color: var(--color-blue);
+    margin-bottom: 16px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 50% 50% 50% 0;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-blue);
+    color: #fff;
+    border-radius: 999px;
+    padding: 15px 32px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .pill::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: 1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .pill-ghost {
+    background: #fff;
+    color: var(--color-blue-ink);
+    border: 1px solid var(--color-blue-soft);
+  }
+
+  .pill-ghost::after {
+    color: var(--color-blue);
+  }
+
+  .pill-light {
+    background: #fff;
+    color: var(--color-blue-deep);
+  }
+
+  .pill-sand {
+    background: var(--color-sand);
+    color: var(--color-sand-ink);
+  }
+
+  /* 写真プレースホルダ。素材が入り次第 next/image に差し替える */
+  .ph {
+    border: 1px dashed #a9c3d4;
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(42, 111, 168, 0.06) 0 11px,
+      transparent 11px 22px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-ink-muted);
+    font-size: 11.5px;
+    letter-spacing: 0.09em;
+    line-height: 1.8;
+    padding: 16px;
+    border-radius: var(--radius-card);
+  }
+
+  .ph-on-color {
+    border-color: rgba(255, 255, 255, 0.32);
+    color: rgba(255, 255, 255, 0.6);
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.07) 0 11px,
+      transparent 11px 22px
+    );
+  }
+
+  /* 未確定値。画面上は青の点線下線 */
+  .tbd {
+    color: var(--color-blue);
+    border-bottom: 1px dotted var(--color-blue);
+  }
+
+  /* 本文の箇条書き。マーカーは共通モチーフ */
+  .marker-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .marker-list > li {
+    position: relative;
+    padding-left: 22px;
+  }
+
+  .marker-list > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.82em;
+    width: 9px;
+    height: 9px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--color-blue);
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
