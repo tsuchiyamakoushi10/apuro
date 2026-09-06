@@ -99,7 +99,8 @@ export const copy = {
   heroEn: "Watch over the life",
   // メインキャッチ A案
   heroHeadline: ["病気ではなく、", "その人の暮らしを看る。"],
-  // サブキャッチ 1
+  // サブキャッチ 1。クライアント判断でヒーローには出していない。
+  // 差し替え候補として残す。表示するのは meta description のみ
   heroSub: "介護も、精神も、医療も、看取りも。国分寺の訪問看護ステーションです。",
   // 採用キャッチ 1
   recruitHeadline: [
