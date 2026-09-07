@@ -3,7 +3,7 @@ import { Contact } from "@/components/Contact";
 import { PanelSection, Section, SectionHead } from "@/components/Section";
 import { Eyebrow, Photo, Pill } from "@/components/ui";
 import { copy } from "@/config/site";
-import { cases, features } from "@/content/service";
+import { cases, topFeatures } from "@/content/service";
 
 const aboutLead =
   "アプロ訪問看護ステーションは、国分寺市を中心に、こころの不調を抱えた方への訪問看護から高齢者の在宅療養、そして看取りまでを担う訪問看護ステーションです。どんな状況の方でも、まずはご相談ください。";
@@ -116,10 +116,12 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 特徴。左カラムを sticky で固定し、右カラムのカードがスクロールに連動して上がる */}
+      {/* 特徴。TOPは3つだけ出す（残りは /service）。
+          写真が用意できていないので、写真枠の代わりに大きな番号を置いて面をつくる。
+          左カラムの sticky とカードのずらしは廃止した */}
       <section className="on-color mx-8 rounded-panel bg-blue pb-[118px] pt-[110px] max-[960px]:mx-4 max-[960px]:py-[70px]">
-        <div className="wrap-panel grid grid-cols-[1fr_420px] items-start gap-[90px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px] max-[960px]:px-6">
-          <div className="sticky top-[150px] max-[960px]:static">
+        <div className="wrap-panel max-[960px]:px-6">
+          <div className="reveal">
             <Eyebrow className="!text-paper">Features</Eyebrow>
             <h2 className="text-paper">アプロの特徴</h2>
             <p className="mb-8 mt-5 text-[0.9375rem] text-[rgba(255,255,255,0.82)]">
@@ -130,29 +132,25 @@ export default function HomePage() {
             </Pill>
           </div>
 
-          <ul className="flex list-none flex-col gap-[26px]">
-            {features.map((feature) => (
-              <li
-                key={feature.id}
-                className="rounded-card bg-paper px-[18px] pb-[26px] pt-[18px] even:-translate-x-[38px] max-[960px]:even:translate-x-0"
-              >
-                <a href={`/service#${feature.id}`} className="card-link reveal block">
-                  <div className="card-media mb-5">
-                    <Photo
-                      caption={feature.photo}
-                      className="h-[180px] !rounded-[20px] !bg-[rgba(42,111,168,0.07)]"
-                    />
-                  </div>
-                  <span className="block px-2 font-en text-[0.875rem] tracking-[0.12em] text-blue">
+          <ul className="mt-[52px] grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1">
+            {topFeatures.map((feature) => (
+              <li key={feature.id} className="reveal">
+                <a
+                  href={`/service#${feature.id}`}
+                  className="card-link flex h-full flex-col rounded-card bg-paper px-8 pb-[34px] pt-[30px]"
+                >
+                  {/* 下層ページの h1 と同じ目盛り。写真がないぶんここで大きさを持たせる */}
+                  <span className="block font-en text-[2.375rem] leading-none tracking-[0.08em] text-blue">
                     {feature.no}
                   </span>
-                  <span className="card-title mt-1.5 block px-2 font-heading text-[1.1875rem] font-medium leading-[1.6] text-blue-ink">
+                  <span className="card-title mt-6 block font-heading text-[1.1875rem] font-medium leading-[1.6] text-blue-ink">
                     {feature.cardTitle.map((line) => (
                       <span key={line} className="block">
                         {line}
                       </span>
                     ))}
                   </span>
+                  <span className="mt-4 block text-[0.9375rem] text-ink-muted">{feature.lead}</span>
                 </a>
               </li>
             ))}

@@ -52,7 +52,7 @@
     line-height: 1.95;
     letter-spacing: 0.03em;
     -webkit-font-smoothing: antialiased;
-    /* hidden にすると特徴セクションの sticky が効かなくなる */
+    /* hidden にするとヘッダーと /about の sticky が効かなくなる */
     overflow-x: clip;
   }
 
