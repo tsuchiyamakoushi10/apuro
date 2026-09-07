@@ -136,8 +136,7 @@ export default function HomePage() {
           <ul className="mt-[52px] grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1 max-[960px]:gap-[26px]">
             {topFeatures.map((feature) => (
               <li key={feature.id} className="reveal">
-                {/* 青面の上なので、ずらす面は白を薄く敷く */}
-                <div className="offset-card [--offset-face:rgba(255,255,255,0.22)]">
+                <div className="offset-card offset-on-color">
                   <a
                     href={`/service#${feature.id}`}
                     className="card-link flex flex-col rounded-card bg-paper px-8 pb-7 pt-8"
@@ -168,7 +167,7 @@ export default function HomePage() {
           <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-[26px]">
             {cases.map((c) => (
               <div key={c.id} className="reveal">
-                <div className="offset-card">
+                <div className="offset-card offset-on-mist">
                   <div className="rounded-card bg-paper px-7 pb-[30px] pt-[26px]">
                     <h3 className="text-[1.1875rem]">
                       {c.title.map((line) => (

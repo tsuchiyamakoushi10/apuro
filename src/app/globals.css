@@ -285,6 +285,18 @@
   .offset-card {
     position: relative;
     height: 100%;
+    /* 既定は白地の上。地の色より一段濃い青にする */
+    --offset-face: var(--color-blue-soft);
+  }
+
+  /* 淡い面の上。--blue-soft では地と差が付かないので混ぜて濃くする */
+  .offset-on-mist {
+    --offset-face: color-mix(in srgb, var(--color-blue) 20%, var(--color-mist));
+  }
+
+  /* 青ベタ面の上 */
+  .offset-on-color {
+    --offset-face: rgba(255, 255, 255, 0.22);
   }
 
   .offset-card::before {
@@ -292,7 +304,7 @@
     position: absolute;
     inset: 8px -8px -8px 8px;
     border-radius: var(--radius-card);
-    background: var(--offset-face, var(--color-blue-soft));
+    background: var(--offset-face);
   }
 
   .offset-card > * {
@@ -407,15 +419,16 @@
     color: var(--color-blue);
   }
 
-  /* ずらした面の上にカードが重なるところまで動かす。指定があるときは動かさない */
+  /*
+   * ずらした面の上にカードが重なるところまで動かす。指定があるときは動かさない。
+   * リンクのカードだけ。リンクでないカード（div）は面を敷くだけで動かさない
+   */
   @media (prefers-reduced-motion: no-preference) {
-    .offset-card > .card-link {
-      transition:
-        transform 0.25s ease,
-        color 0.25s ease;
+    .offset-card > a {
+      transition: transform 0.25s ease;
     }
 
-    .offset-card:hover > .card-link {
+    .offset-card:hover > a {
       transform: translate(8px, 8px);
     }
   }

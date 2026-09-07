@@ -50,19 +50,23 @@ export default function ServicePage() {
           <SectionHead eyebrow="Support" heading="こんなときに、ご相談ください" />
           <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
             {cases.map((c) => (
-              <div key={c.id} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
-                <h3>
-                  {c.title.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </h3>
-                <ul className="marker-list mt-5 text-[0.9375rem] text-ink-muted">
-                  {c.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+              <div key={c.id} className="reveal">
+                <div className="offset-card offset-on-mist">
+                  <div className="rounded-card bg-paper p-8 max-[960px]:p-6">
+                    <h3>
+                      {c.title.map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </h3>
+                    <ul className="marker-list mt-5 text-[0.9375rem] text-ink-muted">
+                      {c.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -88,20 +92,21 @@ export default function ServicePage() {
           <SectionHead eyebrow="Features" heading="アプロの特徴" />
           <div className="mt-12 grid gap-6">
             {features.slice(0, 4).map((feature) => (
-              <article
-                key={feature.id}
-                id={feature.id}
-                className="reveal grid grid-cols-[320px_1fr] items-start gap-12 rounded-card bg-mist p-10 max-[960px]:grid-cols-1 max-[960px]:gap-6 max-[960px]:p-6"
-              >
-                <Photo caption={feature.photo} className="h-[200px] max-[960px]:h-[170px]" />
-                <div>
-                  <span className="block font-en text-[0.875rem] tracking-[0.12em] text-blue">
-                    {feature.no}
-                  </span>
-                  <h3 className="mt-1">{feature.title}</h3>
-                  <Paragraphs text={feature.body} className="mt-4 text-[0.9375rem]" />
+              <div key={feature.id} className="reveal">
+                <div className="offset-card">
+                  <article
+                    id={feature.id}
+                    className="grid grid-cols-[320px_1fr] items-start gap-12 rounded-card bg-mist p-10 max-[960px]:grid-cols-1 max-[960px]:gap-6 max-[960px]:p-6"
+                  >
+                    <Photo caption={feature.photo} className="h-[200px] max-[960px]:h-[170px]" />
+                    <div>
+                      <span className="badge-no">{feature.no}</span>
+                      <h3 className="mt-5">{feature.title}</h3>
+                      <Paragraphs text={feature.body} className="mt-4 text-[0.9375rem]" />
+                    </div>
+                  </article>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>

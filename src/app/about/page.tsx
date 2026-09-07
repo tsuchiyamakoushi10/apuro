@@ -74,10 +74,14 @@ export default function AboutPage() {
 
           <ul className="mt-12 grid list-none grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {values.map((value) => (
-              <li key={value.no} className="reveal rounded-card bg-mist p-8 max-[960px]:p-6">
-                <span className="block font-en text-[0.875rem] tracking-[0.12em] text-blue">{value.no}</span>
-                <h3 className="mt-1">{value.title}</h3>
-                <Paragraphs text={value.body} className="mt-4 text-[0.9375rem] text-ink-muted" />
+              <li key={value.no} className="reveal">
+                <div className="offset-card">
+                  <div className="rounded-card bg-mist p-8 max-[960px]:p-6">
+                    <span className="badge-no">{value.no}</span>
+                    <h3 className="mt-5">{value.title}</h3>
+                    <Paragraphs text={value.body} className="mt-4 text-[0.9375rem] text-ink-muted" />
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
