@@ -57,12 +57,16 @@ function Hero() {
         <span className="scroll-cue max-[600px]:text-[8.5px]">Scroll</span>
       </div>
 
-      <div className="absolute inset-x-0 bottom-[68px] max-[960px]:bottom-[40px]">
-        <div className="wrap max-[600px]:pr-[92px]">
+      {/* 600px以下はスクロールキュー（84px）の上に逃がす。
+          横に避けると見出しの1行が入らず「看る。」だけ折り返すため */}
+      <div className="absolute inset-x-0 bottom-[68px] max-[960px]:bottom-[40px] max-[600px]:bottom-[100px]">
+        <div className="wrap">
           <span className="mb-1.5 block font-serif text-[40px] font-light italic leading-none tracking-[0.04em] text-blue max-[960px]:text-[27px]">
             {copy.heroEn}
           </span>
-          <h1 className="text-[47px] leading-[1.65] max-[960px]:text-[29px]">
+          {/* 2行目は11字。600px以下は (画面幅 - 左右32px) ÷ 11字 ÷ 1.05（字間.05em）
+              に収まるところまで落として、1行で入るようにする。29pxが上限 */}
+          <h1 className="text-[47px] leading-[1.65] max-[960px]:text-[29px] max-[600px]:text-[min(29px,calc(8.4vw_-_5.6px))]">
             {copy.heroHeadline.map((line) => (
               <span key={line} className="block">
                 {line}
