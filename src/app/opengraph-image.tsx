@@ -33,13 +33,13 @@ export default async function Image() {
   // フォントが取れなくても組版だけは出す。next/og の既定フォントに落ちる
   let fonts: { name: string; data: ArrayBuffer; weight: 300 | 400 | 500; style: "normal" | "italic" }[] = [];
   try {
-    const [zenKaku, jost, cormorant] = await Promise.all([
-      loadFont("Zen Kaku Gothic New:wght@500", headline + footline),
+    const [zenMaru, jost, cormorant] = await Promise.all([
+      loadFont("Zen Maru Gothic:wght@500", headline + footline),
       loadFont("Jost:wght@400", site.nameEn),
       loadFont("Cormorant Garamond:ital,wght@1,300", copy.heroEn),
     ]);
     fonts = [
-      { name: "Zen Kaku Gothic New", data: zenKaku, weight: 500, style: "normal" },
+      { name: "Zen Maru Gothic", data: zenMaru, weight: 500, style: "normal" },
       { name: "Jost", data: jost, weight: 400, style: "normal" },
       { name: "Cormorant Garamond", data: cormorant, weight: 300, style: "italic" },
     ];
@@ -59,7 +59,7 @@ export default async function Image() {
           position: "relative",
           background: "#FFFFFF",
           padding: "0 92px",
-          fontFamily: "Zen Kaku Gothic New",
+          fontFamily: "Zen Maru Gothic",
         }}
       >
         {/* 共通モチーフ。角を1箇所だけ落とした形 */}
@@ -71,7 +71,7 @@ export default async function Image() {
             width: 300,
             height: 300,
             borderRadius: "50% 50% 50% 0",
-            background: "#DCEAF3",
+            background: "#DDF0F0",
           }}
         />
         <div
@@ -82,7 +82,7 @@ export default async function Image() {
             width: 150,
             height: 150,
             borderTopLeftRadius: 40,
-            background: "#2A6FA8",
+            background: "#0E7C9C",
           }}
         />
 
@@ -91,7 +91,7 @@ export default async function Image() {
             fontFamily: "Jost",
             fontSize: 20,
             letterSpacing: "0.3em",
-            color: "#2A6FA8",
+            color: "#0E7C9C",
           }}
         >
           {site.nameEn}
@@ -104,7 +104,7 @@ export default async function Image() {
             fontStyle: "italic",
             fontWeight: 300,
             fontSize: 44,
-            color: "#2A6FA8",
+            color: "#0E7C9C",
           }}
         >
           {copy.heroEn}
@@ -119,7 +119,7 @@ export default async function Image() {
             fontWeight: 500,
             letterSpacing: "0.05em",
             lineHeight: 1.55,
-            color: "#123A5C",
+            color: "#0F3F52",
           }}
         >
           {copy.heroHeadline.map((line) => (
@@ -131,10 +131,10 @@ export default async function Image() {
           style={{
             marginTop: 44,
             paddingTop: 26,
-            borderTop: "1px solid #DCEAF3",
+            borderTop: "1px solid #DDF0F0",
             fontSize: 22,
             letterSpacing: "0.06em",
-            color: "#69777F",
+            color: "#647279",
           }}
         >
           {footline}

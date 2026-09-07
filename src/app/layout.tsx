@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost, Noto_Sans_JP, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Cormorant_Garamond, Jost, Noto_Sans_JP, Zen_Maru_Gothic } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { addressReady, published, site } from "@/config/site";
 import "./globals.css";
 
-const zenKaku = Zen_Kaku_Gothic_New({
+/* 見出しは丸ゴシック。参照サイト（umicahi.com）のやわらかさはここから来ている */
+const zenMaru = Zen_Maru_Gothic({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
-  variable: "--font-zen-kaku",
+  variable: "--font-zen-maru",
 });
 
 const notoSansJp = Noto_Sans_JP({
@@ -72,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="ja"
-      className={`${zenKaku.variable} ${notoSansJp.variable} ${jost.variable} ${cormorant.variable}`}
+      className={`${zenMaru.variable} ${notoSansJp.variable} ${jost.variable} ${cormorant.variable}`}
     >
       <body>
         <a

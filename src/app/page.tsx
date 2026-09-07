@@ -117,7 +117,8 @@ export default function HomePage() {
       </Section>
 
       {/* 特徴。TOPは3つだけ出す（残りは /service）。
-          写真が用意できていないので、写真枠の代わりに大きな番号を置いて面をつくる。
+          写真が用意できていないので、写真枠は置かず、番号バッジ・見出し・抜粋で組む。
+          カードの後ろにずらした面を敷くのは参照サイト（umicahi.com）から。
           左カラムの sticky とカードのずらしは廃止した */}
       <section className="on-color mx-8 rounded-panel bg-blue pb-[118px] pt-[110px] max-[960px]:mx-4 max-[960px]:py-[70px]">
         <div className="wrap-panel max-[960px]:px-6">
@@ -132,26 +133,29 @@ export default function HomePage() {
             </Pill>
           </div>
 
-          <ul className="mt-[52px] grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1">
+          <ul className="mt-[52px] grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1 max-[960px]:gap-[26px]">
             {topFeatures.map((feature) => (
               <li key={feature.id} className="reveal">
-                <a
-                  href={`/service#${feature.id}`}
-                  className="card-link flex h-full flex-col rounded-card bg-paper px-8 pb-[34px] pt-[30px]"
-                >
-                  {/* 下層ページの h1 と同じ目盛り。写真がないぶんここで大きさを持たせる */}
-                  <span className="block font-en text-[2.375rem] leading-none tracking-[0.08em] text-blue">
-                    {feature.no}
-                  </span>
-                  <span className="card-title mt-6 block font-heading text-[1.1875rem] font-medium leading-[1.6] text-blue-ink">
-                    {feature.cardTitle.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </span>
-                  <span className="mt-4 block text-[0.9375rem] text-ink-muted">{feature.lead}</span>
-                </a>
+                {/* 青面の上なので、ずらす面は白を薄く敷く */}
+                <div className="offset-card [--offset-face:rgba(255,255,255,0.22)]">
+                  <a
+                    href={`/service#${feature.id}`}
+                    className="card-link flex flex-col rounded-card bg-paper px-8 pb-7 pt-8"
+                  >
+                    <span className="badge-no">{feature.no}</span>
+                    <span className="card-title mt-6 block font-heading text-[1.1875rem] font-medium leading-[1.6] text-blue-ink">
+                      {feature.cardTitle.map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </span>
+                    <span className="mt-4 block text-[0.9375rem] text-ink-muted">{feature.lead}</span>
+                    <span className="card-more mt-auto w-full border-t border-blue-soft pt-5">
+                      詳しく見る
+                    </span>
+                  </a>
+                </div>
               </li>
             ))}
           </ul>
@@ -161,17 +165,21 @@ export default function HomePage() {
       <PanelSection tone="mist">
         <div className="wrap-panel max-[960px]:px-6">
           <SectionHead eyebrow="Support" heading="こんなときに、ご相談ください" />
-          <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
+          <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-[26px]">
             {cases.map((c) => (
-              <div key={c.id} className="reveal rounded-card bg-paper px-7 pb-[30px] pt-[26px]">
-                <h3 className="text-[1.1875rem]">
-                  {c.title.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </h3>
-                <p className="mt-3 text-[0.9375rem] text-ink-muted">{c.summary}</p>
+              <div key={c.id} className="reveal">
+                <div className="offset-card">
+                  <div className="rounded-card bg-paper px-7 pb-[30px] pt-[26px]">
+                    <h3 className="text-[1.1875rem]">
+                      {c.title.map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </h3>
+                    <p className="mt-3 text-[0.9375rem] text-ink-muted">{c.summary}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
