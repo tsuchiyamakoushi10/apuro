@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { isTbd } from "@/config/site";
@@ -65,6 +66,39 @@ export function Photo({
   return (
     <div className={`ph ${onColor ? "ph-on-color" : ""} ${className}`} {...a11y}>
       <span aria-hidden="true">{caption}</span>
+    </div>
+  );
+}
+
+/**
+ * 実写真。高さと角丸は className で渡す（Photo と同じ使い方）。
+ * 素材が入った枠から順に Photo をこちらへ置き換える。
+ */
+export function Picture({
+  src,
+  alt,
+  className = "",
+  sizes,
+  position = "center",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  /** 枠の実寸。next/image が配信する解像度が決まる */
+  sizes: string;
+  /** 3:2 の写真を縦長に切る枠で、人物が切れるときだけ渡す */
+  position?: string;
+}) {
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className="object-cover"
+        style={{ objectPosition: position }}
+      />
     </div>
   );
 }

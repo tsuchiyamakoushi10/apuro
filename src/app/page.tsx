@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { PanelSection, Section, SectionHead } from "@/components/Section";
-import { Eyebrow, Photo, Pill } from "@/components/ui";
-import { copy } from "@/config/site";
+import { Eyebrow, Picture, Pill } from "@/components/ui";
+import { copy, site } from "@/config/site";
 import { cases, topFeatures } from "@/content/service";
 
 const aboutLead =
@@ -87,8 +87,10 @@ export default function HomePage() {
       <Section>
         <div className="wrap grid grid-cols-[440px_1fr] items-center gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px]">
           <div className="reveal relative">
-            <Photo
-              caption="写真｜事務所または訪問の様子（縦長）"
+            <Picture
+              src="/images/representative-visit.jpg"
+              alt={`利用者宅で聴診する代表の${site.representative}`}
+              sizes="(max-width: 960px) 100vw, 440px"
               className="h-[400px] rounded-panel max-[960px]:h-[230px]"
             />
             <span
@@ -202,10 +204,11 @@ export default function HomePage() {
               採用情報を見る
             </Pill>
           </div>
-          <Photo
-            caption="写真｜スタッフ・事務所の様子"
-            onColor
-            className="reveal h-[290px] max-[960px]:mb-[60px] max-[960px]:h-[220px]"
+          <Picture
+            src="/images/staff-team.jpg"
+            alt="事業所の前に立つスタッフ2名"
+            sizes="(max-width: 960px) 100vw, 400px"
+            className="reveal h-[290px] rounded-card max-[960px]:mb-[60px] max-[960px]:h-[220px]"
           />
         </div>
       </section>
