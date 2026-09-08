@@ -70,17 +70,13 @@ export default function RecruitPage() {
           <SectionHead eyebrow="Person" heading="求める人物像" />
           <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {persona.map((group) => (
-              <div key={group.title} className="reveal">
-                <div className="offset-card">
-                  <div className="rounded-card bg-mist p-10 max-[960px]:p-6">
-                    <h3>{group.title}</h3>
-                    <ul className="marker-list mt-5 text-[0.9375rem]">
-                      {group.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+              <div key={group.title} className="reveal rounded-card bg-mist p-10 max-[960px]:p-6">
+                <h3>{group.title}</h3>
+                <ul className="marker-list mt-5 text-[0.9375rem]">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -96,13 +92,9 @@ export default function RecruitPage() {
           />
           <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             {workStyle.map((item) => (
-              <div key={item.title} className="reveal">
-                <div className="offset-card offset-on-color">
-                  <div className="rounded-card bg-paper p-8 max-[960px]:p-6">
-                    <h3>{item.title}</h3>
-                    <Paragraphs text={item.body} className="mt-4 text-[0.9375rem]" />
-                  </div>
-                </div>
+              <div key={item.title} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
+                <h3>{item.title}</h3>
+                <Paragraphs text={item.body} className="mt-4 text-[0.9375rem]" />
               </div>
             ))}
           </div>
@@ -258,22 +250,20 @@ export default function RecruitPage() {
               label="応募フォーム"
               lines={["24時間受付／2〜3営業日以内にご返信します", "ご質問だけのご連絡でも構いません"]}
             />
-            <div className="offset-card">
-              <a
-                className="contact-card flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
-                href={site.telHref}
-              >
-                <span>
-                  <span className="block font-heading text-[1.4375rem] text-blue-ink">お電話でのお問い合わせ</span>
-                  <span className="block font-en text-[1.875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
-                  <span className="mt-1 block text-[0.84375rem] text-ink-muted">{site.hours}</span>
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="arrow relative h-[52px] w-[52px] flex-shrink-0 rounded-full bg-blue after:absolute after:left-[45%] after:top-1/2 after:h-2 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:border-white after:content-['']"
-                />
-              </a>
-            </div>
+            <a
+              className="flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
+              href={site.telHref}
+            >
+              <span>
+                <span className="block font-heading text-[1.4375rem] text-blue-ink">お電話でのお問い合わせ</span>
+                <span className="block font-en text-[1.875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
+                <span className="mt-1 block text-[0.84375rem] text-ink-muted">{site.hours}</span>
+              </span>
+              <span
+                aria-hidden="true"
+                className="relative h-[52px] w-[52px] flex-shrink-0 rounded-full bg-blue after:absolute after:left-[45%] after:top-1/2 after:h-2 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:border-white after:content-['']"
+              />
+            </a>
           </div>
           <p className="mt-6 text-center text-[0.84375rem] text-ink-muted">
             募集者：{site.company}（{site.name}）

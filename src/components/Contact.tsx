@@ -10,23 +10,19 @@ export function Contact({ id = "contact" }: { id?: string }) {
     <Section id={id}>
       <div className="wrap">
         <div className="grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
-          <div className="reveal">
-            <div className="offset-card">
-              <a
-                className="contact-card flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
-                href={site.telHref}
-              >
-                <span>
-                  <span className="block font-heading text-[1.4375rem] text-blue-ink">お電話でのご相談</span>
-                  <span className="block font-en text-[1.875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
-                  <span className="mt-1 block text-[0.84375rem] text-ink-muted">
-                    {site.hours}／{site.oncall}
-                  </span>
-                </span>
-                <Arrow />
-              </a>
-            </div>
-          </div>
+          <a
+            className="contact-card reveal flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
+            href={site.telHref}
+          >
+            <span>
+              <span className="block font-heading text-[1.4375rem] text-blue-ink">お電話でのご相談</span>
+              <span className="block font-en text-[1.875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
+              <span className="mt-1 block text-[0.84375rem] text-ink-muted">
+                {site.hours}／{site.oncall}
+              </span>
+            </span>
+            <Arrow />
+          </a>
 
           <FormCard
             href={site.forms.contact}
@@ -80,28 +76,18 @@ export function FormCard({
   );
 
   // 未確定のうちはリンクにならないため、ホバーの反応も付けない
-  const className = `flex h-full items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8 ${
+  const className = `reveal flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8 ${
     ready ? "contact-card" : ""
   }`;
 
-  // URL が未確定のうちはリンクにしない。ずらした面も敷かない
-  if (!ready) {
-    return (
-      <div className="reveal">
-        <div className={className}>{inner}</div>
-      </div>
-    );
-  }
+  // URL が未確定のうちはリンクにしない
+  if (!ready) return <div className={className}>{inner}</div>;
 
   return (
-    <div className="reveal">
-      <div className="offset-card">
-        <a className={className} href={href} target="_blank" rel="noopener noreferrer">
-          {inner}
-          <span className="sr-only">（別タブで開きます）</span>
-        </a>
-      </div>
-    </div>
+    <a className={className} href={href} target="_blank" rel="noopener noreferrer">
+      {inner}
+      <span className="sr-only">（別タブで開きます）</span>
+    </a>
   );
 }
 

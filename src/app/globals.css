@@ -2,23 +2,22 @@
 
 @theme {
   --color-paper: #ffffff;
-  --color-mist: #ecf6f9;
-  --color-blue: #0e7c9c;
-  --color-blue-deep: #0a6480;
-  --color-blue-ink: #0f3f52;
-  --color-blue-soft: #ddf0f0;
+  --color-mist: #f4f8fa;
+  --color-blue: #2a6fa8;
+  --color-blue-deep: #1b4e7a;
+  --color-blue-ink: #123a5c;
+  --color-blue-soft: #dceaf3;
   --color-sand: #dfc9a5;
   --color-sand-deep: #d2b78c;
   --color-sand-ink: #3a2e1b;
   --color-ink: #2b3740;
-  /* 淡い面（--mist）の上で 4.5:1 を切らない濃さ。#69777f だと 4.21 で足りない */
-  --color-ink-muted: #647279;
+  --color-ink-muted: #69777f;
 
   /* 角丸は3種類のみ。カードごとに変えない */
   --radius-card: 28px;
   --radius-panel: 40px;
 
-  --font-heading: var(--font-zen-maru), sans-serif;
+  --font-heading: var(--font-zen-kaku), sans-serif;
   --font-body: var(--font-noto-sans-jp), sans-serif;
   --font-en: var(--font-jost), sans-serif;
   --font-serif: var(--font-cormorant), serif;
@@ -220,10 +219,10 @@
 
   /* 写真プレースホルダ。素材が入り次第 next/image に差し替える */
   .ph {
-    border: 1px dashed #a7ccd6;
+    border: 1px dashed #a9c3d4;
     background: repeating-linear-gradient(
       135deg,
-      rgba(14, 124, 156, 0.06) 0 11px,
+      rgba(42, 111, 168, 0.06) 0 11px,
       transparent 11px 22px
     );
     display: flex;
@@ -275,83 +274,6 @@
     border-radius: 50% 50% 50% 0;
     background: var(--color-blue);
     opacity: 0.55;
-  }
-
-  /*
-   * カードの後ろに同じ角丸の面を8pxずらして敷く。影ではなくベタ面で、
-   * ホバーでカードがその面まで動く（参照：umicahi.com）。
-   * 面の色は --offset-face で敷く側から渡す。
-   */
-  .offset-card {
-    position: relative;
-    height: 100%;
-    /* 既定は白地の上。地の色より一段濃い青にする */
-    --offset-face: var(--color-blue-soft);
-  }
-
-  /* 淡い面の上。--blue-soft では地と差が付かないので混ぜて濃くする */
-  .offset-on-mist {
-    --offset-face: color-mix(in srgb, var(--color-blue) 20%, var(--color-mist));
-  }
-
-  /* 青ベタ面の上 */
-  .offset-on-color {
-    --offset-face: rgba(255, 255, 255, 0.22);
-  }
-
-  .offset-card::before {
-    content: "";
-    position: absolute;
-    inset: 8px -8px -8px 8px;
-    border-radius: var(--radius-card);
-    background: var(--offset-face);
-  }
-
-  .offset-card > * {
-    position: relative;
-    height: 100%;
-  }
-
-  /* 番号バッジ。形はサイト共通のモチーフ */
-  .badge-no {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 54px;
-    height: 54px;
-    border-radius: 50% 50% 50% 0;
-    background: var(--color-blue);
-    color: #fff;
-    font-family: var(--font-en);
-    font-size: 1.1875rem;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    transition: background-color 0.25s ease;
-  }
-
-  .card-link:hover .badge-no {
-    background: var(--color-blue-deep);
-  }
-
-  /* カード下端のリンク表示。矢印は .pill と同じ形 */
-  .card-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-heading);
-    font-size: 0.84375rem;
-    color: var(--color-blue);
-    margin-top: auto;
-  }
-
-  .card-more::after {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-top: 1.5px solid currentColor;
-    border-right: 1.5px solid currentColor;
-    transform: rotate(45deg);
-    flex-shrink: 0;
   }
 }
 
@@ -417,20 +339,6 @@
 
   .card-link:hover .card-title {
     color: var(--color-blue);
-  }
-
-  /*
-   * ずらした面の上にカードが重なるところまで動かす。指定があるときは動かさない。
-   * リンクのカードだけ。リンクでないカード（div）は面を敷くだけで動かさない
-   */
-  @media (prefers-reduced-motion: no-preference) {
-    .offset-card > a {
-      transition: transform 0.25s ease;
-    }
-
-    .offset-card:hover > a {
-      transform: translate(8px, 8px);
-    }
   }
 
   /* 写真の寄りをカードの角丸で切る */
