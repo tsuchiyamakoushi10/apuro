@@ -103,6 +103,29 @@ export function Picture({
   );
 }
 
+/**
+ * 主写真の後ろに敷く写真。同じ枠に同じ大きさで重ね、角度だけを変える。
+ * 参照サイト（minoh-greenvilla.jp）の top_about と同じ作りで、
+ * 影ではなく写真そのものを重ねてカードの束のように見せている。
+ * 装飾なので alt は空にし、読み上げから外す。角度は .photo-fan-* で渡す。
+ */
+export function PictureBack({
+  src,
+  className = "",
+  sizes,
+}: {
+  src: string;
+  className?: string;
+  /** 主写真と同じ値を渡す。同じ枠に敷くため */
+  sizes: string;
+}) {
+  return (
+    <div aria-hidden="true" className={`absolute inset-0 overflow-hidden opacity-50 ${className}`}>
+      <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
+    </div>
+  );
+}
+
 /** 未確定値の表示。確定していればそのまま出す */
 export function Tbd({ value }: { value: string }) {
   if (!isTbd(value)) return <>{value}</>;

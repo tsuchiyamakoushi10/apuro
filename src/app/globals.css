@@ -347,6 +347,32 @@
     border-radius: 20px;
   }
 
+  /* --- 主写真の後ろに、同じ枠の写真を角度だけ変えて重ねる --- */
+  /* 参照サイトの top_about と同じ作り。影ではなく写真そのものを重ねている。
+     transform ではなく rotate プロパティで書く。.reveal の translate と衝突させないため */
+  /* 角度は参照サイトと同じ6度・12度。440x400の枠を12度回すと左右に36pxはみ出すので、
+     1120px未満では左の角が .wrap の余白32pxを越えて画面の端に掛かる。参照サイトも
+     .top_about に overflow:hidden を敷いて同じように切っている。こちらは body の
+     overflow-x: clip で切れるため横スクロールは出ない。角度を上げるときはここを測り直すこと */
+  .photo-fan-1 {
+    rotate: 6deg;
+  }
+
+  .photo-fan-2 {
+    rotate: 12deg;
+  }
+
+  /* 960px以下は写真が画面幅いっぱいになり、12度だと上下が見出しに掛かる。角度を半分に落とす */
+  @media (max-width: 960px) {
+    .photo-fan-1 {
+      rotate: 3deg;
+    }
+
+    .photo-fan-2 {
+      rotate: 6deg;
+    }
+  }
+
   /* --- ヒーローの写真。既定は1枚目だけ表示する --- */
   .hero-slide {
     position: absolute;

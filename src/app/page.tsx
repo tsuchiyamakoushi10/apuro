@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { PanelSection, Section, SectionHead } from "@/components/Section";
-import { Eyebrow, Picture, Pill } from "@/components/ui";
+import { Eyebrow, Picture, PictureBack, Pill } from "@/components/ui";
 import { copy, site } from "@/config/site";
 import { cases, topFeatures } from "@/content/service";
 
@@ -86,7 +86,18 @@ export default function HomePage() {
 
       <Section>
         <div className="wrap grid grid-cols-[440px_1fr] items-center gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px]">
+          {/* 後ろの2枚は角度だけ変えて同じ枠に重ねる。主写真より先に置いて下に敷く */}
           <div className="reveal relative">
+            <PictureBack
+              src="/images/staff-team.jpg"
+              sizes="(max-width: 960px) 100vw, 440px"
+              className="photo-fan-2 rounded-panel"
+            />
+            <PictureBack
+              src="/images/staff-office.jpg"
+              sizes="(max-width: 960px) 100vw, 440px"
+              className="photo-fan-1 rounded-panel"
+            />
             <Picture
               src="/images/representative-visit.jpg"
               alt={`利用者宅で聴診する代表の${site.representative}`}
