@@ -10,17 +10,6 @@ export const metadata: Metadata = {
     "アプロ訪問看護ステーションのミッション・ビジョン・バリュー、代表挨拶、会社概要。国分寺市を中心に、こころの不調から在宅療養、看取りまでを担います。",
 };
 
-/** 見出しの下に並べる3枚。訪問・事務所・事業所の前で場面を散らす */
-const headerPhotos = [
-  {
-    src: "/images/hero-02-visit.jpg",
-    alt: "利用者の体調を確かめる看護師",
-    position: "center 32%",
-  },
-  { src: "/images/staff-office.jpg", alt: "事務所で記録を確認するスタッフ", position: "center 42%" },
-  { src: "/images/staff-team.jpg", alt: "事業所の前に立つスタッフ2名", position: "center 40%" },
-];
-
 const photoClass = "h-[400px] rounded-panel max-[960px]:h-[230px]";
 const photoSizes = "(max-width: 960px) 100vw, 360px";
 
@@ -83,19 +72,6 @@ export default function AboutPage() {
           </p>
         }
       />
-
-      <div className="wrap mt-[60px] grid grid-cols-3 gap-6 max-[960px]:mt-8 max-[960px]:gap-3">
-        {headerPhotos.map((photo) => (
-          <Picture
-            key={photo.src}
-            src={photo.src}
-            alt={photo.alt}
-            sizes="(max-width: 960px) 32vw, 360px"
-            position={photo.position}
-            className="reveal h-[260px] rounded-panel max-[960px]:h-[110px] max-[960px]:rounded-card"
-          />
-        ))}
-      </div>
 
       <Section id="philosophy">
         <div className="wrap">
