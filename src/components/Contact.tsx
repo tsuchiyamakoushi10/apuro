@@ -15,11 +15,7 @@ export function Contact({ id = "contact" }: { id?: string }) {
           <TelCard label="お電話でのご相談" note={`${site.hours}／${site.oncall}`} />
 
           {/* 3列に並ぶので説明文は置かず、見出しと矢印だけにする */}
-          <FormCard
-            href={site.forms.contact}
-            ready={!isTbd(site.forms.contact)}
-            label="お問い合わせフォーム"
-          />
+          <FormCard href={site.forms.contact} ready={!isTbd(site.forms.contact)} label="お問い合わせ" />
 
           <FormCard href={site.forms.recruit} ready={!isTbd(site.forms.recruit)} label="採用エントリー" />
         </div>
@@ -39,12 +35,14 @@ export function Contact({ id = "contact" }: { id?: string }) {
 }
 
 /**
- * カードは3枚とも同じ作り。3列に収めるため、左右の余白は 46px から 32px に、
+ * カードは3枚とも同じ骨格。3列に収めるため、左右の余白は 46px から 32px に、
  * 見出しは 1.4375rem から 1.1875rem（特徴・こんなときにのカードと同じ目盛り）に落とした。
  * 「お電話でのご相談」が矢印に押されて2行に折れるため
  */
-const cardClass =
-  "contact-card reveal flex items-center justify-between gap-4 rounded-card bg-mist px-8 py-9 max-[960px]:px-7 max-[960px]:py-8";
+const cardBase = "reveal flex items-center gap-4 rounded-card px-8 py-9 max-[960px]:px-7 max-[960px]:py-8";
+
+/** 電話は番号を読ませる面なので淡いまま。フォームは押す先なので、青ベタのボタンとして置く */
+const telCardClass = `${cardBase} contact-card justify-between bg-mist`;
 
 /**
  * アクセス。Googleマップの埋め込み。
@@ -113,7 +111,7 @@ function Access() {
 /** 電話のカード。TOP・事業紹介のご相談と、採用の応募窓口で同じものを使う */
 export function TelCard({ label, note }: { label: string; note: string }) {
   return (
-    <a className={cardClass} href={site.telHref}>
+    <a className={telCardClass} href={site.telHref}>
       <span>
         <span className="block font-heading text-[1.1875rem] leading-[1.6] text-blue-ink">{label}</span>
         {/* 3列に入れるため、2列だった頃の 1.875rem から一段落としている */}
@@ -139,10 +137,11 @@ export function FormCard({
 }) {
   const inner = (
     <>
-      <span>
-        <span className="block font-heading text-[1.1875rem] leading-[1.6] text-blue-ink">{label}</span>
+      <span className={lines ? "" : "text-center"}>
+        <span className="block font-heading text-[1.1875rem] leading-[1.6]">{label}</span>
+        {/* 青ベタの上なので、補足も白のまま置く（blue-soft だとコントラストが足りない） */}
         {lines ? (
-          <span className="mt-2 block text-[0.84375rem] text-ink-muted">
+          <span className="mt-2 block text-[0.84375rem]">
             {lines.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -150,14 +149,20 @@ export function FormCard({
             ))}
           </span>
         ) : null}
-        {!ready ? <span className="tbd mt-2 block text-[0.84375rem]">{href}</span> : null}
+        {!ready ? <span className="tbd-light mt-2 block text-[0.84375rem]">{href}</span> : null}
       </span>
-      {ready ? <Arrow /> : null}
+      {ready ? <Arrow tone="light" /> : null}
     </>
   );
 
+  // 補足を持たない窓口は見出しと矢印を中央に寄せて、面ごとボタンに見せる。
   // 未確定のうちはリンクにならないため、ホバーの反応も付けない
-  const className = ready ? cardClass : cardClass.replace("contact-card ", "");
+  const className = [
+    cardBase,
+    "bg-blue text-white",
+    lines ? "justify-between" : "justify-center",
+    ready ? "contact-card-solid" : "",
+  ].join(" ");
 
   // URL が未確定のうちはリンクにしない
   if (!ready) return <div className={className}>{inner}</div>;
@@ -170,11 +175,14 @@ export function FormCard({
   );
 }
 
-function Arrow() {
+/** 青ベタのカードの上では白丸に青の矢印で抜く */
+function Arrow({ tone = "solid" }: { tone?: "solid" | "light" }) {
+  const face = tone === "light" ? "bg-white after:border-blue" : "bg-blue after:border-white";
+
   return (
     <span
       aria-hidden="true"
-      className="arrow relative h-[52px] w-[52px] flex-shrink-0 rounded-full bg-blue after:absolute after:left-[45%] after:top-1/2 after:h-2 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:border-white after:content-['']"
+      className={`arrow relative h-[52px] w-[52px] flex-shrink-0 rounded-full ${face} after:absolute after:left-[45%] after:top-1/2 after:h-2 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:content-['']`}
     />
   );
 }

@@ -253,6 +253,12 @@
     border-bottom: 1px dotted var(--color-blue);
   }
 
+  /* 色を敷いた面の上の未確定値 */
+  .tbd-light {
+    color: #fff;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.6);
+  }
+
   /* 本文の箇条書き。マーカーは共通モチーフ */
   .marker-list {
     list-style: none;
@@ -320,6 +326,23 @@
 
   .contact-card:hover .arrow {
     background: var(--color-blue-deep);
+  }
+
+  /* --- フォームの窓口は青ベタのボタン。面の色と矢印だけ動かす --- */
+  .contact-card-solid {
+    transition: background-color 0.25s ease;
+  }
+
+  .contact-card-solid:hover {
+    background: var(--color-blue-deep);
+  }
+
+  .contact-card-solid .arrow {
+    transition: background-color 0.25s ease;
+  }
+
+  .contact-card-solid:hover .arrow {
+    background: var(--color-blue-soft);
   }
 
   /* --- カード。浮き上がらせず、写真の寄りと見出しの色で反応させる --- */
