@@ -14,9 +14,9 @@ export const site = {
   representative: "見須 清史",
 
   address: "〒185-0011 東京都国分寺市本多5丁目13-14",
+  access: "国分寺駅 徒歩10分",
 
   // --- 未確定 ---
-  access: `${TBD}最寄駅 徒歩◯分`,
 
   tel: "042-312-2992",
   telHref: "tel:0423122992",

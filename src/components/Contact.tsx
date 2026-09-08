@@ -14,22 +14,14 @@ export function Contact({ id = "contact" }: { id?: string }) {
         <div className="grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
           <TelCard label="お電話でのご相談" note={`${site.hours}／${site.oncall}`} />
 
+          {/* 3列に並ぶので説明文は置かず、見出しと矢印だけにする */}
           <FormCard
             href={site.forms.contact}
             ready={!isTbd(site.forms.contact)}
             label="お問い合わせフォーム"
-            lines={[
-              "24時間受付／2〜3営業日以内にご返信します",
-              "ご本人・ご家族・ケアマネジャーの方、どなたからでも",
-            ]}
           />
 
-          <FormCard
-            href={site.forms.recruit}
-            ready={!isTbd(site.forms.recruit)}
-            label="採用エントリー"
-            lines={["24時間受付／2〜3営業日以内にご返信します", "ご質問だけのご連絡でも構いません"]}
-          />
+          <FormCard href={site.forms.recruit} ready={!isTbd(site.forms.recruit)} label="採用エントリー" />
         </div>
 
         <p className="mx-auto mt-6 text-center text-[0.84375rem] text-ink-muted">
@@ -142,19 +134,22 @@ export function FormCard({
   href: string;
   ready: boolean;
   label: string;
-  lines: string[];
+  /** 補足。TOP・事業紹介のご相談は3列に並ぶため渡さない */
+  lines?: string[];
 }) {
   const inner = (
     <>
       <span>
         <span className="block font-heading text-[1.1875rem] leading-[1.6] text-blue-ink">{label}</span>
-        <span className="mt-2 block text-[0.84375rem] text-ink-muted">
-          {lines.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
-        </span>
+        {lines ? (
+          <span className="mt-2 block text-[0.84375rem] text-ink-muted">
+            {lines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </span>
+        ) : null}
         {!ready ? <span className="tbd mt-2 block text-[0.84375rem]">{href}</span> : null}
       </span>
       {ready ? <Arrow /> : null}
