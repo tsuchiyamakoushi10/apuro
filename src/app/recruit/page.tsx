@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FormCard } from "@/components/Contact";
+import { FormCard, TelCard } from "@/components/Contact";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
 import { Lines, Paragraphs, Photo } from "@/components/ui";
 import { copy, isTbd, recruitRequirementsReady, site } from "@/config/site";
@@ -250,20 +250,7 @@ export default function RecruitPage() {
               label="応募フォーム"
               lines={["24時間受付／2〜3営業日以内にご返信します", "ご質問だけのご連絡でも構いません"]}
             />
-            <a
-              className="flex items-center justify-between gap-5 rounded-card bg-mist px-[46px] py-11 max-[960px]:px-7 max-[960px]:py-8"
-              href={site.telHref}
-            >
-              <span>
-                <span className="block font-heading text-[1.4375rem] text-blue-ink">お電話でのお問い合わせ</span>
-                <span className="block font-en text-[1.875rem] leading-[1.3] text-blue-ink">{site.tel}</span>
-                <span className="mt-1 block text-[0.84375rem] text-ink-muted">{site.hours}</span>
-              </span>
-              <span
-                aria-hidden="true"
-                className="relative h-[52px] w-[52px] flex-shrink-0 rounded-full bg-blue after:absolute after:left-[45%] after:top-1/2 after:h-2 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:border-white after:content-['']"
-              />
-            </a>
+            <TelCard label="お電話でのお問い合わせ" note={site.hours} />
           </div>
           <p className="mt-6 text-center text-[0.84375rem] text-ink-muted">
             募集者：{site.company}（{site.name}）

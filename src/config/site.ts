@@ -53,6 +53,12 @@ export const site = {
     recruit: `${TBD}採用応募フォームURL`,
   },
 
+  // アクセスマップ。移転後の住所が確定してから入れる。
+  // Googleマップで事業所を出す → 共有 → 地図を埋め込む → iframe の src をそのまま貼る。
+  // mapLink は同じ画面の「リンクを送信する」で出る短縮URL
+  mapEmbedSrc: `${TBD}Googleマップの埋め込みURL`,
+  mapLink: `${TBD}GoogleマップのURL`,
+
   // 募集要項。確定するまで /recruit の該当セクションは公開しない。
   // 数字は06シートが正。求人3媒体と一致させること。
   recruit: {
