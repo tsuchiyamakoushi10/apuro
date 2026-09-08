@@ -49,7 +49,8 @@ export function Header() {
       {/* 1300px 未満ではナビゲーションと電話番号が1行に収まらないため隠し、
           代わりに JavaScript なしの開閉メニューを出す。電話番号もこの中に入れてある */}
       <details className="group hidden border-t border-blue-soft max-[1300px]:block">
-        <summary className="wrap flex cursor-pointer list-none items-center justify-between py-3 font-en text-[0.84375rem] tracking-[0.16em] text-blue [&::-webkit-details-marker]:hidden">
+        {/* ▼はMENUの隣に置く。両端に振ると別のものに見えて、開閉のしるしだと分からなくなる */}
+        <summary className="wrap flex cursor-pointer list-none items-center gap-2.5 py-3.5 font-en text-[0.84375rem] tracking-[0.16em] text-blue [&::-webkit-details-marker]:hidden">
           MENU
           <span
             aria-hidden="true"
