@@ -137,12 +137,9 @@ export default function HomePage() {
           <div className="reveal">
             <Eyebrow className="!text-paper">Features</Eyebrow>
             <h2 className="text-paper">アプロの特徴</h2>
-            <p className="mb-8 mt-5 text-[0.9375rem] text-[rgba(255,255,255,0.82)]">
+            <p className="mt-5 text-[0.9375rem] text-[rgba(255,255,255,0.82)]">
               在宅で対応できる範囲であれば、お断りするケースは基本的にありません。まずお受けして、そこから考えます。
             </p>
-            <Pill href="/service" variant="light">
-              事業紹介を見る
-            </Pill>
           </div>
 
           <ul className="mt-[52px] grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1">
@@ -168,6 +165,14 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+
+          {/* 3枚は6項目の抜粋なので、カードを読んだあとに /service へ送る。
+              見出しとカードのあいだと同じ間隔をあける */}
+          <p className="reveal mt-[52px] max-[960px]:mt-9">
+            <Pill href="/service" variant="light">
+              事業紹介を見る
+            </Pill>
+          </p>
         </div>
       </section>
 
