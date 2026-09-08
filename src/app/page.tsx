@@ -8,6 +8,10 @@ import { cases, topFeatures } from "@/content/service";
 const aboutLead =
   "アプロ訪問看護ステーションは、国分寺市を中心に、こころの不調を抱えた方への訪問看護から高齢者の在宅療養、そして看取りまでを担う訪問看護ステーションです。どんな状況の方でも、まずはご相談ください。";
 
+/** 05・06シートの働き方・人物像から拾った概要。採用キャッチは /recruit の h1 に置いてある */
+const recruitLead =
+  "1日4件を基準に、必要な看護を必要なだけ届ける働き方をつくっています。国分寺・小金井・小平で、一緒に働く看護師を探しています。訪問看護が初めての方も受け入れています。";
+
 /**
  * ヒーローの写真。3枚を18秒で1周する（docs/spec.md 5章）。
  * prefers-reduced-motion のときは1枚目のまま動かない。
@@ -201,14 +205,8 @@ export default function HomePage() {
         <div className="wrap-panel grid grid-cols-[1fr_400px] items-center gap-[72px] max-[960px]:grid-cols-1 max-[960px]:gap-[34px] max-[960px]:px-6">
           <div className="reveal py-[100px] max-[960px]:pb-0 max-[960px]:pt-[60px]">
             <Eyebrow className="!text-sand">Recruit</Eyebrow>
-            <h2 className="text-[1.875rem] text-paper max-[960px]:text-[1.375rem]">
-              {copy.recruitHeadline.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h2>
-            <p className="mb-[30px] mt-5 text-[0.9375rem] text-[rgba(255,255,255,0.75)]">{copy.recruitSub}</p>
+            <h2 className="text-paper">採用情報</h2>
+            <p className="mb-[30px] mt-5 text-[0.9375rem] text-[rgba(255,255,255,0.75)]">{recruitLead}</p>
             <Pill href="/recruit" variant="sand">
               採用情報を見る
             </Pill>
