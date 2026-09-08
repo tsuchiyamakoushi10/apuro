@@ -1,4 +1,4 @@
-clau# CLAUDE.md
+clau 〒185-0011 東京都国分寺市本多５丁目１３−１４# CLAUDE.md
 
 アプロ訪問看護ステーション コーポレートサイト。
 このファイルはClaude Codeへの指示書。作業前に必ず `docs/spec.md` と `docs/reference/top-mockup-v3.html` を読むこと。
@@ -112,7 +112,9 @@ h3 は 19px を 23px に、h2 は 29px を 30px にした。
 代表挨拶の本文は `docs/代表挨拶原稿.md`（クライアント確認待ち）。
 
 問い合わせ（`Contact`）の窓口は3つ。お電話でのご相談・お問い合わせフォーム・採用エントリー。
-その下にGoogleマップのアクセスマップを置く。移転後の住所が確定するまで埋め込みURLが出せないため、
+その下にGoogleマップのアクセスマップを置く。埋め込みは住所のクエリ（`site.mapEmbedSrc`）で、APIキーは要らない。
+**`next.config.ts` の CSP に `frame-src` を足してあること。** 既定が `default-src 'self'` なので、
+通さないと地図が無言で読み込まれない（エラーも出ない）。
 `site.mapEmbedSrc` が `【調整中】` のあいだは写真と同じプレースホルダの枠を出す。
 地図を入れるとGoogleへの通信が発生するので、プライバシーポリシーの「4. 外部サービスの利用」に書いてある。
 `Contact` はTOPと `/service`。`/recruit` の応募窓口も同じ `TelCard` / `FormCard` を使う。

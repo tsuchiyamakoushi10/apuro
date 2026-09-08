@@ -13,8 +13,9 @@ export const site = {
   company: "株式会社AD3K",
   representative: "見須 清史",
 
+  address: "〒185-0011 東京都国分寺市本多5丁目13-14",
+
   // --- 未確定 ---
-  address: `${TBD}移転後の住所`,
   access: `${TBD}最寄駅 徒歩◯分`,
 
   tel: "042-312-2992",
@@ -53,11 +54,15 @@ export const site = {
     recruit: `${TBD}採用応募フォームURL`,
   },
 
-  // アクセスマップ。移転後の住所が確定してから入れる。
-  // Googleマップで事業所を出す → 共有 → 地図を埋め込む → iframe の src をそのまま貼る。
-  // mapLink は同じ画面の「リンクを送信する」で出る短縮URL
-  mapEmbedSrc: `${TBD}Googleマップの埋め込みURL`,
-  mapLink: `${TBD}GoogleマップのURL`,
+  // アクセスマップ。住所のクエリで地図を出す。APIキーは要らない。
+  // Google 側で /maps/embed?pb=... の正式な埋め込みURLへ転送される。
+  // ピンの位置を細かく決めたいときは、Googleマップの「共有 → 地図を埋め込む」で出る
+  // iframe の src をそのまま mapEmbedSrc に貼り替える。
+  // 丁目のない 5-13-14 の表記で引いている。5丁目13-14 だと番地まで寄らないことがあるため
+  mapEmbedSrc:
+    "https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%9B%BD%E5%88%86%E5%AF%BA%E5%B8%82%E6%9C%AC%E5%A4%9A5-13-14&z=17&hl=ja&output=embed",
+  mapLink:
+    "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%9B%BD%E5%88%86%E5%AF%BA%E5%B8%82%E6%9C%AC%E5%A4%9A5-13-14",
 
   // 募集要項。確定するまで /recruit の該当セクションは公開しない。
   // 数字は06シートが正。求人3媒体と一致させること。

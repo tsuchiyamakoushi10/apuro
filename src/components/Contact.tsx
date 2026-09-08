@@ -56,7 +56,7 @@ const cardClass =
 
 /**
  * アクセス。Googleマップの埋め込み。
- * 移転後の住所が確定するまで埋め込みURLが出せないため、それまでは枠だけ出す。
+ * 埋め込みURLが未確定のあいだは枠だけ出す。
  */
 function Access() {
   const mapReady = !isTbd(site.mapEmbedSrc);
@@ -84,7 +84,7 @@ function Access() {
             aria-label="地図は準備中です"
           >
             <span aria-hidden="true">
-              Googleマップ｜移転後の住所が確定してから入れる
+              Googleマップ｜埋め込みURLが入り次第、地図に切り替わる
               <span className="tbd mt-2 block">{site.mapEmbedSrc}</span>
             </span>
           </div>

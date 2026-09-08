@@ -10,6 +10,11 @@ const csp = [
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'self'",
+  // アクセスマップのGoogleマップ埋め込み。maps.google.com は www.google.com へ転送されるので両方要る。
+  // 既定は default-src の 'self' で、指定しないと地図が無言で読み込まれない。
+  // 地図の中の通信（maps.googleapis.com など）はGoogle側のCSPで、こちらの指定は要らない。
+  // Permissions-Policy で geolocation を切ってあるため「現在地」は動かない。地図の表示には要らない
+  "frame-src 'self' https://www.google.com https://maps.google.com",
   "img-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
