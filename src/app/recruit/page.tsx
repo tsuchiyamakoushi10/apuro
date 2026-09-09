@@ -59,6 +59,20 @@ function Disclosure({
   );
 }
 
+/**
+ * 節の中の小見出しと中身。小見出しを左の列に出す。
+ * 開閉の見出しと大きさだけで分けると、どちらが束ねる側か分からないため。
+ * 960px以下は1カラムに落として、小見出しを上に置く
+ */
+function Group({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="mt-16 grid grid-cols-[200px_1fr] items-baseline gap-[64px] max-[960px]:mt-12 max-[960px]:grid-cols-1 max-[960px]:gap-4">
+      <h3>{title}</h3>
+      <div>{children}</div>
+    </div>
+  );
+}
+
 export default function RecruitPage() {
   const formReady = !isTbd(site.forms.recruit);
 
@@ -105,42 +119,48 @@ export default function RecruitPage() {
             <Paragraphs text={philosophy} />
           </div>
 
-          <h3 className="mt-16 max-[960px]:mt-12">働き方</h3>
-          <div className="mt-6 border-t border-blue-soft">
-            {workStyle.map((item) => (
-              <Disclosure key={item.title} title={item.title}>
-                <Paragraphs text={item.body} className="text-[0.9375rem]" />
-              </Disclosure>
-            ))}
-          </div>
+          {/* 小見出しは左の列に出す。開閉の見出し（19px）と大きさだけで分けると、
+              どちらが束ねる側か分からない。列を分ければ位置で分かる。
+              列幅は /about のミッションや会社概要と同じ 200px */}
+          <Group title="働き方">
+            <div className="border-t border-blue-soft">
+              {workStyle.map((item) => (
+                <Disclosure key={item.title} title={item.title}>
+                  <Paragraphs text={item.body} className="text-[0.9375rem]" />
+                </Disclosure>
+              ))}
+            </div>
+          </Group>
 
-          <h3 className="mt-16 max-[960px]:mt-12">教育・研修</h3>
-          <div className="mt-6 border-t border-blue-soft">
-            {education.map((item) => (
-              <Disclosure key={item.title} title={item.title}>
-                <Paragraphs text={item.body} className="text-[0.9375rem]" />
-              </Disclosure>
-            ))}
-          </div>
+          <Group title="教育・研修">
+            <div className="border-t border-blue-soft">
+              {education.map((item) => (
+                <Disclosure key={item.title} title={item.title}>
+                  <Paragraphs text={item.body} className="text-[0.9375rem]" />
+                </Disclosure>
+              ))}
+            </div>
+          </Group>
 
-          <h3 className="mt-16 max-[960px]:mt-12">求める人物像</h3>
-          <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-4">
-            {persona.map((group) => (
-              <div
-                key={group.title}
-                className="reveal rounded-card border border-blue-soft p-8 max-[960px]:p-6"
-              >
-                <h4 className="font-heading text-[1.1875rem] font-medium text-blue-ink">
-                  {group.title}
-                </h4>
-                <ul className="marker-list mt-4 text-[0.9375rem]">
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <Group title="求める人物像">
+            <div className="grid grid-cols-2 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-4">
+              {persona.map((group) => (
+                <div
+                  key={group.title}
+                  className="reveal rounded-card border border-blue-soft p-8 max-[960px]:p-6"
+                >
+                  <h4 className="font-heading text-[1.1875rem] font-medium text-blue-ink">
+                    {group.title}
+                  </h4>
+                  <ul className="marker-list mt-4 text-[0.9375rem]">
+                    {group.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Group>
 
           {/* 応募の前に読んでおいてほしい内容。面で色を敷かず、罫線のカードで置く。
               すぐ下に福利厚生の淡い面が来るので、ここを淡い面にすると面が続いて見える */}
