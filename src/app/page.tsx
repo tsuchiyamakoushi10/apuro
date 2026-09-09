@@ -108,10 +108,6 @@ export default function HomePage() {
               sizes="(max-width: 960px) 100vw, 440px"
               className="h-[400px] rounded-panel max-[960px]:h-[230px]"
             />
-            <span
-              aria-hidden="true"
-              className="absolute -right-[22px] -top-[22px] h-24 w-24 rounded-[50%_50%_0_50%] bg-blue-soft"
-            />
           </div>
           <div className="reveal">
             <SectionHead

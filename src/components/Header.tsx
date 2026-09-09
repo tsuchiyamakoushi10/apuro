@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav, site } from "@/config/site";
+import { MobileMenu } from "./MobileMenu";
 import { Pill } from "./ui";
 
 function Logo({ className = "" }: { className?: string }) {
@@ -46,34 +47,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* 1300px 未満ではナビゲーションと電話番号が1行に収まらないため隠し、
-          代わりに JavaScript なしの開閉メニューを出す。電話番号もこの中に入れてある */}
-      <details className="group hidden border-t border-blue-soft max-[1300px]:block">
-        {/* MENUと▼はひとまとまりで右端に置く。両端に振ると別のものに見えて、開閉のしるしだと分からなくなる */}
-        <summary className="wrap flex cursor-pointer list-none items-center justify-end gap-2.5 py-3.5 font-en text-[0.84375rem] tracking-[0.16em] text-blue [&::-webkit-details-marker]:hidden">
-          MENU
-          <span
-            aria-hidden="true"
-            className="h-[7px] w-[7px] rotate-135 border-r-[1.5px] border-t-[1.5px] border-blue transition-transform group-open:rotate-[315deg]"
-          />
-        </summary>
-        <nav aria-label="メインナビゲーション（モバイル）" className="wrap pb-5">
-          <ul className="marker-list text-[0.9375rem]">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="block py-1">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <a href={site.telHref} className="block py-1">
-                お電話でのご相談 {site.tel}
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </details>
+      <MobileMenu />
     </header>
   );
 }
