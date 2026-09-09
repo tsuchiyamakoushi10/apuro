@@ -120,8 +120,8 @@ export const copy = {
     "理由があります。",
   ],
   recruitSub: "件数ではなく、その人を見る訪問看護。国分寺・小金井・小平で、一緒に働く看護師を探しています。",
-  // 代表挨拶の見出し（A・B・C案から選択待ち）
-  greetingHeadline: `${TBD}代表挨拶の見出し（A・B・C案から選択）`,
+  // 代表挨拶の見出し。docs/代表挨拶原稿.md のB案（クライアント選択）
+  greetingHeadline: "病院から溢れてしまう人が、確かにいます。",
 } as const;
 
 export const nav = [

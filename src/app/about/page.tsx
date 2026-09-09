@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
 import { ValueIcon } from "@/components/icons";
-import { Eyebrow, Paragraphs, Photo, Picture, Tbd } from "@/components/ui";
+import { Eyebrow, Paragraphs, Picture, Tbd } from "@/components/ui";
 import { copy, site } from "@/config/site";
 import { greeting, mission, values, valueAxis, vision } from "@/content/about";
 
@@ -29,13 +29,13 @@ export default function AboutPage() {
       {/* メインビジュアル。ページで使う写真はこの1枚と代表挨拶だけ（参照サイトと同じ）。
           TOPのヒーローと同じ全幅・下だけ角丸。写真はヒーローの3枚と別のものにする。
           高さは幅に追従させる（固定にすると広い画面ほど帯が細くなり、上下が落ちて顔が切れる）。
-          3:2 を横長に切るので上が落ちる。24% は 2560px でも頭が切れない位置。
+          3:2 を横長に切るので上が落ちる。16% は 2560px でも2人の頭が切れない位置。
           写真を差し替えたら測り直すこと */}
       <Picture
-        src="/images/staff-team.jpg"
-        alt="事業所の前に立つスタッフ2名"
+        src="/images/representative-talk.jpg"
+        alt={`利用者宅で話をしながら体調を確認する代表の${site.representative}`}
         sizes="100vw"
-        position="center 24%"
+        position="center 16%"
         priority
         className="h-[clamp(320px,30vw,560px)] rounded-b-panel max-[960px]:h-[240px]"
       />
@@ -123,7 +123,12 @@ export default function AboutPage() {
       <Section id="greeting" className="!pt-0">
         <div className="wrap grid grid-cols-[360px_1fr] items-start gap-[64px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
           <div className="sticky top-[150px] max-[960px]:static">
-            <Photo caption="写真｜代表 見須 清史" className={photoClass} />
+            <Picture
+              src="/images/representative-portrait.jpg"
+              alt={`事業所の前に立つ代表の${site.representative}`}
+              sizes="(max-width: 960px) 100vw, 360px"
+              className={photoClass}
+            />
           </div>
           <div>
             <SectionHead eyebrow="Message" heading={<Tbd value={copy.greetingHeadline} />} />
