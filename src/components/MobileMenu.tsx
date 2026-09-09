@@ -28,13 +28,14 @@ function FormPill({ href, label }: { href: string; label: string }) {
   const ready = !isTbd(href);
   /* 文字は 19px。15px だと面の高さに対して小さく、ボタンだけ太って見える */
   const className =
-    "block rounded-full bg-paper px-6 py-4 text-center font-heading text-[1.1875rem] leading-[1.5] text-blue";
+    "block rounded-full bg-paper px-6 py-3 text-center font-heading text-[1.1875rem] leading-[1.5] text-blue";
 
   if (!ready) {
     return (
-      <span className={className}>
-        {label}
-        <span className="tbd-light mt-1 block text-[0.8125rem]">{href}</span>
+      /* 未確定の印はボタンの外に出す。中に入れると文字が上に寄り、ボタンも太くなる */
+      <span className="block">
+        <span className={className}>{label}</span>
+        <span className="tbd-light mt-1.5 block text-center text-[0.8125rem]">{href}</span>
       </span>
     );
   }
