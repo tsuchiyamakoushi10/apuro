@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
 import { Contact } from "@/components/Contact";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
-import { Lines, Paragraphs, Picture } from "@/components/ui";
+import { ServiceIcon } from "@/components/icons";
+import { Eyebrow, Paragraphs, Picture } from "@/components/ui";
 import { site } from "@/config/site";
-import {
-  acceptance,
-  cases,
-  features,
-  flow,
-  oncall,
-  overviewLead,
-  treatment,
-  whatWeDo,
-} from "@/content/service";
+import { cases, features, flow, oncall, overviewLead, treatment, whatWeDo } from "@/content/service";
 
 export const metadata: Metadata = {
   title: "事業紹介",
@@ -23,6 +15,18 @@ export const metadata: Metadata = {
 export default function ServicePage() {
   return (
     <>
+      {/* メインビジュアル。/about と同じ置き方。写真はページごとに変える。
+          3:2 を横長に切るので上が落ちる。20% は 2560px でも2人の頭が切れない位置。
+          写真を差し替えたら測り直すこと */}
+      <Picture
+        src="/images/hero-02-visit.jpg"
+        alt="利用者宅で体調を確認する看護師"
+        sizes="100vw"
+        position="center 20%"
+        priority
+        className="h-[clamp(320px,30vw,560px)] rounded-b-panel max-[960px]:h-[240px]"
+      />
+
       <PageHeader
         eyebrow="Service"
         title={
@@ -33,55 +37,69 @@ export default function ServicePage() {
         }
       />
 
+      {/* 概要は写真を持たない。ページの写真はメインビジュアルと特徴の4枚 */}
       <Section id="overview">
-        <div className="wrap grid grid-cols-[1fr_400px] items-center gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
-          <div>
-            <SectionHead eyebrow="Overview" heading="サービス概要" />
-            <div className="mt-6">
-              <Paragraphs text={overviewLead} />
-            </div>
+        <div className="wrap">
+          <SectionHead eyebrow="Overview" heading="サービス概要" />
+          <div className="mt-6">
+            <Paragraphs text={overviewLead} />
           </div>
-          <Picture
-            src="/images/hero-02-visit.jpg"
-            alt="利用者宅で体調を確認する看護師"
-            sizes="(max-width: 960px) 100vw, 400px"
-            className="h-[360px] rounded-panel max-[960px]:h-[230px]"
-          />
         </div>
       </Section>
 
+      {/* こんなときに。3枚とも項目を出すと縦に長くなるので、PCは要約だけ見せ、
+          カーソルを当てたカードだけ項目に入れ替える（`.case-card` / globals.css）。
+          960px以下はカーソルがないので、はじめから項目を出す */}
       <PanelSection id="cases" tone="mist">
         <div className="wrap-panel max-[960px]:px-6">
           <SectionHead eyebrow="Support" heading="こんなときに、ご相談ください" />
-          <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:grid-cols-1">
+          <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1">
             {cases.map((c) => (
-              <div key={c.id} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
-                <h3>
+              <div key={c.id} className="case-card reveal rounded-card bg-paper p-8 max-[960px]:p-6">
+                <h3 className="text-[1.1875rem]">
                   {c.title.map((line) => (
                     <span key={line} className="block">
                       {line}
                     </span>
                   ))}
                 </h3>
-                <ul className="marker-list mt-5 text-[0.9375rem] text-ink-muted">
-                  {c.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+
+                <div className="case-summary">
+                  <div>
+                    <p className="mt-4 text-[0.9375rem] text-ink-muted">{c.summary}</p>
+                  </div>
+                </div>
+
+                <div className="case-items">
+                  <div>
+                    <ul className="marker-list mt-4 text-[0.9375rem] text-ink-muted">
+                      {c.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </PanelSection>
 
+      {/* 私たちが行うこと。項目ごとにアイコンを左に置く */}
       <Section id="what-we-do">
         <div className="wrap">
           <SectionHead eyebrow="What we do" heading="私たちが行うこと" />
-          <ul className="mt-12 grid list-none grid-cols-2 gap-x-16 gap-y-8 max-[960px]:grid-cols-1 max-[960px]:gap-y-6">
+          <ul className="mt-12 grid list-none grid-cols-2 gap-x-16 gap-y-8 max-[960px]:mt-9 max-[960px]:grid-cols-1 max-[960px]:gap-y-6">
             {whatWeDo.map((item) => (
-              <li key={item.title} className="reveal border-t border-blue-soft pt-5">
-                <h3 className="text-[1.1875rem]">{item.title}</h3>
-                <p className="mt-1 text-[0.9375rem] text-ink-muted">{item.body}</p>
+              <li
+                key={item.id}
+                className="reveal grid grid-cols-[48px_1fr] items-start gap-5 border-t border-blue-soft pt-5"
+              >
+                <ServiceIcon id={item.id} />
+                <div>
+                  <h3 className="text-[1.1875rem]">{item.title}</h3>
+                  <p className="mt-1 text-[0.9375rem] text-ink-muted">{item.body}</p>
+                </div>
               </li>
             ))}
           </ul>
@@ -121,19 +139,9 @@ export default function ServicePage() {
         </div>
       </Section>
 
-      {/* 受け入れについて。独立ブロックで置く */}
-      <PanelSection id="acceptance" tone="blue">
-        <div className="wrap-panel max-[960px]:px-6">
-          <Lines
-            text={acceptance}
-            reflow
-            className="max-w-[30em] font-heading text-[1.875rem] leading-[1.75] text-paper max-[960px]:text-[1.1875rem]"
-          />
-        </div>
-      </PanelSection>
-
-      <Section id="oncall">
-        <div className="wrap grid grid-cols-2 gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
+      {/* 24時間対応と医療処置。白が続くので淡い面に乗せる */}
+      <PanelSection id="oncall" tone="mist">
+        <div className="wrap-panel grid grid-cols-2 gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8 max-[960px]:px-6">
           <div>
             <SectionHead eyebrow="24 hours" heading="24時間対応" />
             <div className="mt-6">
@@ -147,39 +155,45 @@ export default function ServicePage() {
             </div>
           </div>
         </div>
-      </Section>
+      </PanelSection>
 
-      <PanelSection id="areas" tone="mist">
+      {/* 対応エリア。市を共通モチーフの面で並べ、横線でつないで図にする。
+          青ベタ面はページでここだけ。受け入れの一文を外したぶんの青をここで戻している */}
+      <PanelSection id="areas" tone="blue">
         <div className="wrap-panel max-[960px]:px-6">
-          <SectionHead eyebrow="Area" heading="対応エリア" />
-          <ul className="mt-8 flex list-none flex-wrap gap-3">
+          <Eyebrow className="!text-paper">Area</Eyebrow>
+          <h2 className="text-paper">対応エリア</h2>
+
+          <ul className="area-map mt-12 grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:gap-3">
             {site.areas.map((area) => (
-              <li
-                key={area}
-                className="rounded-full bg-paper px-7 py-3 font-heading text-[0.9375rem] text-blue-ink"
-              >
-                {area}
+              <li key={area} className="reveal flex justify-center">
+                <span className="area-mark">{area}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-[0.9375rem] text-ink-muted">{site.areaNote}</p>
+
+          <p className="mx-auto mt-9 text-center text-[0.9375rem] text-[rgba(255,255,255,0.82)] max-[960px]:mt-7">
+            {site.areaNote}
+          </p>
         </div>
       </PanelSection>
 
+      {/* ご利用までの流れ。番号を共通モチーフの面に入れ、縦線でつないで図にする */}
       <Section id="flow">
         <div className="wrap">
           <SectionHead eyebrow="Flow" heading="ご利用までの流れ" />
-          <div className="mt-12 grid grid-cols-2 gap-16 max-[960px]:grid-cols-1 max-[960px]:gap-10">
+          <div className="mt-12 grid grid-cols-2 gap-16 max-[960px]:mt-9 max-[960px]:grid-cols-1 max-[960px]:gap-10">
             {flow.map((group) => (
               <div key={group.title}>
-                <h3>{group.title}</h3>
-                <ol className="mt-6 list-none">
+                <h3 className="text-[1.1875rem]">{group.title}</h3>
+                <ol className="mt-7 list-none">
                   {group.steps.map((step, i) => (
-                    <li key={step} className="grid grid-cols-[46px_1fr] items-start gap-2 pb-6">
-                      <span className="font-en text-[0.875rem] tracking-[0.12em] text-blue">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[0.9375rem]">{step}</span>
+                    <li
+                      key={step}
+                      className="flow-step grid grid-cols-[52px_1fr] items-start gap-4 pb-8 last:pb-0"
+                    >
+                      <span className="flow-no">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="pt-1.5 text-[0.9375rem]">{step}</span>
                     </li>
                   ))}
                 </ol>
