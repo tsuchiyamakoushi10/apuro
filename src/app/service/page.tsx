@@ -149,46 +149,47 @@ export default function ServicePage() {
         </div>
       </PanelSection>
 
-      {/* 対応エリア。市名を並べるだけだと何も伝わらないので、位置関係の分かる図にする。
-          並びは実際の地理どおり（小平市が北、その南に国分寺市、国分寺市の東が小金井市）。
-          事業所のある市だけ青ベタにして印を置く。並びは site.ts の areaMap が正。
+      {/* 対応エリア。東京都の地図に対応する3市を塗って示す。
+          市名を並べるだけだと位置が伝わらず、初めて見る方が自分の地域か判断できないため。
+          地図は国土数値情報（行政区域データ）から作った `public/images/tokyo-map.svg`。
+          作り直しは `scripts/make-tokyo-map.py`。**出典表記は利用約款の条件なので消さないこと。**
           青ベタ面はページでここだけ。受け入れの一文を外したぶんの青をここで戻している */}
       <PanelSection id="areas" tone="blue">
         <div className="wrap-panel max-[960px]:px-6">
           <Eyebrow className="!text-paper">Area</Eyebrow>
           <h2 className="text-paper">対応エリア</h2>
 
-          <div className="reveal mt-10 grid gap-3 rounded-panel bg-paper p-6 max-[960px]:mt-8 max-[960px]:p-4">
-            {site.areaMap.rows.map((row) => (
-              /* 行の中は等幅。市が増えても列指定を書き足さずに済む */
-              <div key={row.join("-")} className="grid auto-cols-fr grid-flow-col gap-3">
-                {row.map((area) => {
-                  const isBase = area === site.areaMap.base;
-                  return (
-                    <div
-                      key={area}
-                      className={`flex h-[132px] flex-col items-center justify-center gap-2 rounded-card max-[960px]:h-[96px] ${
-                        isBase ? "bg-blue text-paper" : "bg-blue-soft text-blue-ink"
-                      }`}
-                    >
-                      <span className="font-heading text-[1.1875rem]">{area}</span>
-                      {isBase ? (
-                        <span className="flex items-center gap-2 text-[0.84375rem] text-[rgba(255,255,255,0.85)]">
-                          <span
-                            aria-hidden="true"
-                            className="h-2.5 w-2.5 rounded-[50%_50%_50%_0] bg-paper"
-                          />
-                          事業所
-                        </span>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+          <div className="reveal mt-10 rounded-panel bg-paper p-8 max-[960px]:mt-8 max-[960px]:p-5">
+            {/* 拡大しても粗くならないので next/image は通さない。
+                幅と高さを書いて読み込み前の場所を確保する。
+                ページのだいぶ下にあるので遅延読み込みにする（26KBの先読みを避ける） */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/tokyo-map.svg"
+              alt="東京都の地図。国分寺市・小金井市・小平市を対応エリアとして塗り分けている"
+              width={1000}
+              height={501}
+              loading="lazy"
+              decoding="async"
+              className="h-auto w-full"
+            />
+            <p className="mt-5 text-right text-[0.8125rem] text-ink-muted">
+              出典：国土数値情報（行政区域データ・国土交通省）を加工して作成
+            </p>
           </div>
 
-          <p className="mt-7 text-[0.9375rem] text-[rgba(255,255,255,0.82)]">{site.areaNote}</p>
+          <ul className="mt-8 flex list-none flex-wrap gap-3 max-[960px]:mt-6">
+            {site.areas.map((area) => (
+              <li
+                key={area}
+                className="rounded-full bg-paper px-7 py-3 font-heading text-[0.9375rem] text-blue-ink max-[960px]:px-5"
+              >
+                {area}
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-6 text-[0.9375rem] text-[rgba(255,255,255,0.82)]">{site.areaNote}</p>
         </div>
       </PanelSection>
 
