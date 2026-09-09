@@ -47,15 +47,18 @@ export default function ServicePage() {
         </div>
       </Section>
 
-      {/* こんなときに。3枚とも項目を出すと縦に長くなるので、PCは要約だけ見せ、
-          カーソルを当てたカードだけ項目に入れ替える（`.case-card` / globals.css）。
-          960px以下はカーソルがないので、はじめから項目を出す */}
+      {/* こんなときに。3列に縦積みすると1列が長くなって読みにくいので、
+          1枚を横長にして見出しを左、項目を右に置く。開閉も入れ替えもしない。
+          カーソルで内容が入れ替わると、読んでいた文が消えて分かりにくいため */}
       <PanelSection id="cases" tone="mist">
         <div className="wrap-panel max-[960px]:px-6">
           <SectionHead eyebrow="Support" heading="こんなときに、ご相談ください" />
-          <div className="mt-12 grid grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1">
+          <div className="mt-12 grid gap-6 max-[960px]:mt-9 max-[960px]:gap-4">
             {cases.map((c) => (
-              <div key={c.id} className="case-card reveal rounded-card bg-paper p-8 max-[960px]:p-6">
+              <div
+                key={c.id}
+                className="reveal grid grid-cols-[240px_1fr] gap-[56px] rounded-card bg-paper p-9 max-[960px]:grid-cols-1 max-[960px]:gap-4 max-[960px]:p-6"
+              >
                 <h3 className="text-[1.1875rem]">
                   {c.title.map((line) => (
                     <span key={line} className="block">
@@ -63,22 +66,11 @@ export default function ServicePage() {
                     </span>
                   ))}
                 </h3>
-
-                <div className="case-summary">
-                  <div>
-                    <p className="mt-4 text-[0.9375rem] text-ink-muted">{c.summary}</p>
-                  </div>
-                </div>
-
-                <div className="case-items">
-                  <div>
-                    <ul className="marker-list mt-4 text-[0.9375rem] text-ink-muted">
-                      {c.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                <ul className="marker-list text-[0.9375rem] text-ink-muted">
+                  {c.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -157,24 +149,46 @@ export default function ServicePage() {
         </div>
       </PanelSection>
 
-      {/* 対応エリア。市を共通モチーフの面で並べ、横線でつないで図にする。
+      {/* 対応エリア。市名を並べるだけだと何も伝わらないので、位置関係の分かる図にする。
+          並びは実際の地理どおり（小平市が北、その南に国分寺市、国分寺市の東が小金井市）。
+          事業所のある市だけ青ベタにして印を置く。並びは site.ts の areaMap が正。
           青ベタ面はページでここだけ。受け入れの一文を外したぶんの青をここで戻している */}
       <PanelSection id="areas" tone="blue">
         <div className="wrap-panel max-[960px]:px-6">
           <Eyebrow className="!text-paper">Area</Eyebrow>
           <h2 className="text-paper">対応エリア</h2>
 
-          <ul className="area-map mt-12 grid list-none grid-cols-3 gap-6 max-[960px]:mt-9 max-[960px]:gap-3">
-            {site.areas.map((area) => (
-              <li key={area} className="reveal flex justify-center">
-                <span className="area-mark">{area}</span>
-              </li>
+          <div className="reveal mt-10 grid gap-3 rounded-panel bg-paper p-6 max-[960px]:mt-8 max-[960px]:p-4">
+            {site.areaMap.rows.map((row) => (
+              /* 行の中は等幅。市が増えても列指定を書き足さずに済む */
+              <div key={row.join("-")} className="grid auto-cols-fr grid-flow-col gap-3">
+                {row.map((area) => {
+                  const isBase = area === site.areaMap.base;
+                  return (
+                    <div
+                      key={area}
+                      className={`flex h-[132px] flex-col items-center justify-center gap-2 rounded-card max-[960px]:h-[96px] ${
+                        isBase ? "bg-blue text-paper" : "bg-blue-soft text-blue-ink"
+                      }`}
+                    >
+                      <span className="font-heading text-[1.1875rem]">{area}</span>
+                      {isBase ? (
+                        <span className="flex items-center gap-2 text-[0.84375rem] text-[rgba(255,255,255,0.85)]">
+                          <span
+                            aria-hidden="true"
+                            className="h-2.5 w-2.5 rounded-[50%_50%_50%_0] bg-paper"
+                          />
+                          事業所
+                        </span>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
             ))}
-          </ul>
+          </div>
 
-          <p className="mx-auto mt-9 text-center text-[0.9375rem] text-[rgba(255,255,255,0.82)] max-[960px]:mt-7">
-            {site.areaNote}
-          </p>
+          <p className="mt-7 text-[0.9375rem] text-[rgba(255,255,255,0.82)]">{site.areaNote}</p>
         </div>
       </PanelSection>
 
