@@ -98,13 +98,16 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* 行動指針。写真は使わず、番号の代わりにアイコンを左に置く（参照サイトと同じ並べ方） */}
+      {/* 行動指針。写真は使わず、番号の代わりにアイコンを左に置く（参照サイトと同じ並べ方）。
+          960px以下はアイコンを見出しの上に積む。横に並べたままだと文字の列が282pxしか残らず、
+          いちばん長い見出し（16字）が折れて「ない」だけが行に残るため。
+          積むと全幅358pxが使えて1行に収まり、本文の列も広くなる */}
       <Section id="values" className="!pt-0">
         <div className="wrap">
           <div className="reveal">
             <SectionHead eyebrow="Value" heading="行動指針" />
             {/* 1行で収まらないので text-balance で2行に割る。「社会へ。」だけが残らないように */}
-            <p className="mt-6 text-balance font-heading text-[1.4375rem] leading-[1.7] text-blue-ink max-[960px]:text-[1.125rem]">
+            <p className="mt-6 text-balance font-heading text-[1.4375rem] leading-[1.7] text-blue-ink max-[960px]:text-[1.1875rem]">
               {valueAxis}
             </p>
           </div>
@@ -113,11 +116,12 @@ export default function AboutPage() {
             {values.map((value) => (
               <li
                 key={value.no}
-                className="reveal grid grid-cols-[64px_1fr] items-start gap-8 border-b border-blue-soft py-8 max-[960px]:grid-cols-[56px_1fr] max-[960px]:gap-5 max-[960px]:py-7"
+                className="reveal grid grid-cols-[64px_1fr] items-start gap-8 border-b border-blue-soft py-8 max-[960px]:grid-cols-1 max-[960px]:gap-4 max-[960px]:py-7"
               >
                 <ValueIcon no={value.no} />
                 <div>
-                  <h3>{value.title}</h3>
+                  {/* ミッション・ビジョンの見出しと同じ目盛りに揃える */}
+                  <h3 className="max-[960px]:text-[1.1875rem]">{value.title}</h3>
                   <Paragraphs text={value.body} className="mt-3 text-[0.9375rem] text-ink-muted" />
                 </div>
               </li>
