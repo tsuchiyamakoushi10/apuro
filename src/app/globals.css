@@ -153,6 +153,26 @@
     flex-shrink: 0;
   }
 
+  /* 節の中の小見出し。共通モチーフのマークを頭に付け、色も青にして、
+     開閉やカードの見出し（--blue-ink）と見分ける。
+     大きさだけで分けると、どちらが束ねる側か分からない */
+  .sub-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-blue);
+  }
+
+  .sub-head::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 50% 50% 50% 0;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
   .pill {
     display: inline-flex;
     align-items: center;

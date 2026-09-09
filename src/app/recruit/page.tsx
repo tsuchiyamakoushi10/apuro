@@ -60,15 +60,16 @@ function Disclosure({
 }
 
 /**
- * 節の中の小見出しと中身。小見出しを左の列に出す。
- * 開閉の見出しと大きさだけで分けると、どちらが束ねる側か分からないため。
- * 960px以下は1カラムに落として、小見出しを上に置く
+ * 節の中の小見出しと中身。
+ * 小見出しには共通モチーフのマークを付け、色も青にする（`.sub-head`）。
+ * 開閉の見出し（19px・--blue-ink）と大きさだけで分けると、
+ * どちらが束ねる側か分からないため
  */
 function Group({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="mt-16 grid grid-cols-[200px_1fr] items-baseline gap-[64px] max-[960px]:mt-12 max-[960px]:grid-cols-1 max-[960px]:gap-4">
-      <h3>{title}</h3>
-      <div>{children}</div>
+    <div className="mt-16 max-[960px]:mt-12">
+      <h3 className="sub-head">{title}</h3>
+      <div className="mt-6">{children}</div>
     </div>
   );
 }
@@ -119,9 +120,6 @@ export default function RecruitPage() {
             <Paragraphs text={philosophy} />
           </div>
 
-          {/* 小見出しは左の列に出す。開閉の見出し（19px）と大きさだけで分けると、
-              どちらが束ねる側か分からない。列を分ければ位置で分かる。
-              列幅は /about のミッションや会社概要と同じ 200px */}
           <Group title="働き方">
             <div className="border-t border-blue-soft">
               {workStyle.map((item) => (
