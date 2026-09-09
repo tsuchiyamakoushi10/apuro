@@ -26,8 +26,9 @@ function PhoneGlyph() {
 /** フォームの窓口。URLが未確定のうちはリンクにしない（Contact の FormCard と同じ扱い） */
 function FormPill({ href, label }: { href: string; label: string }) {
   const ready = !isTbd(href);
+  /* 文字は 19px。15px だと面の高さに対して小さく、ボタンだけ太って見える */
   const className =
-    "block rounded-full bg-paper px-6 py-3.5 text-center font-heading text-[0.9375rem] text-blue";
+    "block rounded-full bg-paper px-6 py-4 text-center font-heading text-[1.1875rem] leading-[1.5] text-blue";
 
   if (!ready) {
     return (
