@@ -12,11 +12,28 @@ export const metadata: Metadata = {
     "国分寺市・小金井市・小平市の訪問看護。こころの不調を抱えた方への訪問看護、高齢者の在宅療養、医療処置、在宅での看取りまで対応します。24時間オンコール対応。",
 };
 
-/** 地図に重ねる市名の位置。scripts/make-tokyo-map.py が出す％。地図を作り直したら入れ直す */
+/**
+ * 地図に重ねる市名の位置。`scripts/make-tokyo-map.py` が出す％をそのまま入れる。
+ * 地図を作り直したら入れ直すこと。
+ * 近隣は対応エリアの外。「上記以外の地域も、まずはご相談ください」の手掛かりになるので出す
+ */
 const areaLabels = [
-  { name: "小平市", left: "50.9%", top: "38.6%" },
-  { name: "国分寺市", left: "43.2%", top: "58.8%" },
-  { name: "小金井市", left: "61.9%", top: "62.9%" },
+  { name: "小金井市", left: "64.3%", top: "63.1%" },
+  { name: "小平市", left: "51.0%", top: "38.4%" },
+  { name: "国分寺市", left: "41.8%", top: "59.0%" },
+];
+
+const nearbyLabels = [
+  { name: "立川市", left: "16.3%", top: "50.6%" },
+  { name: "武蔵野市", left: "87.1%", top: "56.5%" },
+  { name: "三鷹市", left: "86.5%", top: "78.7%" },
+  { name: "府中市", left: "51.7%", top: "92.0%" },
+  { name: "東村山市", left: "46.9%", top: "8.3%" },
+  { name: "国立市", left: "31.7%", top: "77.0%" },
+  { name: "東大和市", left: "26.2%", top: "16.8%" },
+  { name: "東久留米市", left: "68.2%", top: "13.4%" },
+  { name: "武蔵村山市", left: "7.0%", top: "16.7%" },
+  { name: "西東京市", left: "80.1%", top: "31.3%" },
 ];
 
 export default function ServicePage() {
@@ -176,7 +193,7 @@ export default function ServicePage() {
                 src="/images/tokyo-map.svg"
                 alt="国分寺市・小金井市・小平市とその周辺の地図。3市を対応エリアとして塗り分けている"
                 width={1000}
-                height={500}
+                height={588}
                 loading="lazy"
                 decoding="async"
                 className="h-auto w-full"
@@ -192,6 +209,18 @@ export default function ServicePage() {
                   aria-hidden="true"
                   style={{ left: label.left, top: label.top }}
                   className="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-heading text-[0.8125rem] text-paper max-[600px]:hidden"
+                >
+                  {label.name}
+                </span>
+              ))}
+
+              {/* 近隣はエリア外。色を変えて、対応している3市と見分けがつくようにする */}
+              {nearbyLabels.map((label) => (
+                <span
+                  key={label.name}
+                  aria-hidden="true"
+                  style={{ left: label.left, top: label.top }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-heading text-[0.8125rem] text-blue max-[600px]:hidden"
                 >
                   {label.name}
                 </span>

@@ -22,9 +22,9 @@ EPS = 0.0004  # 約35m。寄せたぶん細かく残す。表示幅900pxで1px�
 MIN_AREA = 3e-6  # 小さすぎる飛び地は落とす
 
 # 切り取る範囲。対象3市の中心から。東京都全域だと3市が小さくて分からないので寄せる。
-# 24km四方だと3市が横幅の4割を占める。上下左右とも都内で埋まる大きさでもある
-CROP_WIDTH_KM = 24.0
-CROP_ASPECT = 2.0  # 横 : 縦
+# 20kmだと3市が横幅の半分を占める。隣接する市の名前を置く余白も残る
+CROP_WIDTH_KM = 20.0
+CROP_ASPECT = 1.7  # 横 : 縦
 KM_PER_LAT = 110.95
 
 
@@ -142,15 +142,20 @@ def main(src, dest):
         raise SystemExit(f"対応エリアが元データに見つからない: {missing}")
 
     # ラベルはHTML側に置く（SVGに入れると画面幅で文字まで拡大縮小してしまうため）。
-    # ページに書く位置をここで出す
-    for name, g in feats:
-        if name not in TARGETS:
-            continue
-        biggest = max(rings(g), key=ring_area)
-        cx, cy = centroid(biggest)
-        left = (cx - minx) / (maxx - minx) * 100
-        top = (maxy - cy) / (maxy - miny) * 100
-        print(f"  ラベル {name}: left {left:.1f}% / top {top:.1f}%")
+    # ページに書く位置をここで出す。端に寄りすぎるものは切れるので落とす
+    INSET = 6.0
+    for group in (True, False):
+        print("  --- 対応エリア ---" if group else "  --- 近隣 ---")
+        for name, g in feats:
+            if (name in TARGETS) is not group:
+                continue
+            biggest = max(rings(g), key=ring_area)
+            cx, cy = centroid(biggest)
+            left = (cx - minx) / (maxx - minx) * 100
+            top = (maxy - cy) / (maxy - miny) * 100
+            if not (INSET <= left <= 100 - INSET and INSET <= top <= 100 - INSET):
+                continue
+            print(f'  {{ name: "{name}", left: "{left:.1f}%", top: "{top:.1f}%" }},')
 
     others = "".join("".join(v) for k, v in by_name.items() if k not in TARGETS)
     mine = "".join("".join(by_name[k]) for k in TARGETS)
