@@ -71,13 +71,14 @@ export function SectionHead({
  * ページ内の目次。節が多いページの見出しの下に置く。
  *
  * 節ごとに `id` を振ってあるので、そこへ飛ばすだけ。
+ * 等幅の列に並べて端を縦に揃える。数は4つまで。多いと選べない。
  * 追従はさせない。ヘッダーが1300px未満で2段になり、追従させると画面が狭くなるため。
  * 飛んだ先が隠れないよう、`html` に `scroll-padding-top` を入れてある（globals.css）
  */
 export function SectionNav({ items }: { items: { href: string; label: string }[] }) {
   return (
     <nav aria-label="このページの目次" className="border-b border-blue-soft">
-      <div className="wrap flex flex-wrap gap-2.5 py-7 max-[960px]:py-5">
+      <div className="wrap grid grid-cols-4 gap-3 py-7 max-[960px]:grid-cols-2 max-[960px]:py-5 max-[600px]:grid-cols-1">
         {items.map((item) => (
           <a key={item.href} href={item.href} className="anchor-pill">
             {item.label}

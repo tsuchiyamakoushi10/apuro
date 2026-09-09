@@ -62,14 +62,13 @@ export default function ServicePage() {
       />
 
       {/* 節が7つあるので目次を置く。TOPの特徴カードからも各節へ飛んでくる。
-          ラベルは節の見出しそのまま */}
+          出すのは4つだけ。全部並べると選べない。訪ねてくる人の用（相談していいか／
+          どんな事業所か／うちの地域か／どう頼むか）に当たる節を選んでいる。
+          すぐ下のサービス概要は飛ぶ必要がないので入れない。ラベルは節の見出しから */}
       <SectionNav
         items={[
-          { href: "#overview", label: "サービス概要" },
           { href: "#cases", label: "こんなときに" },
-          { href: "#what-we-do", label: "私たちが行うこと" },
           { href: "#features", label: "アプロの特徴" },
-          { href: "#oncall", label: "24時間対応" },
           { href: "#areas", label: "対応エリア" },
           { href: "#flow", label: "ご利用までの流れ" },
         ]}

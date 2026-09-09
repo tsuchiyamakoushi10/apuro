@@ -204,38 +204,37 @@
     flex-shrink: 0;
   }
 
-  /* ページ内の目次のボタン。ピルと同じ形で一回り小さく、矢印は下向きにする
-     （同じページの下へ飛ぶため。横向きだと別ページへ行くボタンに見える） */
+  /* ページ内の目次のボタン。矢印は下向きにする
+     （同じページの下へ飛ぶため。横向きだと別ページへ行くボタンに見える）。
+     等幅の列に並べるので、見出しは左・矢印は右に振って端を縦に揃える */
   .anchor-pill {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    background: #fff;
+    background: var(--color-blue-soft);
     color: var(--color-blue-ink);
-    border: 1px solid var(--color-blue-soft);
     border-radius: 999px;
-    padding: 11px 22px;
+    padding: 14px 24px;
     font-family: var(--font-heading);
     font-size: 0.9375rem;
     line-height: 1.5;
     transition:
       background-color 0.25s ease,
-      border-color 0.25s ease,
       color 0.25s ease;
   }
 
   .anchor-pill:hover {
-    background: var(--color-mist);
-    border-color: var(--color-blue);
-    color: var(--color-blue);
+    background: var(--color-blue);
+    color: #fff;
   }
 
   .anchor-pill::after {
     content: "";
     width: 6px;
     height: 6px;
-    border-right: 1.5px solid var(--color-blue);
-    border-bottom: 1.5px solid var(--color-blue);
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
     transform: rotate(45deg);
     margin-top: -3px;
     flex-shrink: 0;
