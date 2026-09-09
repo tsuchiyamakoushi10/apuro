@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
 import { ValueIcon } from "@/components/icons";
-import { Paragraphs, Photo, Picture, Tbd } from "@/components/ui";
+import { Eyebrow, Paragraphs, Photo, Picture, Tbd } from "@/components/ui";
 import { copy, site } from "@/config/site";
 import { greeting, mission, values, valueAxis, vision } from "@/content/about";
 
@@ -14,35 +14,14 @@ export const metadata: Metadata = {
 const photoClass = "h-[400px] rounded-panel max-[960px]:h-[230px]";
 
 /**
- * ミッションとビジョン。写真は持たず、見出しと本文だけの1カラム。
+ * ミッションとビジョン。写真は持たず、英字ラベルを左の列に出して組む。
  * 参照サイト（happywood.or.jp/vision）に合わせて、ページの写真は
  * 冒頭のメインビジュアルと代表挨拶の2枚に絞っている。
  */
-function Statement({
-  eyebrow,
-  heading,
-  body,
-}: {
-  eyebrow: string;
-  heading: string[];
-  body: string;
-}) {
-  return (
-    <div className="reveal">
-      <SectionHead
-        eyebrow={eyebrow}
-        heading={heading.map((line, i) => (
-          <span key={i} className="block">
-            {line}
-          </span>
-        ))}
-      />
-      <div className="mt-6">
-        <Paragraphs text={body} />
-      </div>
-    </div>
-  );
-}
+const statements = [
+  { eyebrow: "Mission", ...mission },
+  { eyebrow: "Vision", ...vision },
+];
 
 export default function AboutPage() {
   return (
@@ -77,18 +56,39 @@ export default function AboutPage() {
         }
       />
 
+      {/* ミッションとビジョン。英字ラベルを左の列に出し、あいだを1本の罫線で区切る。
+          ラベルの列は会社概要と同じ 200px。ページ全体を同じ組みに揃えるため。
+          ラベルは見出しの1行目の高さに合わせて 0.55rem 下げる。見出し（30px・行間1.7）と
+          ラベル（13.5px・行間1.6）では文字の天地が10pxずれるため。rem で書いてあるので
+          PCの113%にも追従する。960px以下は1カラムになるので下げない。
+          白地の .wrap に置く。淡い面（wrap-panel）に入れると文字の列が468pxまで狭まり、
+          原稿にない位置で見出しが折れる。色を敷くのは最後の会社概要だけにしている */}
       <Section id="philosophy">
         <div className="wrap">
-          <Statement eyebrow="Mission" heading={mission.heading} body={mission.body} />
-        </div>
-      </Section>
-
-      {/* ミッションからバリューまでは白地の .wrap に置く。淡い面（wrap-panel）に入れると
-          文字の列が468pxまで狭まり、原稿にない位置で見出しと本文が折れるため。
-          色を敷くのは最後の会社概要だけにしている */}
-      <Section className="!pt-0">
-        <div className="wrap">
-          <Statement eyebrow="Vision" heading={vision.heading} body={vision.body} />
+          {statements.map((statement, i) => (
+            <div
+              key={statement.eyebrow}
+              className={`reveal grid grid-cols-[200px_1fr] items-start gap-[64px] max-[960px]:grid-cols-1 max-[960px]:gap-3 ${
+                i > 0
+                  ? "mt-[76px] border-t border-blue-soft pt-[76px] max-[960px]:mt-12 max-[960px]:pt-12"
+                  : ""
+              }`}
+            >
+              <Eyebrow className="!mb-0 mt-[0.55rem] max-[960px]:mt-0">{statement.eyebrow}</Eyebrow>
+              <div>
+                <h2>
+                  {statement.heading.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+                <div className="mt-7">
+                  <Paragraphs text={statement.body} />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </Section>
 
