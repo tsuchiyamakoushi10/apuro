@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     "国分寺市・小金井市・小平市の訪問看護。こころの不調を抱えた方への訪問看護、高齢者の在宅療養、医療処置、在宅での看取りまで対応します。24時間オンコール対応。",
 };
 
+/** 地図に重ねる市名の位置。scripts/make-tokyo-map.py が出す％。地図を作り直したら入れ直す */
+const areaLabels = [
+  { name: "小平市", left: "50.9%", top: "38.6%" },
+  { name: "国分寺市", left: "43.2%", top: "58.8%" },
+  { name: "小金井市", left: "61.9%", top: "62.9%" },
+];
+
 export default function ServicePage() {
   return (
     <>
@@ -160,19 +167,37 @@ export default function ServicePage() {
           <h2 className="text-paper">対応エリア</h2>
 
           <div className="reveal mt-10 rounded-panel bg-paper p-8 max-[960px]:mt-8 max-[960px]:p-5">
-            {/* 拡大しても粗くならないので next/image は通さない。
-                幅と高さを書いて読み込み前の場所を確保する。
-                ページのだいぶ下にあるので遅延読み込みにする（26KBの先読みを避ける） */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/tokyo-map.svg"
-              alt="東京都の地図。国分寺市・小金井市・小平市を対応エリアとして塗り分けている"
-              width={1000}
-              height={501}
-              loading="lazy"
-              decoding="async"
-              className="h-auto w-full"
-            />
+            <div className="relative">
+              {/* 拡大しても粗くならないので next/image は通さない。
+                  幅と高さを書いて読み込み前の場所を確保する。
+                  ページのだいぶ下にあるので遅延読み込みにする */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/tokyo-map.svg"
+                alt="国分寺市・小金井市・小平市とその周辺の地図。3市を対応エリアとして塗り分けている"
+                width={1000}
+                height={500}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-full"
+              />
+
+              {/* 市名はHTMLで重ねる。SVGに入れると画面幅に合わせて文字まで伸び縮みしてしまう。
+                  位置は scripts/make-tokyo-map.py が出した％をそのまま入れている。
+                  600px以下は地図が小さく、市の形から文字がはみ出すので出さない。
+                  市名は下のピルにも出ているので読み上げからは外す */}
+              {areaLabels.map((label) => (
+                <span
+                  key={label.name}
+                  aria-hidden="true"
+                  style={{ left: label.left, top: label.top }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-heading text-[0.8125rem] text-paper max-[600px]:hidden"
+                >
+                  {label.name}
+                </span>
+              ))}
+            </div>
+
             <p className="mt-5 text-right text-[0.8125rem] text-ink-muted">
               出典：国土数値情報（行政区域データ・国土交通省）を加工して作成
             </p>

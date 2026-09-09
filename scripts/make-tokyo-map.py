@@ -16,10 +16,16 @@ import math
 import sys
 
 TARGETS = {"国分寺市", "小金井市", "小平市"}
-ISLAND_CODE = 13361  # これ以上は島嶼部。東京の形が横に伸びるので外す
+ISLAND_CODE = 13361  # これ以上は島嶼部
 WIDTH = 1000.0
-EPS = 0.0012  # 約110m。表示幅900pxで1px程度なので見た目は変わらない
+EPS = 0.0004  # 約35m。寄せたぶん細かく残す。表示幅900pxで1px程度
 MIN_AREA = 3e-6  # 小さすぎる飛び地は落とす
+
+# 切り取る範囲。対象3市の中心から。東京都全域だと3市が小さくて分からないので寄せる。
+# 24km四方だと3市が横幅の4割を占める。上下左右とも都内で埋まる大きさでもある
+CROP_WIDTH_KM = 24.0
+CROP_ASPECT = 2.0  # 横 : 縦
+KM_PER_LAT = 110.95
 
 
 def rings(geom):
@@ -61,6 +67,21 @@ def ring_area(r):
     return abs(s) / 2
 
 
+def centroid(ring):
+    """多角形の重心。ラベルの位置に使う"""
+    a = cx = cy = 0.0
+    for i in range(len(ring) - 1):
+        x0, y0 = ring[i]
+        x1, y1 = ring[i + 1]
+        cross = x0 * y1 - x1 * y0
+        a += cross
+        cx += (x0 + x1) * cross
+        cy += (y0 + y1) * cross
+    if a == 0:
+        return ring[0]
+    return (cx / (3 * a), cy / (3 * a))
+
+
 def main(src, dest):
     data = json.load(open(src))
     feats = []
@@ -71,16 +92,33 @@ def main(src, dest):
             continue
         feats.append((name, f["geometry"]))
 
-    xs, ys = [], []
-    for _, g in feats:
+    # 対象3市の真ん中を中心に切り取る
+    txs, tys = [], []
+    for name, g in feats:
+        if name in TARGETS:
+            for r in rings(g):
+                for x, y in r:
+                    txs.append(x)
+                    tys.append(y)
+    lon0 = (min(txs) + max(txs)) / 2
+    lat0 = (min(tys) + max(tys)) / 2
+    kx = math.cos(math.radians(lat0))
+    half_lon = CROP_WIDTH_KM / 2 / (KM_PER_LAT * kx)
+    half_lat = CROP_WIDTH_KM / CROP_ASPECT / 2 / KM_PER_LAT
+    minx, maxx = lon0 - half_lon, lon0 + half_lon
+    miny, maxy = lat0 - half_lat, lat0 + half_lat
+
+    # 範囲に掛からない市区町村は落とす。SVGは viewBox の外を切るので、掛かるものはそのまま置く
+    def touches(g):
         for r in rings(g):
             for x, y in r:
-                xs.append(x)
-                ys.append(y)
-    minx, maxx, miny, maxy = min(xs), max(xs), min(ys), max(ys)
+                if minx <= x <= maxx and miny <= y <= maxy:
+                    return True
+        return False
+
+    feats = [(n, g) for n, g in feats if touches(g)]
 
     # 正距円筒。緯度に合わせて横を縮める。この範囲なら歪みは出ない
-    kx = math.cos(math.radians((miny + maxy) / 2))
     scale = WIDTH / ((maxx - minx) * kx)
     height = (maxy - miny) * scale
 
@@ -102,6 +140,17 @@ def main(src, dest):
     missing = TARGETS - set(by_name)
     if missing:
         raise SystemExit(f"対応エリアが元データに見つからない: {missing}")
+
+    # ラベルはHTML側に置く（SVGに入れると画面幅で文字まで拡大縮小してしまうため）。
+    # ページに書く位置をここで出す
+    for name, g in feats:
+        if name not in TARGETS:
+            continue
+        biggest = max(rings(g), key=ring_area)
+        cx, cy = centroid(biggest)
+        left = (cx - minx) / (maxx - minx) * 100
+        top = (maxy - cy) / (maxy - miny) * 100
+        print(f"  ラベル {name}: left {left:.1f}% / top {top:.1f}%")
 
     others = "".join("".join(v) for k, v in by_name.items() if k not in TARGETS)
     mine = "".join("".join(by_name[k]) for k in TARGETS)
