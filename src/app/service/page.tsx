@@ -126,6 +126,7 @@ export default function ServicePage() {
         <div className="wrap-panel max-[960px]:px-6">
           <Lines
             text={acceptance}
+            reflow
             className="max-w-[30em] font-heading text-[1.875rem] leading-[1.75] text-paper max-[960px]:text-[1.1875rem]"
           />
         </div>

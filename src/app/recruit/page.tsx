@@ -137,7 +137,7 @@ export default function RecruitPage() {
       <PanelSection id="honesty" tone="sand">
         <div className="wrap-panel max-[960px]:px-6">
           <h2 className="text-sand-ink">正直にお伝えしておきたいこと</h2>
-          <Lines text={honesty.intro} className="mt-6 text-sand-ink" />
+          <Lines text={honesty.intro} reflow className="mt-6 text-sand-ink" />
           <ul className="marker-list mt-6 text-sand-ink [&>li::before]:bg-sand-ink [&>li::before]:opacity-40">
             {honesty.items.map((item) => (
               <li key={item}>

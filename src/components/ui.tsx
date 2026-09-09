@@ -136,15 +136,32 @@ export function Tbd({ value }: { value: string }) {
   return <span className="tbd">{value}</span>;
 }
 
-/** 原稿の改行をそのまま出す。文言も改行位置も原稿が正 */
-export function Lines({ text, className = "" }: { text: string; className?: string }) {
+/**
+ * 原稿の改行をそのまま出す。文言も改行位置も原稿が正。
+ *
+ * reflow を渡すと 960px 以下で改行位置を捨てて流し込む。
+ * 原稿の1行は40字前後あり、スマホの幅では途中で折り返して
+ * 2〜3字だけが次の行に残る。原稿の改行を守るほうがかえって読みにくいため。
+ * 募集要項の表のように、改行が値の区切りになっている箇所では渡さない。
+ */
+export function Lines({
+  text,
+  className = "",
+  reflow = false,
+}: {
+  text: string;
+  className?: string;
+  reflow?: boolean;
+}) {
+  const lineClass = reflow ? "block max-[960px]:inline" : "block";
+
   return (
     <p className={className}>
       {text.split("\n").map((line, i) =>
         line === "" ? (
           <span key={i} className="block h-[0.95em]" />
         ) : (
-          <span key={i} className="block">
+          <span key={i} className={lineClass}>
             {line}
           </span>
         ),
@@ -153,15 +170,28 @@ export function Lines({ text, className = "" }: { text: string; className?: stri
   );
 }
 
-/** 段落のあいだに空行がある原稿を、段落ごとに分けて出す */
-export function Paragraphs({ text, className = "" }: { text: string; className?: string }) {
+/** 段落のあいだに空行がある原稿を、段落ごとに分けて出す。本文なので既定で流し込む */
+export function Paragraphs({
+  text,
+  className = "",
+  reflow = true,
+}: {
+  text: string;
+  className?: string;
+  reflow?: boolean;
+}) {
   return (
     <>
       {text
         .trim()
         .split(/\n\s*\n/)
         .map((block, i) => (
-          <Lines key={i} text={block} className={`${i > 0 ? "mt-7" : ""} ${className}`} />
+          <Lines
+            key={i}
+            text={block}
+            reflow={reflow}
+            className={`${i > 0 ? "mt-7" : ""} ${className}`}
+          />
         ))}
     </>
   );

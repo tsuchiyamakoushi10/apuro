@@ -76,9 +76,12 @@ export default function AboutPage() {
             >
               <Eyebrow className="!mb-0 mt-[0.55rem] max-[960px]:mt-0">{statement.eyebrow}</Eyebrow>
               <div>
-                <h2>
+                {/* 見出しも960px以下は原稿の改行を捨てて流す。1行15〜17字あり、
+                    スマホの幅では途中で折れて「地域を、」だけが行に残る。
+                    流したうえで text-balance で行の長さを揃える */}
+                <h2 className="max-[960px]:text-balance">
                   {statement.heading.map((line) => (
-                    <span key={line} className="block">
+                    <span key={line} className="block max-[960px]:inline">
                       {line}
                     </span>
                   ))}
