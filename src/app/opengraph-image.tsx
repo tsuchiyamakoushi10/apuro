@@ -6,7 +6,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /**
- * OGP画像。ロゴタイプ＋キャッチの組版で作る（docs/spec.md 6章）。
+ * OGP画像。ロゴタイプ＋キャッチの組版で作る（docs/spec.md 7章）。
  * 装飾は角を1箇所だけ落とした共通モチーフのみ。影・グラデーションは使わない。
  */
 

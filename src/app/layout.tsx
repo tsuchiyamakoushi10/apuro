@@ -5,17 +5,31 @@ import { Footer } from "@/components/Footer";
 import { addressReady, published, site } from "@/config/site";
 import "./globals.css";
 
+/**
+ * 日本語のフォントは preload を切る。
+ * 日本語はグリフが多く、1ウェイトが100ファイル前後の小分け（unicode-range）で配られる。
+ * 既定の preload:true だと、その全部を head で先読みしてしまい、
+ * 初回の読み込みで4.5MBぶんのフォントを取りに行っていた（242ファイル）。
+ * 切ると、ブラウザが実際に使う字の入ったファイルだけを取りに行く。
+ * display:swap なので、届くまでは代替フォントで文字が出る。
+ *
+ * ウェイトは使っているものだけ。見出しは Zen Kaku の 500、ピルや会社概要の見出しは 400、
+ * 本文は Noto の 400。太字（700）と Noto の 500 はサイト内で使っていない。
+ * **太さを足すときはここに足すこと。書いてないウェイトは合成されて汚くなる。**
+ */
 const zenKaku = Zen_Kaku_Gothic_New({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500"],
   display: "swap",
+  preload: false,
   variable: "--font-zen-kaku",
 });
 
 const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
   display: "swap",
+  preload: false,
   variable: "--font-noto-sans-jp",
 });
 

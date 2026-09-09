@@ -165,16 +165,18 @@ export default function RecruitPage() {
 
                   {/* デスクトップは比較テーブル */}
                   <table className="mt-5 w-full border-collapse text-[0.9375rem] max-[960px]:hidden">
+                    {/* th は既定が太字（700）。日本語の700は読み込んでいないので、
+                        指定しないと合成された偽の太字になる。見出しと同じ500に揃える */}
                     <thead>
                       <tr>
-                        <th scope="col" className="w-[190px] border-b border-blue-soft py-3 text-left align-top font-heading text-blue-ink">
+                        <th scope="col" className="w-[190px] border-b border-blue-soft py-3 text-left align-top font-heading font-medium text-blue-ink">
                           項目
                         </th>
                         {jobs.map((job) => (
                           <th
                             key={job.key}
                             scope="col"
-                            className="border-b border-blue-soft py-3 text-left align-top font-heading text-blue-ink"
+                            className="border-b border-blue-soft py-3 text-left align-top font-heading font-medium text-blue-ink"
                           >
                             {job.label}
                           </th>

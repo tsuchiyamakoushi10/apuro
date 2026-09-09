@@ -49,7 +49,7 @@ if (copyUnconfirmed) {
   console.log("  src/config/site.ts  copy.confirmed = false（キャッチコピーの選択待ち）");
 }
 
-console.log("\n  詳細は docs/spec.md「8. クライアント確認待ちの項目」を参照。");
+console.log("\n  詳細は docs/spec.md「9. クライアント確認待ちの項目」を参照。");
 
 if (strict) {
   console.log("  本番公開はできません。確定値を入れてから再実行してください。\n");
