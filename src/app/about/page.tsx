@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
+import { ValueIcon } from "@/components/icons";
 import { Paragraphs, Photo, Picture, Tbd } from "@/components/ui";
 import { copy, site } from "@/config/site";
 import { greeting, mission, values, valueAxis, vision } from "@/content/about";
@@ -14,8 +15,9 @@ const photoClass = "h-[400px] rounded-panel max-[960px]:h-[230px]";
 const photoSizes = "(max-width: 960px) 100vw, 360px";
 
 /**
- * ミッションとビジョン。写真を左、見出しと本文を右に置く。
- * 参照サイト（npoho-jin.com/about_us）と同じ組み方で、写真は左に揃える。
+ * ミッションとビジョン。
+ * 写真を渡したときだけ左に置き、渡さないときは1カラムの文章だけにする。
+ * 参照サイト（happywood.or.jp/vision）に合わせて写真は最初の1枚だけにしてある。
  */
 function Statement({
   eyebrow,
@@ -26,8 +28,26 @@ function Statement({
   eyebrow: string;
   heading: string[];
   body: string;
-  photo: { src: string; alt: string; position: string };
+  photo?: { src: string; alt: string; position: string };
 }) {
+  const text = (
+    <div className="reveal">
+      <SectionHead
+        eyebrow={eyebrow}
+        heading={heading.map((line, i) => (
+          <span key={i} className="block">
+            {line}
+          </span>
+        ))}
+      />
+      <div className="mt-6">
+        <Paragraphs text={body} />
+      </div>
+    </div>
+  );
+
+  if (!photo) return text;
+
   return (
     <div className="grid grid-cols-[360px_1fr] items-center gap-[64px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
       <Picture
@@ -37,19 +57,7 @@ function Statement({
         position={photo.position}
         className={`reveal ${photoClass}`}
       />
-      <div className="reveal">
-        <SectionHead
-          eyebrow={eyebrow}
-          heading={heading.map((line, i) => (
-            <span key={i} className="block">
-              {line}
-            </span>
-          ))}
-        />
-        <div className="mt-6">
-          <Paragraphs text={body} />
-        </div>
-      </div>
+      {text}
     </div>
   );
 }
@@ -93,52 +101,35 @@ export default function AboutPage() {
           色を敷くのは最後の会社概要だけにしている */}
       <Section className="!pt-0">
         <div className="wrap">
-          <Statement
-            eyebrow="Vision"
-            heading={vision.heading}
-            body={vision.body}
-            photo={{
-              src: "/images/hero-03-team.jpg",
-              alt: "事務所で申し送りをするスタッフ",
-              position: "center 40%",
-            }}
-          />
+          <Statement eyebrow="Vision" heading={vision.heading} body={vision.body} />
         </div>
       </Section>
 
+      {/* 行動指針。写真は使わず、番号の代わりにアイコンを左に置く（参照サイトと同じ並べ方） */}
       <Section id="values" className="!pt-0">
-        <div className="wrap grid grid-cols-[360px_1fr] items-start gap-[64px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
-          {/* 行動指針は5項目と長いので写真は sticky。
-              祖先に .reveal を付けない（translate が包含ブロックを作って sticky が壊れるため） */}
-          <div className="sticky top-[150px] max-[960px]:static">
-            <Picture
-              src="/images/representative-visit.jpg"
-              alt={`利用者宅で聴診する代表の${site.representative}`}
-              sizes={photoSizes}
-              position="center 35%"
-              className={photoClass}
-            />
-          </div>
-
-          <div>
+        <div className="wrap">
+          <div className="reveal">
             <SectionHead eyebrow="Value" heading="行動指針" />
             {/* 1行で収まらないので text-balance で2行に割る。「社会へ。」だけが残らないように */}
             <p className="mt-6 text-balance font-heading text-[1.4375rem] leading-[1.7] text-blue-ink max-[960px]:text-[1.125rem]">
               {valueAxis}
             </p>
-
-            <ul className="mt-10 list-none border-t border-blue-soft">
-              {values.map((value) => (
-                <li key={value.no} className="border-b border-blue-soft py-7">
-                  <span className="block font-en text-[0.875rem] tracking-[0.12em] text-blue">
-                    {value.no}
-                  </span>
-                  <h3 className="mt-1">{value.title}</h3>
-                  <Paragraphs text={value.body} className="mt-3 text-[0.9375rem] text-ink-muted" />
-                </li>
-              ))}
-            </ul>
           </div>
+
+          <ul className="mt-12 list-none border-t border-blue-soft max-[960px]:mt-9">
+            {values.map((value) => (
+              <li
+                key={value.no}
+                className="reveal grid grid-cols-[64px_1fr] items-start gap-8 border-b border-blue-soft py-8 max-[960px]:grid-cols-[56px_1fr] max-[960px]:gap-5 max-[960px]:py-7"
+              >
+                <ValueIcon no={value.no} />
+                <div>
+                  <h3>{value.title}</h3>
+                  <Paragraphs text={value.body} className="mt-3 text-[0.9375rem] text-ink-muted" />
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 

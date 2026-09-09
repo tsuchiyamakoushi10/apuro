@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Contact } from "@/components/Contact";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
-import { Lines, Paragraphs, Photo } from "@/components/ui";
+import { Lines, Paragraphs, Picture } from "@/components/ui";
 import { site } from "@/config/site";
 import {
   acceptance,
@@ -41,7 +41,12 @@ export default function ServicePage() {
               <Paragraphs text={overviewLead} />
             </div>
           </div>
-          <Photo caption="写真｜訪問の様子" className="h-[360px] rounded-panel max-[960px]:h-[230px]" />
+          <Picture
+            src="/images/hero-02-visit.jpg"
+            alt="利用者宅で体調を確認する看護師"
+            sizes="(max-width: 960px) 100vw, 400px"
+            className="h-[360px] rounded-panel max-[960px]:h-[230px]"
+          />
         </div>
       </Section>
 
@@ -91,9 +96,18 @@ export default function ServicePage() {
               <article
                 key={feature.id}
                 id={feature.id}
-                className="reveal grid grid-cols-[320px_1fr] items-start gap-12 rounded-card bg-mist p-10 max-[960px]:grid-cols-1 max-[960px]:gap-6 max-[960px]:p-6"
+                className={`reveal grid items-start gap-12 rounded-card bg-mist p-10 max-[960px]:grid-cols-1 max-[960px]:gap-6 max-[960px]:p-6 ${
+                  feature.image ? "grid-cols-[320px_1fr]" : "grid-cols-1"
+                }`}
               >
-                <Photo caption={feature.photo} className="h-[200px] max-[960px]:h-[170px]" />
+                {feature.image && (
+                  <Picture
+                    src={feature.image.src}
+                    alt={feature.image.alt}
+                    sizes="(max-width: 960px) 100vw, 320px"
+                    className="h-[200px] rounded-card max-[960px]:h-[170px]"
+                  />
+                )}
                 <div>
                   <span className="block font-en text-[0.875rem] tracking-[0.12em] text-blue">
                     {feature.no}
