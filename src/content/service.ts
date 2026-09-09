@@ -105,7 +105,10 @@ export const features: Feature[] = [
     no: "01",
     cardTitle: ["見離さない、見捨てない、諦めない"],
     title: "見離さない、見捨てない、諦めない",
-    image: { src: "/images/hero-01-departure.jpg", alt: "訪問先へ向かう看護師" },
+    image: {
+      src: "/images/representative-talk.jpg",
+      alt: "ご利用者と話しながら体調を確認する看護師",
+    },
     body: `訪問看護を必要としている方に、私たちは条件をつけません。
 
 きちんと整ったお宅ばかりではありません。
@@ -121,10 +124,7 @@ export const features: Feature[] = [
     no: "02",
     cardTitle: ["精神・介護・医療・看取りの", "すべてに対応"],
     title: "精神・介護・医療・看取りのすべてに対応",
-    image: {
-      src: "/images/representative-visit.jpg",
-      alt: "利用者宅で話を聴きながら聴診する看護師",
-    },
+    image: { src: "/images/treatment-injection.jpg", alt: "在宅で注射を行う看護師の手元" },
     body: `こころの不調を抱えた方への訪問看護（医療保険）、高齢者の在宅療養（介護保険）、
 医療的な処置、そして在宅での看取り。
 この4つすべてを一つのステーションで担っています。
@@ -145,7 +145,7 @@ ${
     no: "03",
     cardTitle: ["主治医・病院との連携が早い"],
     title: "病院・医師との連携が早い",
-    image: { src: "/images/staff-office.jpg", alt: "記録を見ながら連絡を取り合うスタッフ" },
+    image: { src: "/images/office-phone.jpg", alt: "事務所から主治医に電話をかける看護師" },
     body: `必要があれば、時間や相手を問わず主治医や病院に連絡を取ります。
 判断を先延ばしにしないことが、結果的にご本人を守ることにつながるからです。`,
   },
@@ -154,7 +154,7 @@ ${
     no: "04",
     cardTitle: ["ご本人だけでなく、", "ご家族の相談にも応じます"],
     title: "ご本人だけでなく、ご家族の相談にも応じます",
-    image: { src: "/images/hero-03-team.jpg", alt: "記録を見ながら話し合うスタッフ" },
+    image: { src: "/images/walk-support.jpg", alt: "杖を使うご利用者に付き添って歩く看護師" },
     body: `ご本人だけでなくご家族との面談も随時行っています。
 専門職とご本人のやり取りは、ご家族からは見えにくいものです。
 何が起きていて、これからどうしていくのかを共有することで、

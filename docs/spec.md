@@ -332,7 +332,7 @@ Googleフォームで要配慮個人情報を受け取る可能性があるた�
 ## 5. 写真
 
 ヒーローがクロスフェードになったため、ヒーローだけ3枚必要になった。
-入稿済みは8枚（`public/images/`）。原本は `docs/photos-original/` に置き、Git には入れていない。
+入稿済みは12枚（`public/images/`）。原本は `docs/photos-original/` に置き、Git には入れていない。
 残るプレースホルダは `/recruit` の2箇所だけ。
 入稿の手順は、原本を `docs/photos-original/` に置き、2400x1600 に切ってから
 `public/images/` に内容が分かる名前で書き出す。
@@ -350,14 +350,15 @@ Googleフォームで要配慮個人情報を受け取る可能性があるた�
 | `/about` メインビジュアル | 利用者宅で話をしながら体調を確認する代表（`representative-talk.jpg`） | 3:2 | 済 |
 | `/about` ミッション・ビジョン・行動指針 | 写真は置かない（行動指針はアイコン） | — | — |
 | `/about` 代表挨拶 | 事業所の前に立つ代表（`representative-portrait.jpg`） | 3:2 | 済 |
-| `/service` メインビジュアル | `hero-02-visit.jpg` を転用（概要の写真は外した） | 3:2 | 済 |
-| `/service` 特徴 01 | `hero-01-departure.jpg` を転用 | 16:10 | 済 |
-| `/service` 特徴 02 | `representative-visit.jpg` を転用 | 16:10 | 済 |
-| `/service` 特徴 03 | `staff-office.jpg` | 16:10 | 済 |
-| `/service` 特徴 04 | `hero-03-team.jpg` を転用 | 16:10 | 済 |
+| `/service` メインビジュアル | 自転車で訪問先へ向かう看護師（`visit-bicycle.jpg`） | 3:2 | 済 |
+| `/service` 特徴 01 | `representative-talk.jpg`（`/about` のメインと同じ写真。クライアント指定） | 3:2 | 済 |
+| `/service` 特徴 02 | 在宅での注射（`treatment-injection.jpg`） | 3:2 | 済 |
+| `/service` 特徴 03 | 事務所からの電話（`office-phone.jpg`） | 3:2 | 済 |
+| `/service` 特徴 04 | 付き添って歩く（`walk-support.jpg`） | 3:2 | 済 |
 | `/service` 特徴 05・06 | 本文のみ（あてる写真がない） | — | — |
 | `/recruit` | スタッフ・事務所の様子／代表 | — | 未調達 |
 | 予備 | `staff-team.jpg`（採用バナーで使用中） | 3:2 | 済 |
+| 予備 | `staff-office.jpg`（TOPのアプロについての後ろで使用中） | 3:2 | 済 |
 
 同じ写真をページをまたいで転用している。写真の点数が限られているため、
 1ページに集めるより各ページに1枚ずつ配ることを優先した。撮り足しが入ったら、

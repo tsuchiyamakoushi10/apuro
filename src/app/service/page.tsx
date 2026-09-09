@@ -40,13 +40,13 @@ export default function ServicePage() {
   return (
     <>
       {/* メインビジュアル。/about と同じ置き方。写真はページごとに変える。
-          3:2 を横長に切るので上が落ちる。20% は 2560px でも2人の頭が切れない位置。
+          3:2 を横長に切るので上が落ちる。31% は 2560px でも顔が切れない位置。
           写真を差し替えたら測り直すこと */}
       <Picture
-        src="/images/hero-02-visit.jpg"
-        alt="利用者宅で体調を確認する看護師"
+        src="/images/visit-bicycle.jpg"
+        alt="自転車で訪問先へ向かう看護師"
         sizes="100vw"
-        position="center 20%"
+        position="center 31%"
         priority
         className="h-[clamp(320px,30vw,560px)] rounded-b-panel max-[960px]:h-[240px]"
       />
