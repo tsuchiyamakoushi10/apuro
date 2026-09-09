@@ -67,6 +67,27 @@ export function SectionHead({
   );
 }
 
+/**
+ * ページ内の目次。節が多いページの見出しの下に置く。
+ *
+ * 節ごとに `id` を振ってあるので、そこへ飛ばすだけ。
+ * 追従はさせない。ヘッダーが1300px未満で2段になり、追従させると画面が狭くなるため。
+ * 飛んだ先が隠れないよう、`html` に `scroll-padding-top` を入れてある（globals.css）
+ */
+export function SectionNav({ items }: { items: { href: string; label: string }[] }) {
+  return (
+    <nav aria-label="このページの目次" className="border-b border-blue-soft">
+      <div className="wrap flex flex-wrap gap-x-9 gap-y-3 py-5 text-[0.9375rem] max-[960px]:gap-x-6 max-[960px]:py-4">
+        {items.map((item) => (
+          <a key={item.href} href={item.href} className="link-hover text-blue-ink">
+            {item.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
 /** ページ上部の見出し。下層ページ共通 */
 export function PageHeader({
   eyebrow,

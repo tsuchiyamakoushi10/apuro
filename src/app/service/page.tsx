@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Contact } from "@/components/Contact";
-import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
+import { PageHeader, PanelSection, Section, SectionHead, SectionNav } from "@/components/Section";
 import { ServiceIcon } from "@/components/icons";
 import { Eyebrow, Paragraphs, Picture } from "@/components/ui";
 import { site } from "@/config/site";
@@ -59,6 +59,20 @@ export default function ServicePage() {
             <span className="block">医療も、看取りも。</span>
           </>
         }
+      />
+
+      {/* 節が7つあるので目次を置く。TOPの特徴カードからも各節へ飛んでくる。
+          ラベルは節の見出しそのまま */}
+      <SectionNav
+        items={[
+          { href: "#overview", label: "サービス概要" },
+          { href: "#cases", label: "こんなときに" },
+          { href: "#what-we-do", label: "私たちが行うこと" },
+          { href: "#features", label: "アプロの特徴" },
+          { href: "#oncall", label: "24時間対応" },
+          { href: "#areas", label: "対応エリア" },
+          { href: "#flow", label: "ご利用までの流れ" },
+        ]}
       />
 
       {/* 概要は写真を持たない。ページの写真はメインビジュアルと特徴の4枚 */}
