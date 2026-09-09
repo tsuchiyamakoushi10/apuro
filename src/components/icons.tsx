@@ -128,6 +128,42 @@ const serviceShapes: Record<string, ReactNode> = {
   ),
 };
 
+/** 福利厚生（/recruit）。原稿の4区分に1つずつ */
+const benefitShapes: Record<string, ReactNode> = {
+  /* 財布。手当と制度 */
+  allowance: (
+    <>
+      <rect x="3.2" y="6.6" width="17.6" height="11.8" rx="2.4" />
+      <path d="M3.2 10.4h17.6" />
+      <circle cx="16.6" cy="14.6" r="1.2" />
+    </>
+  ),
+  /* 領収書。費用は会社が持つ */
+  cost: (
+    <>
+      <path d="M5.4 3.8h13.2v16.4l-2.2-1.4-2.2 1.4-2.2-1.4-2.2 1.4-2.2-1.4-2.2 1.4Z" />
+      <path d="M8.4 8.2h7.2M8.4 12h7.2" />
+    </>
+  ),
+  /* 自転車。電動自転車や原付を貸す */
+  lending: (
+    <>
+      <circle cx="6" cy="15.4" r="4.2" />
+      <circle cx="18" cy="15.4" r="4.2" />
+      <path d="M6 15.4 11.4 9.4 18 15.4" />
+      <path d="M9.6 9.4h4.6" />
+    </>
+  ),
+  /* 湯呑み。事務所のお茶 */
+  other: (
+    <>
+      <path d="M5.6 8.2h11.2v5.2a5.6 5.6 0 0 1-11.2 0Z" />
+      <path d="M16.8 9.6h1.6a2.2 2.2 0 0 1 0 4.4h-1.6" />
+      <path d="M4.2 19.4h14" />
+    </>
+  ),
+};
+
 /**
  * 見出しが内容を伝えるので、アイコンは読み上げから外す。
  * 対応する形がなければビルドを止める（原稿の差し替えで無音の欠けを出さないため）
@@ -142,4 +178,10 @@ export function ServiceIcon({ id }: { id: string }) {
   const shape = serviceShapes[id];
   if (!shape) throw new Error(`service icon not found: ${id}`);
   return <IconChip small>{shape}</IconChip>;
+}
+
+export function BenefitIcon({ id }: { id: string }) {
+  const shape = benefitShapes[id];
+  if (!shape) throw new Error(`benefit icon not found: ${id}`);
+  return <IconChip>{shape}</IconChip>;
 }

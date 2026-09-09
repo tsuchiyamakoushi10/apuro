@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { FormCard, TelCard } from "@/components/Contact";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
-import { Lines, Paragraphs, Photo } from "@/components/ui";
+import { BenefitIcon } from "@/components/icons";
+import { Lines, Paragraphs, Picture } from "@/components/ui";
 import { copy, isTbd, recruitRequirementsReady, site } from "@/config/site";
 import {
   benefits,
   education,
-  greetingShort,
   honesty,
   jobs,
   lead,
@@ -28,6 +28,18 @@ export default function RecruitPage() {
 
   return (
     <>
+      {/* メインビジュアル。他のページと同じ置き方。ページの写真はこの1枚だけ。
+          3:2 を横長に切るので上が落ちる。40% は 2560px でも3人の頭が切れない位置。
+          写真を差し替えたら測り直すこと */}
+      <Picture
+        src="/images/office-meeting.jpg"
+        alt="事務所で記録を見ながら話すスタッフ3名"
+        sizes="100vw"
+        position="center 40%"
+        priority
+        className="h-[clamp(320px,30vw,560px)] rounded-b-panel max-[960px]:h-[240px]"
+      />
+
       <PageHeader
         eyebrow="Recruit"
         title={copy.recruitHeadline.map((line) => (
@@ -39,89 +51,59 @@ export default function RecruitPage() {
       />
 
       <Section>
-        <div className="wrap grid grid-cols-[1fr_400px] items-center gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
+        <div className="wrap">
           <Paragraphs text={lead} />
-          <Photo caption="写真｜スタッフ・事務所の様子" className="h-[320px] rounded-panel max-[960px]:h-[220px]" />
         </div>
       </Section>
 
-      <PanelSection id="philosophy" tone="mist">
-        <div className="wrap-panel grid grid-cols-[1fr_1fr] gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8 max-[960px]:px-6">
-          <SectionHead eyebrow="Our policy" heading="採用理念" />
-          <Paragraphs text={philosophy} />
-        </div>
-      </PanelSection>
-
-      <Section id="message">
-        <div className="wrap grid grid-cols-[320px_1fr] items-start gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
-          <Photo caption="写真｜代表 見須 清史" className="h-[380px] rounded-panel max-[960px]:h-[240px]" />
-          <div>
-            <SectionHead eyebrow="Message" heading="代表からのメッセージ" />
-            <div className="mt-6">
-              <Paragraphs text={greetingShort} />
-            </div>
-            <p className="mt-8 text-ink-muted">代表　{site.representative}</p>
-          </div>
-        </div>
-      </Section>
-
-      <Section id="persona" className="!pt-0">
+      {/*
+       * 採用の特徴。参照サイト（artlife.bz/recruit）と同じで、
+       * メイン画像・特徴・福利厚生・募集要項・エントリーの並びにまとめている。
+       * 採用理念を導入に置き、働き方・教育・人物像をこの節の中に収めた。
+       * 以前は理念・代表挨拶・人物像・働き方・教育を別々の節に分けていて、
+       * 読み終わるまでが長かった。代表挨拶は /about にあるので採用ページからは外した
+       */}
+      <Section id="features" className="!pt-0">
         <div className="wrap">
-          <SectionHead eyebrow="Person" heading="求める人物像" />
-          <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
-            {persona.map((group) => (
-              <div key={group.title} className="reveal rounded-card bg-mist p-10 max-[960px]:p-6">
-                <h3>{group.title}</h3>
-                <ul className="marker-list mt-5 text-[0.9375rem]">
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <SectionHead eyebrow="Features" heading="採用の特徴" />
+          <div className="mt-6">
+            <Paragraphs text={philosophy} />
           </div>
-        </div>
-      </Section>
 
-      <PanelSection id="work" tone="blue">
-        <div className="wrap-panel max-[960px]:px-6">
-          <SectionHead
-            eyebrow="Work style"
-            heading={<span className="text-paper">働き方の特徴</span>}
-            className="[&_.eyebrow]:text-paper"
-          />
-          <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
+          <h3 className="mt-16 max-[960px]:mt-12">働き方</h3>
+          <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-4">
             {workStyle.map((item) => (
-              <div key={item.title} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
-                <h3>{item.title}</h3>
-                <Paragraphs text={item.body} className="mt-4 text-[0.9375rem]" />
+              <div key={item.title} className="reveal rounded-card bg-mist p-8 max-[960px]:p-6">
+                <h4 className="font-heading text-[1.1875rem] font-medium text-blue-ink">
+                  {item.title}
+                </h4>
+                <Paragraphs text={item.body} className="mt-3 text-[0.9375rem]" />
               </div>
             ))}
           </div>
-        </div>
-      </PanelSection>
 
-      <Section id="education">
-        <div className="wrap">
-          <SectionHead eyebrow="Education" heading="教育・研修" />
-          <div className="mt-12 grid grid-cols-2 gap-x-16 gap-y-10 max-[960px]:grid-cols-1 max-[960px]:gap-y-8">
+          <h3 className="mt-16 max-[960px]:mt-12">教育・研修</h3>
+          <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-4">
             {education.map((item) => (
-              <div key={item.title} className="reveal border-t border-blue-soft pt-6">
-                <h3>{item.title}</h3>
-                <Paragraphs text={item.body} className="mt-4 text-[0.9375rem]" />
+              <div key={item.title} className="reveal rounded-card bg-mist p-8 max-[960px]:p-6">
+                <h4 className="font-heading text-[1.1875rem] font-medium text-blue-ink">
+                  {item.title}
+                </h4>
+                <Paragraphs text={item.body} className="mt-3 text-[0.9375rem]" />
               </div>
             ))}
           </div>
-        </div>
-      </Section>
 
-      <PanelSection id="benefits" tone="mist">
-        <div className="wrap-panel max-[960px]:px-6">
-          <SectionHead eyebrow="Benefits" heading="福利厚生" />
-          <div className="mt-12 grid grid-cols-2 gap-x-16 gap-y-10 max-[960px]:grid-cols-1 max-[960px]:gap-y-8">
-            {benefits.map((group) => (
-              <div key={group.title}>
-                <h3>{group.title}</h3>
+          <h3 className="mt-16 max-[960px]:mt-12">求める人物像</h3>
+          <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1 max-[960px]:gap-4">
+            {persona.map((group) => (
+              <div
+                key={group.title}
+                className="reveal rounded-card border border-blue-soft p-8 max-[960px]:p-6"
+              >
+                <h4 className="font-heading text-[1.1875rem] font-medium text-blue-ink">
+                  {group.title}
+                </h4>
                 <ul className="marker-list mt-4 text-[0.9375rem]">
                   {group.items.map((item) => (
                     <li key={item}>{item}</li>
@@ -131,9 +113,10 @@ export default function RecruitPage() {
             ))}
           </div>
         </div>
-      </PanelSection>
+      </Section>
 
-      {/* --sand を使う唯一のブロック */}
+      {/* --sand を使う唯一のブロック。応募の前に読んでおいてほしい内容なので、
+          特徴と募集要項のあいだに置く */}
       <PanelSection id="honesty" tone="sand">
         <div className="wrap-panel max-[960px]:px-6">
           <h2 className="text-sand-ink">正直にお伝えしておきたいこと</h2>
@@ -153,12 +136,37 @@ export default function RecruitPage() {
         </div>
       </PanelSection>
 
+      {/* 福利厚生。原稿の4区分にアイコンを1つずつ。青ベタ面はページでここだけ */}
+      <PanelSection id="benefits" tone="blue">
+        <div className="wrap-panel max-[960px]:px-6">
+          <SectionHead
+            eyebrow="Benefits"
+            heading={<span className="text-paper">福利厚生</span>}
+            className="[&_.eyebrow]:!text-paper"
+          />
+          <div className="mt-12 grid grid-cols-2 gap-6 max-[960px]:mt-9 max-[960px]:grid-cols-1 max-[960px]:gap-4">
+            {benefits.map((group) => (
+              <div key={group.id} className="reveal rounded-card bg-paper p-8 max-[960px]:p-6">
+                <BenefitIcon id={group.id} />
+                <h3 className="mt-5 text-[1.1875rem]">{group.title}</h3>
+                <ul className="marker-list mt-4 text-[0.9375rem]">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PanelSection>
+
+      {/* 募集要項。週4日の訴求文もこの節に入れて、条件をひとまとまりで読めるようにする */}
       <Section id="requirements">
         <div className="wrap">
           <SectionHead eyebrow="Requirements" heading="募集要項" />
 
           {recruitRequirementsReady ? (
-            <div className="mt-12 grid gap-14">
+            <div className="mt-12 grid gap-14 max-[960px]:mt-9">
               {requirementGroups.map((group) => (
                 <div key={group.heading}>
                   <h3>{group.heading}</h3>
@@ -169,7 +177,10 @@ export default function RecruitPage() {
                         指定しないと合成された偽の太字になる。見出しと同じ500に揃える */}
                     <thead>
                       <tr>
-                        <th scope="col" className="w-[190px] border-b border-blue-soft py-3 text-left align-top font-heading font-medium text-blue-ink">
+                        <th
+                          scope="col"
+                          className="w-[190px] border-b border-blue-soft py-3 text-left align-top font-heading font-medium text-blue-ink"
+                        >
                           項目
                         </th>
                         {jobs.map((job) => (
@@ -186,11 +197,17 @@ export default function RecruitPage() {
                     <tbody>
                       {group.rows.map((row) => (
                         <tr key={row.label}>
-                          <th scope="row" className="border-b border-blue-soft py-4 pr-6 text-left align-top font-normal text-ink-muted">
+                          <th
+                            scope="row"
+                            className="border-b border-blue-soft py-4 pr-6 text-left align-top font-normal text-ink-muted"
+                          >
                             {row.label}
                           </th>
                           {jobs.map((job) => (
-                            <td key={job.key} className="border-b border-blue-soft py-4 pr-6 align-top">
+                            <td
+                              key={job.key}
+                              className="border-b border-blue-soft py-4 pr-6 align-top"
+                            >
                               <Lines text={row.values[job.key]} className="max-w-none" />
                             </td>
                           ))}
@@ -233,19 +250,18 @@ export default function RecruitPage() {
               </p>
             </div>
           )}
+
+          <div className="reveal mt-14 rounded-card bg-mist p-10 max-[960px]:mt-10 max-[960px]:p-6">
+            <h3 className="text-[1.1875rem]">週4日で、常勤という選び方</h3>
+            <Paragraphs text={weekFourPitch} className="mt-4 text-[0.9375rem]" />
+          </div>
         </div>
       </Section>
 
-      <PanelSection id="week-four" tone="mist">
-        <div className="wrap-panel grid grid-cols-[1fr_1fr] gap-[76px] max-[960px]:grid-cols-1 max-[960px]:gap-8 max-[960px]:px-6">
-          <SectionHead eyebrow="4 days a week" heading="週4日で、常勤という選び方" />
-          <Paragraphs text={weekFourPitch} />
-        </div>
-      </PanelSection>
-
-      <Section id="entry">
+      <Section id="entry" className="!pt-0">
         <div className="wrap">
-          <div className="grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
+          <SectionHead eyebrow="Entry" heading="ご応募・お問い合わせ" />
+          <div className="mt-10 grid grid-cols-2 gap-6 max-[960px]:mt-8 max-[960px]:grid-cols-1">
             <FormCard
               href={site.forms.recruit}
               ready={formReady}

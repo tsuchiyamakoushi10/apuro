@@ -217,7 +217,8 @@
     background: var(--color-sand-deep);
   }
 
-  /* 写真プレースホルダ。素材が入り次第 next/image に差し替える */
+  /* 枠だけ出すプレースホルダ。写真は全部入ったので、残っているのは
+     アクセスマップの埋め込みURLが未確定のあいだだけ（Contact.tsx） */
   .ph {
     border: 1px dashed #a9c3d4;
     background: repeating-linear-gradient(
@@ -235,16 +236,6 @@
     line-height: 1.8;
     padding: 16px;
     border-radius: var(--radius-card);
-  }
-
-  .ph-on-color {
-    border-color: rgba(255, 255, 255, 0.32);
-    color: rgba(255, 255, 255, 0.6);
-    background: repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.07) 0 11px,
-      transparent 11px 22px
-    );
   }
 
   /* 未確定値。画面上は青の点線下線 */
@@ -346,12 +337,10 @@
   }
 
   /* --- カード。浮き上がらせず、写真の寄りと見出しの色で反応させる --- */
-  .card-link .ph,
   .card-link img {
     transition: scale 0.5s ease;
   }
 
-  .card-link:hover .ph,
   .card-link:hover img {
     scale: 1.03;
   }
