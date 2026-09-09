@@ -80,6 +80,7 @@ export function Picture({
   className = "",
   sizes,
   position = "center",
+  priority = false,
 }: {
   src: string;
   alt: string;
@@ -88,6 +89,8 @@ export function Picture({
   sizes: string;
   /** 3:2 の写真を縦長に切る枠で、人物が切れるときだけ渡す */
   position?: string;
+  /** ページ最初の1枚だけ。遅延読み込みを外して表示の遅れをなくす */
+  priority?: boolean;
 }) {
   return (
     <div className={`relative overflow-hidden ${className}`}>
@@ -96,6 +99,7 @@ export function Picture({
         alt={alt}
         fill
         sizes={sizes}
+        priority={priority}
         className="object-cover"
         style={{ objectPosition: position }}
       />

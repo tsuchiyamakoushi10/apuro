@@ -12,25 +12,22 @@ export const metadata: Metadata = {
 };
 
 const photoClass = "h-[400px] rounded-panel max-[960px]:h-[230px]";
-const photoSizes = "(max-width: 960px) 100vw, 360px";
 
 /**
- * ミッションとビジョン。
- * 写真を渡したときだけ左に置き、渡さないときは1カラムの文章だけにする。
- * 参照サイト（happywood.or.jp/vision）に合わせて写真は最初の1枚だけにしてある。
+ * ミッションとビジョン。写真は持たず、見出しと本文だけの1カラム。
+ * 参照サイト（happywood.or.jp/vision）に合わせて、ページの写真は
+ * 冒頭のメインビジュアルと代表挨拶の2枚に絞っている。
  */
 function Statement({
   eyebrow,
   heading,
   body,
-  photo,
 }: {
   eyebrow: string;
   heading: string[];
   body: string;
-  photo?: { src: string; alt: string; position: string };
 }) {
-  const text = (
+  return (
     <div className="reveal">
       <SectionHead
         eyebrow={eyebrow}
@@ -45,26 +42,25 @@ function Statement({
       </div>
     </div>
   );
-
-  if (!photo) return text;
-
-  return (
-    <div className="grid grid-cols-[360px_1fr] items-center gap-[64px] max-[960px]:grid-cols-1 max-[960px]:gap-8">
-      <Picture
-        src={photo.src}
-        alt={photo.alt}
-        sizes={photoSizes}
-        position={photo.position}
-        className={`reveal ${photoClass}`}
-      />
-      {text}
-    </div>
-  );
 }
 
 export default function AboutPage() {
   return (
     <>
+      {/* メインビジュアル。ページで使う写真はこの1枚と代表挨拶だけ（参照サイトと同じ）。
+          TOPのヒーローと同じ全幅・下だけ角丸。写真はヒーローの3枚と別のものにする。
+          高さは幅に追従させる（固定にすると広い画面ほど帯が細くなり、上下が落ちて顔が切れる）。
+          3:2 を横長に切るので上が落ちる。24% は 2560px でも頭が切れない位置。
+          写真を差し替えたら測り直すこと */}
+      <Picture
+        src="/images/staff-team.jpg"
+        alt="事業所の前に立つスタッフ2名"
+        sizes="100vw"
+        position="center 24%"
+        priority
+        className="h-[clamp(320px,30vw,560px)] rounded-b-panel max-[960px]:h-[240px]"
+      />
+
       <PageHeader
         eyebrow="About us"
         title={
@@ -83,16 +79,7 @@ export default function AboutPage() {
 
       <Section id="philosophy">
         <div className="wrap">
-          <Statement
-            eyebrow="Mission"
-            heading={mission.heading}
-            body={mission.body}
-            photo={{
-              src: "/images/hero-01-departure.jpg",
-              alt: "訪問へ出発する看護師",
-              position: "center 30%",
-            }}
-          />
+          <Statement eyebrow="Mission" heading={mission.heading} body={mission.body} />
         </div>
       </Section>
 
