@@ -20,6 +20,7 @@ ISLAND_CODE = 13361  # これ以上は島嶼部
 WIDTH = 1000.0
 EPS = 0.0004  # 約35m。寄せたぶん細かく残す。表示幅900pxで1px程度
 MIN_AREA = 3e-6  # 小さすぎる飛び地は落とす
+MARGIN = 60.0  # 切り取る余白。viewBox の外なので切り口の線は見えない
 
 # 切り取る範囲。対象3市の中心から。東京都全域だと3市が小さくて分からないので寄せる。
 # 20kmだと3市が横幅の半分を占める。隣接する市の名前を置く余白も残る
@@ -65,6 +66,33 @@ def ring_area(r):
     for i in range(len(r) - 1):
         s += r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1]
     return abs(s) / 2
+
+
+def clip(ring, box):
+    """矩形で切る（Sutherland-Hodgman）。範囲の外へ大きく伸びた形を落として軽くする。
+    切り口が見えないよう、box は viewBox より一回り大きく取る"""
+    x0, y0, x1, y1 = box
+    edges = (
+        (lambda p: p[0] >= x0, lambda a, b: (x0, a[1] + (b[1] - a[1]) * (x0 - a[0]) / (b[0] - a[0]))),
+        (lambda p: p[0] <= x1, lambda a, b: (x1, a[1] + (b[1] - a[1]) * (x1 - a[0]) / (b[0] - a[0]))),
+        (lambda p: p[1] >= y0, lambda a, b: (a[0] + (b[0] - a[0]) * (y0 - a[1]) / (b[1] - a[1]), y0)),
+        (lambda p: p[1] <= y1, lambda a, b: (a[0] + (b[0] - a[0]) * (y1 - a[1]) / (b[1] - a[1]), y1)),
+    )
+    poly = ring[:-1] if ring[0] == ring[-1] else ring[:]
+    for inside, cross in edges:
+        if not poly:
+            return []
+        out = []
+        for i, cur in enumerate(poly):
+            prev = poly[i - 1]
+            if inside(cur):
+                if not inside(prev):
+                    out.append(cross(prev, cur))
+                out.append(cur)
+            elif inside(prev):
+                out.append(cross(prev, cur))
+        poly = out
+    return poly + [poly[0]] if poly else []
 
 
 def centroid(ring):
@@ -132,6 +160,9 @@ def main(src, dest):
             if len(simple) < 4:
                 continue
             pts = [(((x - minx) * kx * scale), ((maxy - y) * scale)) for x, y in simple]
+            pts = clip(pts, (-MARGIN, -MARGIN, WIDTH + MARGIN, height + MARGIN))
+            if len(pts) < 4:
+                continue
             d = [f"M{pts[0][0]:.1f} {pts[0][1]:.1f}"]
             d += [f"L{x:.1f} {y:.1f}" for x, y in pts[1:-1]]
             d.append("Z")
@@ -160,8 +191,11 @@ def main(src, dest):
     others = "".join("".join(v) for k, v in by_name.items() if k not in TARGETS)
     mine = "".join("".join(by_name[k]) for k in TARGETS)
     stroke = 'stroke="#FFFFFF" stroke-width="1.4" stroke-linejoin="round"'
+    # width と height を必ず書く。書かないと SVG に元の大きさがなく、
+    # <img> の height:auto でブラウザが高さを決められずに潰れる
     svg = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {WIDTH:.0f} {height:.0f}">'
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH:.0f}" height="{height:.0f}"'
+        f' viewBox="0 0 {WIDTH:.0f} {height:.0f}">'
         f'<path d="{others}" fill="#DCEAF3" {stroke}/>'
         f'<path d="{mine}" fill="#2A6FA8" {stroke}/>'
         "</svg>"

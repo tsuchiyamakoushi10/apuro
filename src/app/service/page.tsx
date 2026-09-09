@@ -187,6 +187,8 @@ export default function ServicePage() {
             <div className="relative">
               {/* 拡大しても粗くならないので next/image は通さない。
                   幅と高さを書いて読み込み前の場所を確保する。
+                  SVG側にも width/height を入れてある。どちらか欠けると
+                  height:auto でブラウザが高さを決められず、地図が潰れる。
                   ページのだいぶ下にあるので遅延読み込みにする */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -196,7 +198,7 @@ export default function ServicePage() {
                 height={588}
                 loading="lazy"
                 decoding="async"
-                className="h-auto w-full"
+                className="aspect-[1000/588] h-auto w-full"
               />
 
               {/* 市名はHTMLで重ねる。SVGに入れると画面幅に合わせて文字まで伸び縮みしてしまう。
