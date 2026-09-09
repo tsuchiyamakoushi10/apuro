@@ -72,7 +72,7 @@ export function SectionHead({
  *
  * 節ごとに `id` を振ってあるので、そこへ飛ばすだけ。
  * 等幅の列に並べて端を縦に揃える。数は4つまで。多いと選べない。
- * 追従はさせない。ヘッダーが1300px未満で2段になり、追従させると画面が狭くなるため。
+ * 追従はさせない。ヘッダーが1380px未満で2段になり、追従させると画面が狭くなるため。
  * 飛んだ先が隠れないよう、`html` に `scroll-padding-top` を入れてある（globals.css）
  */
 export function SectionNav({ items }: { items: { href: string; label: string }[] }) {

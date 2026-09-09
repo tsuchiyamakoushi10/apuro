@@ -107,16 +107,16 @@
   /* ヘッダーだけ本文より広く使う。参考サイトも左右80pxで全幅に近い。
      ロゴ256px＋ナビ339px＋電話・ボタン541px＋余白で1行に1197px要るため、
      1160px のコンテナには入らない。
-     1300px未満ではナビと電話番号を畳むので .wrap と同じ幅に戻す。
+     1380px未満ではナビと電話番号を畳むので .wrap と同じ幅に戻す。
      開閉メニュー側が .wrap なので、揃えないと左端がずれる。
-     min-width で書いてあるのは Tailwind の max-[1300px] と境界を1pxずらさないため */
+     min-width で書いてあるのは Tailwind の max-[1380px] と境界を1pxずらさないため */
   .wrap-header {
     max-width: var(--container-wrap);
     margin-inline: auto;
     padding-inline: 32px;
   }
 
-  @media (min-width: 1300px) {
+  @media (min-width: 1380px) {
     .wrap-header {
       max-width: 1440px;
       padding-inline: 40px;

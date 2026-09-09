@@ -140,10 +140,15 @@ export const copy = {
   greetingHeadline: "病院から溢れてしまう人が、確かにいます。",
 } as const;
 
+/**
+ * ヘッダーのナビゲーション。
+ * 増やすと1行に収まらなくなる。畳むブレークポイント（1380px）はCLAUDE.mdの計算を参照
+ */
 export const nav = [
   { href: "/about", label: "アプロについて" },
   { href: "/service", label: "事業紹介" },
   { href: "/recruit", label: "採用情報" },
+  { href: "/news", label: "お知らせ" },
 ] as const;
 
 export const footerNav = [
@@ -169,8 +174,9 @@ export const footerNav = [
     head: "採用情報",
     href: "/recruit",
     links: [
-      { href: "/recruit#work", label: "働き方" },
+      { href: "/recruit#features", label: "採用の特徴" },
       { href: "/recruit#requirements", label: "募集要項" },
+      { href: "/news", label: "お知らせ" },
       { href: "/privacy", label: "プライバシーポリシー" },
     ],
   },

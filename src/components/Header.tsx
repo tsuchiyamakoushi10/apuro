@@ -19,12 +19,12 @@ export { Logo };
 export function Header() {
   return (
     <header className="sticky top-0 z-20 bg-[rgba(255,255,255,0.94)] backdrop-blur-[6px]">
-      <div className="wrap-header flex h-[84px] items-center justify-between gap-7 max-[1300px]:h-auto max-[1300px]:gap-4 max-[1300px]:py-3">
+      <div className="wrap-header flex h-[84px] items-center justify-between gap-7 max-[1380px]:h-auto max-[1380px]:gap-4 max-[1380px]:py-3">
         <Link href="/" aria-label={`${site.name} トップページ`} className="min-w-0">
           <Logo className="whitespace-nowrap max-[600px]:[&>span:first-child]:text-[13.5px] max-[600px]:[&>span:first-child]:tracking-[0.04em] max-[600px]:[&>span:last-child]:text-[8.5px] max-[430px]:[&>span:first-child]:text-[11.5px] max-[430px]:[&>span:first-child]:tracking-[0] max-[430px]:[&>span:last-child]:text-[8px]" />
         </Link>
 
-        <nav aria-label="メインナビゲーション" className="max-[1300px]:hidden">
+        <nav aria-label="メインナビゲーション" className="max-[1380px]:hidden">
           <ul className="flex list-none gap-[30px] whitespace-nowrap text-[1rem]">
             {nav.map((item) => (
               <li key={item.href}>
@@ -35,7 +35,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-5">
-          <a href={site.telHref} className="max-[1300px]:hidden">
+          <a href={site.telHref} className="max-[1380px]:hidden">
             <span className="block font-en text-[1.4375rem] leading-[1.2] text-blue-ink">{site.tel}</span>
             <span className="whitespace-nowrap text-[0.8125rem] text-ink-muted">
               {site.hours}／{site.oncall}
