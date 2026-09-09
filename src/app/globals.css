@@ -204,6 +204,43 @@
     flex-shrink: 0;
   }
 
+  /* ページ内の目次のボタン。ピルと同じ形で一回り小さく、矢印は下向きにする
+     （同じページの下へ飛ぶため。横向きだと別ページへ行くボタンに見える） */
+  .anchor-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: var(--color-blue-ink);
+    border: 1px solid var(--color-blue-soft);
+    border-radius: 999px;
+    padding: 11px 22px;
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .anchor-pill:hover {
+    background: var(--color-mist);
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+  }
+
+  .anchor-pill::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid var(--color-blue);
+    border-bottom: 1.5px solid var(--color-blue);
+    transform: rotate(45deg);
+    margin-top: -3px;
+    flex-shrink: 0;
+  }
+
   .pill-ghost {
     background: #fff;
     color: var(--color-blue-ink);

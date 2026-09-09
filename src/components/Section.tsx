@@ -77,9 +77,9 @@ export function SectionHead({
 export function SectionNav({ items }: { items: { href: string; label: string }[] }) {
   return (
     <nav aria-label="このページの目次" className="border-b border-blue-soft">
-      <div className="wrap flex flex-wrap gap-x-9 gap-y-3 py-5 text-[0.9375rem] max-[960px]:gap-x-6 max-[960px]:py-4">
+      <div className="wrap flex flex-wrap gap-2.5 py-7 max-[960px]:py-5">
         {items.map((item) => (
-          <a key={item.href} href={item.href} className="link-hover text-blue-ink">
+          <a key={item.href} href={item.href} className="anchor-pill">
             {item.label}
           </a>
         ))}
