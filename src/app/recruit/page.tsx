@@ -267,10 +267,7 @@ export default function RecruitPage() {
               福利厚生に混ぜず、フォームの真上に出している。
               淡い面は福利厚生で使っているので、ここは「正直にお伝えしておきたいこと」と同じ罫線のカード */}
           <div className="reveal mt-10 rounded-card border border-blue-soft p-10 max-[960px]:mt-8 max-[960px]:p-6">
-            <h3 className="flex items-baseline gap-4 text-[1.1875rem] max-[600px]:flex-col max-[600px]:gap-1">
-              {signingBonus.title}
-              <span className="text-[0.9375rem] font-normal text-ink-muted">{signingBonus.note}</span>
-            </h3>
+            <h3 className="text-[1.1875rem]">{signingBonus.title}</h3>
             <Lines text={signingBonus.body} reflow className="mt-4 text-[0.9375rem]" />
 
             <dl className="mt-6 flex gap-14 max-[600px]:flex-col max-[600px]:gap-4">
