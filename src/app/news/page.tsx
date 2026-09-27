@@ -7,6 +7,7 @@ import { site } from "@/config/site";
 export const metadata: Metadata = {
   title: "お知らせ",
   description: `${site.name}からのお知らせです。営業時間の変更や、地域の方へのご案内などを掲載します。`,
+  alternates: { canonical: "/news" },
 };
 
 /** 2026-09-09 → 2026年9月9日。桁を揃えないのは、日本語の日付は詰めて書くため */

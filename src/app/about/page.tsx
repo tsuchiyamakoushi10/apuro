@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "アプロについて",
   description:
     "アプロ訪問看護ステーションのミッション・ビジョン・バリュー、代表挨拶、会社概要。国分寺市を中心に、こころの不調から在宅療養、看取りまでを担います。",
+  alternates: { canonical: "/about" },
 };
 
 const photoClass = "h-[400px] rounded-panel max-[960px]:h-[230px]";

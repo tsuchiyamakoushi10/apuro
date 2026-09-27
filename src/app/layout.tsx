@@ -61,23 +61,60 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     siteName: site.name,
   },
+  /*
+   * 自分自身を指す canonical。相対パスは metadataBase から解決されるので、
+   * **現在のページではなくルートを指す。** 下層ページはそれぞれの metadata で
+   * 自分のパスに上書きしている（`alternates.canonical`）。足したページにも入れること
+   */
+  alternates: { canonical: "/" },
   // site.ts の published を true にすると解除される。docs/spec.md 公開前チェックリスト
   robots: published ? undefined : { index: false, follow: false },
+  // Search Console をHTMLタグ方式で確認するときだけ出る。DNSのTXTなら空のまま
+  ...(site.googleSiteVerification
+    ? { verification: { google: site.googleSiteVerification } }
+    : {}),
 };
 
-/** 構造化データ。住所が確定するまで postalAddress は出さない */
+/**
+ * 構造化データ。住所が確定するまで postalAddress は出さない。
+ *
+ * 検索結果のナレッジパネルと、AIの回答で引用されるときの土台になる。
+ * **ここに書く値は本文に書いてある事実だけにする。**構造化データだけにある情報は
+ * Google のガイドライン違反（マークアップと内容の不一致）になる。
+ * 緯度経度は確定していないので geo は出さない。Googleビジネスプロフィールが
+ * 出来たら sameAs にそのURLを足すと、同じ事業所だと結びつけやすくなる
+ */
 function medicalBusinessJsonLd() {
+  const { postalCode, region, locality, street } = site.addressParts;
+
   return {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
+    "@id": `${site.url}/#business`,
     name: site.name,
+    alternateName: site.nameEn,
+    url: site.url,
+    // OGP画像を流用する。事業所の写真ではないが、名前と地域が読める組版になっている
+    image: `${site.url}/opengraph-image`,
+    description:
+      "国分寺市を中心に、こころの不調を抱えた方への訪問看護から高齢者の在宅療養、看取りまでを担う訪問看護ステーション。",
     parentOrganization: { "@type": "Organization", name: site.company },
-    telephone: site.tel,
+    telephone: site.telIntl,
     faxNumber: site.fax,
     areaServed: site.areas.map((area) => ({ "@type": "City", name: area })),
     openingHours: "Mo-Fr 09:00-18:00",
+    hasMap: site.mapLink,
     ...(addressReady
-      ? { address: { "@type": "PostalAddress", addressCountry: "JP", streetAddress: site.address } }
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "JP",
+            postalCode,
+            addressRegion: region,
+            addressLocality: locality,
+            streetAddress: street,
+          },
+        }
       : {}),
   };
 }

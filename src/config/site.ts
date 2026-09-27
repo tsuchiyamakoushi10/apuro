@@ -6,20 +6,44 @@
 
 export const TBD = "【調整中】" as const;
 
+/**
+ * 住所の部品。表示用の1行（`site.address`）と構造化データの PostalAddress を
+ * 同じ値から作るために分けてある。**片方だけ直さないこと。**
+ * 構造化データは 〒 を含む1行だと Google が郵便番号を拾えないため、部品のまま渡す
+ */
+const addressParts = {
+  postalCode: "185-0011",
+  region: "東京都",
+  locality: "国分寺市",
+  street: "本多5丁目13-14 1F",
+} as const;
+
 export const site = {
   name: "アプロ訪問看護ステーション",
-  url: "https://apro-nsst.jp",
+  /*
+   * 正規のURL。**www ありを正**にして、apex（www なし）は Vercel 側から www へ308で飛ばす。
+   * canonical・OGP・sitemap・robots.txt の絶対URLがすべてここから出るので、
+   * **ドメインを変えたらここだけ直せば済む。**
+   * apex ではなく www を正にしたのは、www が CNAME でVercelを指しているため。
+   * apex の A レコードはIPを直に書くので、Vercel側がIPを変えると繋がらなくなる。
+   * 名刺やパンフレットに apuro-nsst.com と書くのは問題ない（www へ転送される）。
+   * 以前入っていた apro-nsst.jp は使わない（クライアント確定）
+   */
+  url: "https://www.apuro-nsst.com",
   nameEn: "APRO NSST",
   company: "株式会社AD3K",
   representative: "見須 清史",
 
-  address: "〒185-0011 東京都国分寺市本多5丁目13-14 1F",
+  address: `〒${addressParts.postalCode} ${addressParts.region}${addressParts.locality}${addressParts.street}`,
+  addressParts,
   access: "国分寺駅 徒歩10分",
 
   // --- 未確定 ---
 
   tel: "042-312-2992",
   telHref: "tel:0423122992",
+  /** 構造化データ用。schema.org は国番号付きの表記を推奨している */
+  telIntl: "+81-42-312-2992",
   fax: "042-312-2993",
   hours: "9:00〜18:00（月〜金）",
   holiday: "土・日・年末年始",
@@ -71,6 +95,22 @@ export const site = {
     "https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%9B%BD%E5%88%86%E5%AF%BA%E5%B8%82%E6%9C%AC%E5%A4%9A5-13-14&z=17&hl=ja&output=embed",
   mapLink:
     "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%9B%BD%E5%88%86%E5%AF%BA%E5%B8%82%E6%9C%AC%E5%A4%9A5-13-14",
+
+  /*
+   * GA4の測定ID（G- から始まる）。**空のあいだは計測タグを出さない。**
+   * 入れると next.config.ts の CSP に googletagmanager / google-analytics が加わり、
+   * プライバシーポリシー「4. 外部サービスの利用」にGA4の記述が出る
+   * （電気通信事業法の外部送信規律で公表が要るため、文面も連動させている）。
+   * CSPは next.config.ts がこの値を読んでいるので、**入れたら dev サーバを再起動すること。**
+   */
+  ga4Id: "",
+
+  /*
+   * Search Console の所有権確認用の meta タグ。
+   * DNSのTXTレコードで確認する場合は空のままでよい（そちらのほうがドメイン全体で通る）。
+   * HTMLタグ方式を選んだときだけ content の値をここに入れる
+   */
+  googleSiteVerification: "",
 
   // 募集要項。確定するまで /recruit の該当セクションは公開しない。
   // 数字は06シートが正。求人3媒体と一致させること。

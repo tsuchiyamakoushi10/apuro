@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "事業紹介",
   description:
     "国分寺市・小金井市・小平市の訪問看護。こころの不調を抱えた方への訪問看護、高齢者の在宅療養、医療処置、在宅での看取りまで対応します。24時間オンコール対応。",
+  alternates: { canonical: "/service" },
 };
 
 /**

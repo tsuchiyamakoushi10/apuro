@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "プライバシーポリシー",
   description:
     "アプロ訪問看護ステーションにおける個人情報の取得目的、利用範囲、第三者提供、外部サービスの利用、開示請求の窓口について。",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   title: "採用情報",
   description:
     "国分寺市の訪問看護ステーションで一緒に働く看護師を募集しています。1日の訪問件数は平均4件。訪問看護未経験の方は2週間の同行訪問から始めます。",
+  alternates: { canonical: "/recruit" },
 };
 
 /**
