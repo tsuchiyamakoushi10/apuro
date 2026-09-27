@@ -14,6 +14,7 @@ import {
   persona,
   philosophy,
   requirementGroups,
+  signingBonus,
   weekFourPitch,
   workStyle,
 } from "@/content/recruit";
@@ -261,7 +262,38 @@ export default function RecruitPage() {
       <Section id="entry" className="!pt-0">
         <div className="wrap">
           <SectionHead eyebrow="Entry" heading="ご応募・お問い合わせ" />
-          <div className="mt-10 grid grid-cols-2 gap-6 max-[960px]:mt-8 max-[960px]:grid-cols-1">
+
+          {/* 入社祝い金。応募する直前に置く。紹介会社ではなくここから応募してもらうためのものなので、
+              福利厚生に混ぜず、フォームの真上に出している。
+              淡い面は福利厚生で使っているので、ここは「正直にお伝えしておきたいこと」と同じ罫線のカード */}
+          <div className="reveal mt-10 rounded-card border border-blue-soft p-10 max-[960px]:mt-8 max-[960px]:p-6">
+            <h3 className="flex items-baseline gap-4 text-[1.1875rem] max-[600px]:flex-col max-[600px]:gap-1">
+              {signingBonus.title}
+              <span className="text-[0.9375rem] font-normal text-ink-muted">{signingBonus.note}</span>
+            </h3>
+            <Lines text={signingBonus.body} reflow className="mt-4 text-[0.9375rem]" />
+
+            <dl className="mt-6 flex gap-14 max-[600px]:flex-col max-[600px]:gap-4">
+              {signingBonus.amounts.map((amount) => (
+                <div key={amount.label}>
+                  <dt className="text-[0.84375rem] text-ink-muted">{amount.label}</dt>
+                  <dd className="mt-1 font-heading text-[1.4375rem] leading-[1.4] text-blue-ink">
+                    {amount.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <p className="mt-6 text-[0.84375rem] text-ink-muted">
+              {signingBonus.notes.map((note) => (
+                <span key={note} className="block">
+                  {note}
+                </span>
+              ))}
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             <FormCard
               href={site.forms.recruit}
               ready={formReady}

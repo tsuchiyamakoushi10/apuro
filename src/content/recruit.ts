@@ -179,6 +179,29 @@ export const weekFourPitch = `「週5日は難しいけれど、正社員とし�
 
 そんな働き方を、制度として用意しています。`;
 
+/*
+ * 入社祝い金。金額は `site.recruit.signingBonus` が正（募集要項の表と同じ値を使う）。
+ * 紹介会社を通さず直接応募してもらうための特典なので、
+ * 「どこから応募したか」が条件になることを本文で先に書く。
+ * 支給の時期と条件が決まるまでは「内定の際にお伝えします」で留める。
+ * **返還の条項は置かない**（労働基準法16条の賠償予定の禁止に触れるおそれがある）。
+ * 一定期間の在籍を求めるなら、返還ではなく「在籍◯ヶ月後に支給」の後払いにする
+ */
+export const signingBonus = {
+  title: "入社祝い金",
+  note: "当サイトからの直接応募の方",
+  body: `当サイトの応募フォーム、またはお電話から直接ご応募いただき、
+ご入社された方に入社祝い金をお支払いします。`,
+  amounts: [
+    { label: "常勤・週4日常勤", value: site.recruit.signingBonus.fulltime },
+    { label: "パート", value: site.recruit.signingBonus.parttime },
+  ],
+  notes: [
+    "※人材紹介会社・転職エージェント経由でのご応募、またそれらの会社からのご推薦の履歴がある場合は対象外です。",
+    "※支給の時期と条件は、内定の際にお伝えします。",
+  ],
+};
+
 /* ------------------------------------------------------------------ */
 /* 募集要項（06シート）                                                */
 /* 職業安定法の明示事項は docs/spec.md「職業安定法上の明示事項」を参照 */
@@ -248,6 +271,15 @@ export const requirementGroups: { heading: string; rows: Row[] }[] = [
         },
       },
       { label: "昇給", values: { fulltime: "あり", fourDay: "あり", parttime: "なし" } },
+      {
+        // 金額のあとの行は条件。表の中では改行を流さないので、2行のまま出る
+        label: "入社祝い金",
+        values: {
+          fulltime: `${site.recruit.signingBonus.fulltime}（当サイトからの直接応募の方）\n※人材紹介会社・転職エージェント経由のご応募は対象外`,
+          fourDay: same,
+          parttime: `${site.recruit.signingBonus.parttime}（当サイトからの直接応募の方）\n※人材紹介会社・転職エージェント経由のご応募は対象外`,
+        },
+      },
     ],
   },
   {
