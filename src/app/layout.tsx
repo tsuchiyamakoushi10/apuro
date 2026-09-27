@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost, Noto_Sans_JP, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Analytics } from "@/components/Analytics";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { addressReady, published, site } from "@/config/site";
@@ -135,6 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <Analytics />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
