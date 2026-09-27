@@ -51,9 +51,15 @@ export const site = {
     bentoEpisode: false,
   },
 
+  // Googleフォームへの外部リンク（別タブ）。サイトからは送信しないため CSP は form-action 'self' のまま。
+  // forms.gle の短縮URLを転送先の /viewform に開いて貼っている（転送を1回減らすため）。
+  // 元の短縮URL：contact = https://forms.gle/9eARLVQCTV1cjM996
+  //              recruit = https://forms.gle/Xts1AqC3wNcjZbWDA
   forms: {
-    contact: `${TBD}利用相談フォームURL`,
-    recruit: `${TBD}採用応募フォームURL`,
+    contact:
+      "https://docs.google.com/forms/d/e/1FAIpQLScvgYQzkPkK7kxIjYrP--mw74JRezLZDZ-9ntYvADftokf0Cg/viewform",
+    recruit:
+      "https://docs.google.com/forms/d/e/1FAIpQLSfOqJ6n4ZiwaQvJnSvGOaf46YbY5-ZD2mdge8Gr7XnHFxIN8Q/viewform",
   },
 
   // アクセスマップ。住所のクエリで地図を出す。APIキーは要らない。
