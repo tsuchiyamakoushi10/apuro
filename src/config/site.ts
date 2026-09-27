@@ -246,7 +246,7 @@ export const footerNav = [
  * 公開スイッチ。false の間は noindex と robots.txt の全面 Disallow を出す。
  * 公開時にここだけ true にする（docs/spec.md 公開前チェックリスト）。
  */
-export const published = false;
+export const published = true;
 
 /** 値が未確定かどうか */
 export const isTbd = (v: string) => v.includes(TBD);
