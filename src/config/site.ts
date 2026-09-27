@@ -103,7 +103,7 @@ export const site = {
    * （電気通信事業法の外部送信規律で公表が要るため、文面も連動させている）。
    * CSPは next.config.ts がこの値を読んでいるので、**入れたら dev サーバを再起動すること。**
    */
-  ga4Id: "",
+  ga4Id: "G-RP6D9PHVGQ",
 
   /*
    * Search Console の所有権確認用の meta タグ。
