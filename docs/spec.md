@@ -487,24 +487,145 @@ next/font の既定（`preload: true`）だと head でその全部を先読み�
 - 構造化データ `MedicalBusiness` を実装。住所確定後に投入
 - Googleビジネスプロフィールと住所・営業時間・エリアを一致させる
 
+### ドメイン
+
+`www.apuro-nsst.com`（**www ありを正規**）。`site.url` の1箇所から canonical・OGP・
+sitemap.xml・robots.txt の絶対URLがすべて出るので、変えるときはそこだけ直す。
+以前 `site.url` に入っていた `apro-nsst.jp` は使わない（クライアント確定）。
+apex（`apuro-nsst.com`）は Vercel 側から www へ308で飛ぶ。両方が200で返る状態にしないこと
+（同じ内容が2つのURLで引けると評価が割れる）。
+apex ではなく www を正にしたのは、www が CNAME でVercelを指しているのに対し、
+apex は A レコードでIPを直に書くため。Vercel側がIPを変えると apex だけ繋がらなくなる。
+**名刺やパンフレットに `apuro-nsst.com` と書くのは問題ない**（www へ転送される）。
+
+### canonical
+
+各ページが自分のURLを指す。`metadata.alternates.canonical` に**絶対パスを直接書く**。
+相対パスは `metadataBase` から解決されるため、ルートレイアウトに `'./'` と書いても
+現在のページではなくトップを指してしまう。**ページを足したら canonical も足す。**
+
+### 構造化データ
+
+`MedicalBusiness` を `src/app/layout.tsx` の `medicalBusinessJsonLd()` で出す。
+住所は `site.addressParts` から `PostalAddress` の部品（郵便番号・都道府県・市区町村・番地）
+として渡す。〒つきの1行だと Google が郵便番号を拾えない。
+電話は国番号付き（`site.telIntl`）。
+**構造化データだけにある情報を書かない。**マークアップと本文の不一致はガイドライン違反になる。
+緯度経度（`geo`）は確定していないので出していない。
+Googleビジネスプロフィールが出来たら、そのURLを `sameAs` に足すと同じ事業所として結びつけやすい。
+パンくずの構造化データは入れていない。階層がトップ＋1層しかなく、出ても検索結果は変わらない。
+
+### AI検索（AIO）
+
+robots.txt は `User-agent: *` の1本で、**AIのクローラも含めて全部許可**する（クライアント判断）。
+GPTBot・ClaudeBot・PerplexityBot・CCBot・Google-Extended・Applebot-Extended を個別に拒否しない。
+載せている内容は公開情報で、AIの回答から地域の相談につながる経路のほうが大きい。
+方針を変えるときは `src/app/robots.ts` に `Disallow` を足す。
+
+AI に引用されるかどうかは、結局のところ次の3つで決まる。特別なファイルは置いていない
+（`llms.txt` は提案段階の規約で、対応しているサービスが限られるため入れていない）。
+
+- 事業所名・住所・電話・営業時間・対応エリア・24時間対応が**画像ではなく文字**で書かれていること
+- 構造化データが本文と一致していること
+- 同じ事実がGoogleビジネスプロフィールや介護サービス情報公表システムと食い違っていないこと
+
+### 計測
+
+GA4。`site.ga4Id` に測定IDを入れたときだけタグを出す（`src/components/Analytics.tsx`）。
+空のあいだはスクリプトも通信も発生しない。IDを入れると連動して次の2つが変わる。
+
+- `next.config.ts` の CSP に `googletagmanager` と `google-analytics` が加わる。
+  **このファイルは起動時に一度しか読まれないので dev サーバを再起動する。**
+  入れ忘れると計測だけが無言で落ちる（画面には何も出ない）
+- プライバシーポリシー「4. 外部サービスの利用」にGA4の記述が出る。
+  電気通信事業法の外部送信規律で公表が必要なため、文面を値に連動させている
+
+### ボット・セキュリティ
+
+送信フォームを自前で持たないので、フォームスパムの入口がない（`form-action 'self'` のまま）。
+ヘッダは `next.config.ts` で CSP / HSTS / X-Frame-Options / X-Content-Type-Options /
+Referrer-Policy / Permissions-Policy を出している。
+HSTS は `max-age=63072000; includeSubDomains`。**`preload` は付けていない。**
+ブラウザに焼き付くと外すのに数ヶ月かかるため、独自ドメインの運用が落ち着いてから判断する。
+悪質なクローラや脆弱性スキャンは Vercel の Firewall（Attack Challenge Mode）で止める。
+静的サイトなので踏み台になる経路はないが、電話番号の収集目的のスクレイピングは来る。
+
 ---
 
 ## 8. 公開前チェックリスト
 
-- [ ] `site.ts` に `【調整中】` が残っていない
+**順番に意味がある。**ドメインを繋ぐ前に公開スイッチを入れると、Vercelの
+プレビュードメインのURLで検索に載ってしまう。載ってから正しいURLに移すと、
+古いURLが消えるまで数週間かかる。
+
+### 手順1　中身（コードとGoogleフォーム）
+
+- [ ] `site.ts` に `【調整中】` が残っていない（`CHECK_TBD_STRICT=1 npm run build` で確認する）
 - [ ] お知らせ（`src/content/news.ts`）を1件以上入れた
-- [ ] `site.ts` の `published` を `true` にした（`noindex` と robots.txt の全面 Disallow が外れ、sitemap.xml が robots.txt に載る）
-- [ ] セキュリティヘッダーを設定した（CSP / X-Frame-Options / Referrer-Policy）
 - [ ] OGP画像を差し替えた（`src/app/opengraph-image.tsx`。キャッチ確定後に組版を確認する）
 - [ ] Googleフォーム2本のURLを差し替えた
 - [ ] Googleフォーム側の「回答をメールで受け取る」がONになっている（初期設定はOFF。設定漏れは応募の取りこぼしに直結する）
 - [ ] 通知先が利用相談・採用応募で正しく分かれている
+- [ ] Googleフォームがログイン不要で開ける（「回答を1回に制限」とメールアドレスの自動収集がOFF）
+- [ ] 相談フォームに同意のチェックとプライバシーポリシーへのリンクがある（要配慮個人情報を受け取るため）
 - [ ] プライバシーポリシーを掲載した
-- [ ] 募集要項の記載が求人媒体3社と一致している
+- [ ] 募集要項の記載が求人媒体3社と一致している（入社祝い金はHP限定なので対象外）
 - [ ] 職業安定法の明示事項を満たしている（下記）
+
+### 手順2　ドメイン（公開スイッチより先）
+
+- [x] `site.ts` の `url` が `https://www.apuro-nsst.com` になっている
+- [x] Vercel の Project → Settings → Domains に `apuro-nsst.com` と `www.apuro-nsst.com` を追加した
+- [x] `www.apuro-nsst.com` が Primary、apex が www への Redirect になっている（両方200で返さない）
+- [x] Xserver（Xserverドメイン → DNSレコード設定）に Vercel の指定レコードを入れた
+      （apex は A `216.150.1.1`、`www` は CNAME `90be3fbeaae8ead1.vercel-dns-016.com`）
+      ネームサーバーは `NS1〜3.XDOMAIN.NE.JP` のまま。DNSレコードだけ書き換えている
+- [x] 証明書が発行され、`https://www.apuro-nsst.com` が鍵付きで開く
+- [x] `https://apuro-nsst.com` が www へ308で飛ぶ（`curl -I` で確認した）
+- [x] 登録者メールアドレスの認証（ICANNのWhois正確性プログラム）
+      **ドメインごとではなくメールアドレスごとの認証**なので、同じアドレスで
+      Xserverの他ドメインを取得したときに済んでいれば認証メールは飛ばない。
+      今回は認証メールが来ておらず、RDAPの状態も `client transfer prohibited` だけで
+      `clientHold` や `pendingVerification` が付いていないため、認証済みと確認した。
+      未認証のまま放置すると15日でドメインが停止するので、疑わしいときは
+      Xserverアカウントのドメイン一覧に警告表示が出ていないかを見る
+
+### 手順3　公開スイッチ
+
+- [ ] `site.ts` の `published` を `true` にした（`noindex` と robots.txt の全面 Disallow が外れ、sitemap.xml が robots.txt に載る）
+- [ ] 公開後の `https://www.apuro-nsst.com/robots.txt` が `Allow: /` と `Sitemap:` の行を返す
+- [ ] `https://www.apuro-nsst.com/sitemap.xml` の6本のURLがすべて `www.apuro-nsst.com` になっている
+- [ ] 各ページの `<link rel="canonical">` が自分のURLを指している
+- [ ] セキュリティヘッダーが返っている（`curl -I` で CSP / HSTS / X-Frame-Options / Referrer-Policy）
+
+### 手順4　Search Console
+
+- [ ] 「ドメインプロパティ」で `apuro-nsst.com` を登録した（`https://` なしで入力する。
+      サブドメインとhttp/httpsをまとめて見られるので、URLプレフィックスよりこちらがよい）
+- [ ] レジストラのDNSに確認用のTXTレコードを入れて所有権を確認した
+      （HTMLタグ方式にする場合は `site.googleSiteVerification` に値を入れる）
+- [ ] サイトマップ `https://www.apuro-nsst.com/sitemap.xml` を送信した
+- [ ] URL検査でトップページの「インデックス登録をリクエスト」を実行した
+- [ ] 数日後にカバレッジを見て、6ページが登録されているか確認する
+
+### 手順5　GA4
+
+- [ ] GA4のプロパティを作った（アカウント → プロパティ → データストリーム「ウェブ」）
+- [ ] 測定ID（`G-` から始まる）を `site.ga4Id` に入れた
+- [ ] **dev サーバ／デプロイを作り直した**（CSPは `next.config.ts` の起動時に決まる）
+- [ ] 実機で開いてGA4の「リアルタイム」に自分が出る（出ないときはブラウザのコンソールで
+      CSP違反が出ていないか見る。CSPで落ちている場合、画面には何も出ない）
+- [ ] プライバシーポリシー「4. 外部サービスの利用」にGA4の記述が出ている（`site.ga4Id` に連動する）
+- [ ] Search Console と GA4 を紐付けた（GA4の管理 → Search Console のリンク）
+
+### 手順6　公開後（社外の情報を揃える）
+
 - [ ] 介護サービス情報公表システムの営業時間を 9:00〜18:00 に修正した
-- [ ] Googleビジネスプロフィールの住所・営業時間を更新した
-- [ ] Search Console にサイトマップを送信した
+- [ ] Googleビジネスプロフィールの住所・営業時間・電話・エリアをサイトと一致させた
+      （`〒185-0011 東京都国分寺市本多5丁目13-14 1F`／`042-312-2992`／平日9:00〜18:00）
+- [ ] ビジネスプロフィールのURL欄に `https://www.apuro-nsst.com` を入れた
+- [ ] 求人3媒体の事業所情報とサイトの記載が一致している
+- [ ] 名刺・パンフレット・求人票のURL表記を `apuro-nsst.com` に揃えた
 
 ### 職業安定法上の明示事項
 

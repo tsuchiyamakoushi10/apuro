@@ -184,6 +184,24 @@ TOPに出すのは6項目のうち **01・02・05 の3つだけ**（`topFeatures
 ## 公開前
 
 `docs/spec.md` の公開前チェックリストを実行する。特に `site.ts` に `【調整中】` が残った状態で本番公開しないこと。
+チェックリストは順番に意味がある。**ドメインを繋ぐ前に `published` を `true` にしない**
+（Vercelのプレビュードメインで検索に載ると、消えるまで数週間かかる）。
+
+ドメインは `www.apuro-nsst.com`（**www ありを正規**）。apex（`apuro-nsst.com`）はVercelから
+www へ308で飛ぶ。`site.url` の1箇所から canonical・OGP・sitemap.xml・robots.txt の絶対URLが出る。
+apex を正にしないのは、www が CNAME でVercelを指しているのに対し、apex の A レコードはIPを直に
+書くため（Vercel側がIPを変えると繋がらなくなる）。以前入っていた `apro-nsst.jp` は使わない。
+
+**ページを足したら3箇所に足す。** `src/app/sitemap.ts` の `paths`、そのページの
+`metadata.alternates.canonical`、`footerNav` か `nav`。
+canonical は `"/about"` のように**絶対パスで書く**。相対パスは `metadataBase` から
+解決されるので、`'./'` と書いても現在のページではなくトップを指す。
+
+GA4は `site.ga4Id` に測定IDを入れたときだけ動く。`next.config.ts` がこの値を見て
+CSPに送信先を足すので、**入れたら dev サーバを再起動する**（入れ忘れると計測だけが無言で落ちる）。
+プライバシーポリシーのGA4の記述も同じ値に連動している。
+
+robots.txt はAIのクローラも含めて全部許可（クライアント判断）。方針は `src/app/robots.ts` に書いてある。
 
 <!-- BEGIN:nextjs-agent-rules -->
 
