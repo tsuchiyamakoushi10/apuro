@@ -85,7 +85,14 @@ function Access() {
             {[
               { k: "所在地", v: <Tbd value={site.address} /> },
               { k: "アクセス", v: <Tbd value={site.access} /> },
-              { k: "TEL", v: <a href={site.telHref}>{site.tel}</a> },
+              {
+                k: "TEL / FAX",
+                v: (
+                  <>
+                    <a href={site.telHref}>{site.tel}</a> / {site.fax}
+                  </>
+                ),
+              },
               { k: "営業時間", v: `${site.hours}／${site.oncall}` },
             ].map((row) => (
               <div key={row.k} className="border-b border-blue-soft py-4">

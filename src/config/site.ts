@@ -13,7 +13,7 @@ export const site = {
   company: "株式会社AD3K",
   representative: "見須 清史",
 
-  address: "〒185-0011 東京都国分寺市本多5丁目13-14",
+  address: "〒185-0011 東京都国分寺市本多5丁目13-14 1F",
   access: "国分寺駅 徒歩10分",
 
   // --- 未確定 ---
