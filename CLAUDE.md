@@ -204,6 +204,10 @@ CSPに送信先を足すので、**入れたら dev サーバを再起動する*
 
 robots.txt はAIのクローラも含めて全部許可（クライアント判断）。方針は `src/app/robots.ts` に書いてある。
 
+Google 以外の検索は Bing と IndexNow で拾う（Yahoo! JAPAN は Google の結果を使うので Search Console で足りる）。
+`npm run indexnow` で本番の sitemap.xml のURLを Bing・Yandex・Naver などに一斉に通知する。
+**`public/f1f2cb92e91174bdc395b3b7aa2e8d4d.txt` は IndexNow の鍵なので消さない。**
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

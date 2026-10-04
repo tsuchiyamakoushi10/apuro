@@ -70,10 +70,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   // site.ts の published を true にすると解除される。docs/spec.md 公開前チェックリスト
   robots: published ? undefined : { index: false, follow: false },
-  // Search Console をHTMLタグ方式で確認するときだけ出る。DNSのTXTなら空のまま
-  ...(site.googleSiteVerification
-    ? { verification: { google: site.googleSiteVerification } }
-    : {}),
+  // Search Console / Bing Webmaster Tools をHTMLタグ方式で確認するときだけ出る。
+  // DNSのTXTやSearch Consoleからのインポートなら空のまま
+  verification: {
+    ...(site.googleSiteVerification ? { google: site.googleSiteVerification } : {}),
+    ...(site.bingSiteVerification ? { other: { "msvalidate.01": site.bingSiteVerification } } : {}),
+  },
 };
 
 /**

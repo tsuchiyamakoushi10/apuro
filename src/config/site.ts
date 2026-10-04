@@ -112,6 +112,13 @@ export const site = {
    */
   googleSiteVerification: "",
 
+  /*
+   * Bing Webmaster Tools の所有権確認用の meta タグ（msvalidate.01）。
+   * Search Console からサイトをインポートする場合は確認が要らないので空のままでよい。
+   * インポートできず、HTMLタグ方式を選んだときだけ content の値をここに入れる
+   */
+  bingSiteVerification: "",
+
   // 募集要項。確定するまで /recruit の該当セクションは公開しない。
   // 数字は06シートが正。求人3媒体と一致させること。
   recruit: {

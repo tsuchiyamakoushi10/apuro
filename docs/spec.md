@@ -608,6 +608,19 @@ HSTS は `max-age=63072000; includeSubDomains`。**`preload` は付けていな�
 - [ ] URL検査でトップページの「インデックス登録をリクエスト」を実行した
 - [ ] 数日後にカバレッジを見て、6ページが登録されているか確認する
 
+### 手順4b　Bing（Yahoo! JAPAN 以外の検索）
+
+Yahoo! JAPAN は Google の検索結果を使っているので、手順4で載る。
+DuckDuckGo・Ecosia・米国Yahoo は Bing の結果を使うので、Bing に載せれば揃う。
+
+- [ ] Bing Webmaster Tools（https://www.bing.com/webmasters ）に Google アカウントでサインインした
+- [ ] 「Google Search Console からインポート」で `apuro-nsst.com` を取り込んだ
+      （所有権の確認とサイトマップの送信が引き継がれる。インポートできないときはHTMLタグ方式にして
+      `site.bingSiteVerification` に値を入れる）
+- [ ] サイトマップに `https://www.apuro-nsst.com/sitemap.xml` が入っている
+- [ ] `npm run indexnow` を実行して「IndexNow に 6 件を送りました」と出た
+      （Bing・Yandex・Naver などに一斉に通知される。**内容を大きく変えてデプロイしたら再実行する**）
+
 ### 手順5　GA4
 
 - [ ] GA4のプロパティを作った（アカウント → プロパティ → データストリーム「ウェブ」）
