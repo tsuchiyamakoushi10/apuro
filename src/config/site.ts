@@ -125,7 +125,7 @@ export const site = {
     baseSalary: {
       fulltime: "220,000円〜250,000円",
       fourDay: "176,000円〜200,000円（常勤の80%）",
-      parttime: "時給 1,800円",
+      parttime: "時給1,800円",
     },
     modelIncome: {
       fulltime: "4,200,000円〜4,800,000円",
@@ -184,7 +184,7 @@ export const copy = {
   heroEn: "Watch over the life",
   // メインキャッチ A案
   heroHeadline: ["病気ではなく、", "その人の暮らしを看る。"],
-  // サブキャッチ 1（クライアント選択）。ヒーローには出さず、meta description だけに使う
+  // サブキャッチ 1（クライアント選択）。いまはどこにも出していない（ヒーローにも meta description にも使っていない）。原稿なので置いてある
   heroSub: "介護も、精神も、医療も、看取りも。国分寺の訪問看護ステーションです。",
   /*
    * 採用キャッチ 1（01シート）。3行あって見出しには長すぎるため、
@@ -225,7 +225,7 @@ export const footerNav = [
     head: "事業紹介",
     href: "/service",
     links: [
-      { href: "/service#overview", label: "サービス内容" },
+      { href: "/service#overview", label: "サービス概要" },
       { href: "/service#treatment", label: "対応できる医療処置" },
       { href: "/service#flow", label: "ご利用までの流れ" },
     ],

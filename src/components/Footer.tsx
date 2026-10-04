@@ -17,7 +17,7 @@ export function Footer() {
               <Tbd value={site.access} />
             </span>
             <span className="block">
-              TEL <a href={site.telHref}>{site.tel}</a> ／ FAX {site.fax}
+              TEL <a href={site.telHref}>{site.tel}</a> / FAX {site.fax}
             </span>
             <span className="block">運営：{site.company}</span>
             <span className="block">対応エリア：{site.areas.join("・")}</span>

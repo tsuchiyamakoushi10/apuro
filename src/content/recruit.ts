@@ -359,7 +359,9 @@ export const requirementGroups: { heading: string; rows: Row[] }[] = [
       {
         label: "加入保険",
         values: {
-          fulltime: "社会保険・雇用保険・健康保険・労災保険",
+          // 原稿（06シート）は「社会保険・雇用保険・健康保険・労災保険」で、厚生年金が抜けて健康保険が重複していた。
+          // 05シートの福利厚生の書き方に揃えた（クライアント確認済み）
+          fulltime: "健康保険・厚生年金・雇用保険・労災保険",
           fourDay: same,
           parttime: "加入条件を満たす場合",
         },
