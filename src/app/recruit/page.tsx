@@ -246,7 +246,7 @@ export default function RecruitPage() {
           ) : (
             <div className="mt-10 rounded-card bg-mist p-10 max-[960px]:p-6">
               <p>
-                募集要項は現在準備中です。条件の詳細は、お電話または応募フォームからお問い合わせください。
+                募集要項は現在準備中です。条件の詳細は、お電話または採用エントリーからお問い合わせください。
               </p>
               <p className="mt-4 text-[0.875rem] text-ink-muted">
                 <a href={site.telHref} className="border-b border-blue-soft">
@@ -293,7 +293,7 @@ export default function RecruitPage() {
           <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             <FormCard
               href="/recruit/entry"
-              label="応募フォーム"
+              label="採用エントリー"
               lines={["24時間受付／2〜3営業日以内にご返信します", "ご質問だけのご連絡でも構いません"]}
             />
             <TelCard label="お電話でのお問い合わせ" note={site.hours} />
