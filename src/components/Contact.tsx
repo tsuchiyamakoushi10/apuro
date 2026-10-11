@@ -5,7 +5,7 @@ import { Pill, Tbd } from "./ui";
 
 /**
  * ご相談の窓口を3つ並べる。電話・お問い合わせフォーム・採用エントリー。
- * フォームはどちらもGoogleフォームへの外部リンク。その下にアクセスマップを置く。
+ * フォームはどちらもサイト内（/contact と /recruit/entry）。その下にアクセスマップを置く。
  */
 export function Contact({ id = "contact" }: { id?: string }) {
   return (
@@ -15,9 +15,9 @@ export function Contact({ id = "contact" }: { id?: string }) {
           <TelCard label="お電話でのご相談" note={`${site.hours}／${site.oncall}`} />
 
           {/* 3列に並ぶので説明文は置かず、見出しと矢印だけにする */}
-          <FormCard href={site.forms.contact} ready={!isTbd(site.forms.contact)} label="お問い合わせ" />
+          <FormCard href="/contact" label="お問い合わせ" />
 
-          <FormCard href={site.forms.recruit} ready={!isTbd(site.forms.recruit)} label="採用エントリー" />
+          <FormCard href="/recruit/entry" label="採用エントリー" />
         </div>
 
         <p className="mx-auto mt-6 text-center text-[0.84375rem] text-ink-muted">
@@ -132,18 +132,24 @@ export function TelCard({ label, note }: { label: string; note: string }) {
 
 export function FormCard({
   href,
-  ready,
   label,
   lines,
 }: {
+  /** サイト内のフォーム（/contact・/recruit/entry）。同じタブで開く */
   href: string;
-  ready: boolean;
   label: string;
   /** 補足。TOP・事業紹介のご相談は3列に並ぶため渡さない */
   lines?: string[];
 }) {
-  const inner = (
-    <>
+  // 補足を持たない窓口は見出しと矢印を中央に寄せて、面ごとボタンに見せる
+  const className = [
+    cardBase,
+    "contact-card-solid bg-blue text-white",
+    lines ? "justify-between" : "justify-center",
+  ].join(" ");
+
+  return (
+    <Link className={className} href={href}>
       <span className={lines ? "" : "text-center"}>
         <span className="block font-heading text-[1.1875rem] leading-[1.6]">{label}</span>
         {/* 青ベタの上なので、補足も白のまま置く（blue-soft だとコントラストが足りない） */}
@@ -156,29 +162,9 @@ export function FormCard({
             ))}
           </span>
         ) : null}
-        {!ready ? <span className="tbd-light mt-2 block text-[0.84375rem]">{href}</span> : null}
       </span>
-      {ready ? <Arrow tone="light" /> : null}
-    </>
-  );
-
-  // 補足を持たない窓口は見出しと矢印を中央に寄せて、面ごとボタンに見せる。
-  // 未確定のうちはリンクにならないため、ホバーの反応も付けない
-  const className = [
-    cardBase,
-    "bg-blue text-white",
-    lines ? "justify-between" : "justify-center",
-    ready ? "contact-card-solid" : "",
-  ].join(" ");
-
-  // URL が未確定のうちはリンクにしない
-  if (!ready) return <div className={className}>{inner}</div>;
-
-  return (
-    <a className={className} href={href} target="_blank" rel="noopener noreferrer">
-      {inner}
-      <span className="sr-only">（別タブで開きます）</span>
-    </a>
+      <Arrow tone="light" />
+    </Link>
   );
 }
 

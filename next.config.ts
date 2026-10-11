@@ -37,7 +37,8 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${ga.script}${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
   "font-src 'self'",
   `connect-src 'self'${ga.connect}`,
-  // フォームはGoogleフォームへの外部リンク。自サイトから送信することはない
+  // フォーム（/contact・/recruit/entry）は自サイトの Server Action へ送り、Googleフォームへはサーバから送る。
+  // ブラウザからGoogleへ直接 POST しないので 'self' のままでよい
   "form-action 'self'",
   "upgrade-insecure-requests",
 ].join("; ");

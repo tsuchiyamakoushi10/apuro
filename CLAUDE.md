@@ -10,7 +10,8 @@ clau 〒185-0011 東京都国分寺市本多５丁目１３−１４# CLAUDE.md
 - Next.js（App Router）/ TypeScript / Tailwind CSS
 - デプロイ：Vercel
 - CMSなし、静的サイト
-- フォームはGoogleフォームへの外部リンク（別タブ）。フォーム機能は実装しない
+- フォームは自前で2本（お問い合わせ `/contact`・採用エントリー `/recruit/entry`）。送信は Server Action（`src/components/sendForm.ts`）からGoogleフォームの `formResponse` へ流していて、回答はGoogleフォーム側に溜まる。DBやメール送信は持たない
+  - 設問・選択肢・entry の ID は `src/config/forms.ts`。画面はそこから組む（`SiteForm`）。**Googleフォームの設問を作り直したら ID を取り直す**（合わないと400で落ちる）
 
 ## 絶対に守ること
 
@@ -131,6 +132,8 @@ h3 は 19px を 23px に、h2 は 29px を 30px にした。
 | `/service` | サービス概要／私たちが行うこと／医療処置／24時間対応／エリア／ご利用の流れ | 04 |
 | `/recruit` | メイン画像／採用の特徴（理念・働き方・教育・人物像・正直に伝えること）／福利厚生／募集要項／エントリー | 05・06 |
 | `/news` | お知らせ一覧 | `src/content/news.ts`（CMSなし） |
+| `/contact` | お問い合わせフォーム | 文面はGoogleフォームの説明文と同じ |
+| `/recruit/entry` | 採用応募・見学のお申し込みフォーム | 文面はGoogleフォームの説明文と同じ |
 | `/privacy` | プライバシーポリシー | 別途作成 |
 
 代表挨拶の本文は `docs/代表挨拶原稿.md`（クライアント確認待ち）。
@@ -151,6 +154,7 @@ h3 は 19px を 23px に、h2 は 29px を 30px にした。
 プレースホルダが残っているのはここだけ。
 地図を入れるとGoogleへの通信が発生するので、プライバシーポリシーの「4. 外部サービスの利用」に書いてある。
 `Contact` はTOPと `/service`。`/recruit` の応募窓口も同じ `TelCard` / `FormCard` を使う。
+`FormCard` はサイト内のフォーム（`/contact`・`/recruit/entry`）へのリンク。同じタブで開く。
 
 ## 特徴セクション（TOPの中核）
 

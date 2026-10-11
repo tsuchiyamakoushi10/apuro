@@ -4,7 +4,7 @@ import { FormCard, TelCard } from "@/components/Contact";
 import { PageHeader, PanelSection, Section, SectionHead } from "@/components/Section";
 import { BenefitIcon } from "@/components/icons";
 import { Lines, Paragraphs, Picture } from "@/components/ui";
-import { copy, isTbd, recruitRequirementsReady, site } from "@/config/site";
+import { copy, recruitRequirementsReady, site } from "@/config/site";
 import {
   benefits,
   education,
@@ -77,7 +77,6 @@ function Group({ title, children }: { title: string; children: ReactNode }) {
 }
 
 export default function RecruitPage() {
-  const formReady = !isTbd(site.forms.recruit);
 
   return (
     <>
@@ -293,8 +292,7 @@ export default function RecruitPage() {
 
           <div className="mt-6 grid grid-cols-2 gap-6 max-[960px]:grid-cols-1">
             <FormCard
-              href={site.forms.recruit}
-              ready={formReady}
+              href="/recruit/entry"
               label="応募フォーム"
               lines={["24時間受付／2〜3営業日以内にご返信します", "ご質問だけのご連絡でも構いません"]}
             />

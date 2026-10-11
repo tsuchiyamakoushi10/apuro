@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isTbd, nav, site } from "@/config/site";
+import { nav, site } from "@/config/site";
 
 /** 受話器。メニューの電話番号の頭に置く */
 function PhoneGlyph() {
@@ -23,28 +23,16 @@ function PhoneGlyph() {
   );
 }
 
-/** フォームの窓口。URLが未確定のうちはリンクにしない（Contact の FormCard と同じ扱い） */
+/** フォームの窓口。どちらもサイト内のフォーム（/contact・/recruit/entry） */
 function FormPill({ href, label }: { href: string; label: string }) {
-  const ready = !isTbd(href);
   /* 文字は 19px。15px だと面の高さに対して小さく、ボタンだけ太って見える */
-  const className =
-    "block rounded-full bg-paper px-6 py-3 text-center font-heading text-[1.1875rem] leading-[1.5] text-blue";
-
-  if (!ready) {
-    return (
-      /* 未確定の印はボタンの外に出す。中に入れると文字が上に寄り、ボタンも太くなる */
-      <span className="block">
-        <span className={className}>{label}</span>
-        <span className="tbd-light mt-1.5 block text-center text-[0.8125rem]">{href}</span>
-      </span>
-    );
-  }
-
   return (
-    <a className={className} href={href} target="_blank" rel="noopener noreferrer">
+    <Link
+      className="block rounded-full bg-paper px-6 py-3 text-center font-heading text-[1.1875rem] leading-[1.5] text-blue"
+      href={href}
+    >
       {label}
-      <span className="sr-only">（別タブで開きます）</span>
-    </a>
+    </Link>
   );
 }
 
@@ -157,8 +145,8 @@ export function MobileMenu() {
               {site.hours}
             </p>
             <div className="mt-5 grid gap-3">
-              <FormPill href={site.forms.contact} label="お問い合わせ" />
-              <FormPill href={site.forms.recruit} label="採用エントリー" />
+              <FormPill href="/contact" label="お問い合わせ" />
+              <FormPill href="/recruit/entry" label="採用エントリー" />
             </div>
           </div>
         </div>

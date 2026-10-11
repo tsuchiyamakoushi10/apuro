@@ -75,16 +75,7 @@ export const site = {
     bentoEpisode: false,
   },
 
-  // Googleフォームへの外部リンク（別タブ）。サイトからは送信しないため CSP は form-action 'self' のまま。
-  // forms.gle の短縮URLを転送先の /viewform に開いて貼っている（転送を1回減らすため）。
-  // 元の短縮URL：contact = https://forms.gle/9eARLVQCTV1cjM996
-  //              recruit = https://forms.gle/Xts1AqC3wNcjZbWDA
-  forms: {
-    contact:
-      "https://docs.google.com/forms/d/e/1FAIpQLScvgYQzkPkK7kxIjYrP--mw74JRezLZDZ-9ntYvADftokf0Cg/viewform",
-    recruit:
-      "https://docs.google.com/forms/d/e/1FAIpQLSfOqJ6n4ZiwaQvJnSvGOaf46YbY5-ZD2mdge8Gr7XnHFxIN8Q/viewform",
-  },
+  // フォーム（お問い合わせ・採用エントリー）の送り先と設問は src/config/forms.ts
 
   // アクセスマップ。住所のクエリで地図を出す。APIキーは要らない。
   // Google 側で /maps/embed?pb=... の正式な埋め込みURLへ転送される。
@@ -235,6 +226,7 @@ export const footerNav = [
       { href: "/service#overview", label: "サービス概要" },
       { href: "/service#treatment", label: "対応できる医療処置" },
       { href: "/service#flow", label: "ご利用までの流れ" },
+      { href: "/contact", label: "お問い合わせ" },
     ],
   },
   {
@@ -243,6 +235,7 @@ export const footerNav = [
     links: [
       { href: "/recruit#features", label: "採用の特徴" },
       { href: "/recruit#requirements", label: "募集要項" },
+      { href: "/recruit/entry", label: "採用エントリー" },
       { href: "/news", label: "お知らせ" },
       { href: "/privacy", label: "プライバシーポリシー" },
     ],

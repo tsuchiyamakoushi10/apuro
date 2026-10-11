@@ -12,6 +12,8 @@
   --color-sand-ink: #3a2e1b;
   --color-ink: #2b3740;
   --color-ink-muted: #69777f;
+  /* 入力エラーだけに使う。面にも装飾にも使わない（白地でコントラスト 6.5:1） */
+  --color-alert: #b3261e;
 
   /* 角丸は3種類のみ。カードごとに変えない */
   --radius-card: 28px;

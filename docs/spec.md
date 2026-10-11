@@ -17,7 +17,7 @@
 | 技術構成 | Next.js（App Router）/ TypeScript / Tailwind CSS |
 | ホスティング | Vercel |
 | CMS | なし。お知らせ機能は今回のスコープ外 |
-| フォーム | Googleフォーム2本（利用相談・採用応募）。別タブで外部リンク |
+| フォーム | サイト内に2本（利用相談 `/contact`・採用応募 `/recruit/entry`）。Server Action からGoogleフォームへ送信し、回答はGoogleフォームに溜まる |
 | ロゴ | なし。文字組みでロゴタイプを作成 |
 | 写真 | 未調達。全11箇所。ストックで組み、差し替え前提 |
 | デザイン参照 | https://minoh-greenvilla.jp/ |
@@ -542,7 +542,10 @@ GA4。`site.ga4Id` に測定IDを入れたときだけタグを出す（`src/com
 
 ### ボット・セキュリティ
 
-送信フォームを自前で持たないので、フォームスパムの入口がない（`form-action 'self'` のまま）。
+フォーム（`/contact`・`/recruit/entry`）は Server Action で受けて、サーバからGoogleフォームの `formResponse` へ送る。
+ブラウザからGoogleへ直接送らないので `form-action 'self'` のまま。スパム対策は見えない欄（`website`）のハニーポットと
+サーバ側の検証だけで、件数の制限はしていない。スパムが増えたら Vercel の Firewall でレート制限を掛ける。
+**Googleフォーム側で設問を作り直すと entry の番号が変わって送信が400で落ちる**（`src/config/forms.ts`）。
 ヘッダは `next.config.ts` で CSP / HSTS / X-Frame-Options / X-Content-Type-Options /
 Referrer-Policy / Permissions-Policy を出している。
 HSTS は `max-age=63072000; includeSubDomains`。**`preload` は付けていない。**
@@ -568,6 +571,7 @@ HSTS は `max-age=63072000; includeSubDomains`。**`preload` は付けていな�
 - [ ] 通知先が利用相談・採用応募で正しく分かれている
 - [ ] Googleフォームがログイン不要で開ける（「回答を1回に制限」とメールアドレスの自動収集がOFF）
 - [ ] 相談フォームに同意のチェックとプライバシーポリシーへのリンクがある（要配慮個人情報を受け取るため）
+- [ ] 本番の `/contact` と `/recruit/entry` から1件ずつテスト送信して、Googleフォームの回答と通知メールに届いた（届いたテストの回答は消す）
 - [ ] プライバシーポリシーを掲載した
 - [ ] 募集要項の記載が求人媒体3社と一致している（入社祝い金はHP限定なので対象外）
 - [ ] 職業安定法の明示事項を満たしている（下記）
